@@ -1,4 +1,4 @@
-competitions = new Mongo.Collection('competitions');
+Competitions = new Mongo.Collection('competitions');
 
 var CompetitionSchema = new SimpleSchema({
 	users: {
@@ -19,8 +19,8 @@ var CompetitionSchema = new SimpleSchema({
 		type: [Object],
 		label: "groups belonging to competition"
 	},
-	"groups.$.competitionId": {
-		type: String,
+	"groups.$.groupId": {
+		type: String
 		label: "ID of group"
 	},
 	"groups.$.points": {
@@ -47,4 +47,4 @@ var CompetitionSchema = new SimpleSchema({
 	}
 });
 
-competitions.attachSchema(CompetitionSchema);
+Competitions.attachSchema(CompetitionSchema);

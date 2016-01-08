@@ -1,12 +1,15 @@
 var UserProfileSchema = new SimpleSchema({
     history: {
-        type: [Object],
+        type: [Object]
     },
     "history.$.actionId": {
         type: String
     },
     "history.$.timestamp": {
         type: Date
+    },
+    "history.$.points": {
+        type: Number
     },
     groups: {
         type: [Object]
