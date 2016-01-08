@@ -1,17 +1,24 @@
 Actions = new Mongo.Collection('actions');
 
-var Schemas = {};
-Schemas.Action = new SimpleSchema({
-   //_id: 
-    text: {
-        type: String,
-        label: "Text displayed for action"
+ActionSchema = new SimpleSchema({
+    title: {
+        type: String
     },
-    points: {
-        type: Number,
-        label: "Points for action",
-        min: 0
+    fields: {
+        type: [Object]
+    },
+    defaultPoints: {
+        type: Number
+    },
+    "fields.$.name": {
+        type: String
+    },
+    "fields.$.operation": {
+        type: Boolean // true for multiply, false for add
+    },
+    "fields.$.scale": {
+        type: Number
     }
 });
 
-Actions.attachSchema(Schemas.Action);
+Actions.attachSchema(ActionSchema);
