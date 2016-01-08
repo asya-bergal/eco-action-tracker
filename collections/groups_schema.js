@@ -18,7 +18,7 @@ var GroupSchema = new SimpleSchema({
 	subgroups: {
 		type: [Object],
 		label: "Subgroups belonging to group"
-	}
+	},
 	"subgroups.$.groupId": {
 		type: String
 		label: "ID of group"
