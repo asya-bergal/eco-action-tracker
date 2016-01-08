@@ -6,12 +6,12 @@ var CompetitionSchema = new SimpleSchema({
 		label: "List of users in the competition"
 	},
 	"users.$.userId": {
-		type: String
+		type: String,
 		label: "ID of user"
 	},
 	"users.$.points": {
-		type: Number
-		label: "Points the user has"
+		type: Number,
+		label: "Points the user has",
 		min: 0
 	},
 	
@@ -20,29 +20,29 @@ var CompetitionSchema = new SimpleSchema({
 		label: "groups belonging to competition"
 	},
 	"groups.$.competitionId": {
-		type: String
+		type: String,
 		label: "ID of group"
 	},
 	"groups.$.points": {
-		type: Number
-		label: "Points the group has"
+		type: Number,
+		label: "Points the group has",
 		min: 0
 	},
 
 	actions: {
-		type: [String]
+		type: [String],
 		label: "IDs of actions in this competition"
 	},
 	admins: {
-		type: [String]
+		type: [String],
 		label: "IDs of competition admin users"
 	},
 	startDate: {
-		type: Date
+		type: Date,
 		label: "Start date for competition"
 	},
 	endDate: {
-		type: Date
+		type: Date,
 		label: "End date for competition"
 	}
 });

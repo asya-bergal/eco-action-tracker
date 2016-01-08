@@ -27,7 +27,7 @@ var UserProfileSchema = new SimpleSchema({
         type: String
     },
     global_admin: {
-        type: Bool
+        type: Boolean
     },
     points: {
         type: Number
@@ -39,7 +39,7 @@ var UserSchema = new SimpleSchema({
         type: String,
         optional: true
     },
-    email {
+    email: {
         type: String,
         regEx: SimpleSchema.RegEx.Email,
         optional: true

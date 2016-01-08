@@ -6,12 +6,12 @@ var GroupSchema = new SimpleSchema({
 		label: "List of users in the group"
 	},
 	"users.$.userId": {
-		type: String
+		type: String,
 		label: "ID of user"
 	},
 	"users.$.points": {
-		type: Number
-		label: "Points the user has"
+		type: Number,
+		label: "Points the user has",
 		min: 0
 	},
 	
@@ -20,33 +20,33 @@ var GroupSchema = new SimpleSchema({
 		label: "Subgroups belonging to group"
 	},
 	"subgroups.$.groupId": {
-		type: String
+		type: String,
 		label: "ID of group"
 	},
 	"subgroups.$.points": {
-		type: Number
-		label: "Points the group has"
+		type: Number,
+		label: "Points the group has",
 		min: 0
 	},
 
 	competitions: {
-		type: [String]
+		type: [String],
 		label: "ID of competitions"
 	},
 	parentGroups: {
-		type: [String]
+		type: [String],
 		label: "ID of parent groups"
 	},
 	actions: {
-		type: [String]
+		type: [String],
 		label: "ID of actions in this group"
 	},
 	points: {
-		type: Number
+		type: Number,
 		label: "running total of group points"
 	},
 	admins: {
-		type: [String]
+		type: [String],
 		label: "IDs of group admin users"
 	}
 });
