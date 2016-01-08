@@ -3,12 +3,18 @@
         <p style="font-size:30px; font-weight:bold"> Total: {{total}} </p>
 
         {{#each action}}
-            <div>
-              <p>({{points}}) {{text}}
-              <button class="action" id={{_id}}>I did this!</button>
-              </p>
-              <br>
-            </div>
+        <div>
+            <p>{{title}}
+            <form id={{_id}} name={{fields.length}}>
+                {{#each fields}}
+                {{name}} <input type="number" name="{{@index}}">
+                <br>
+                {{/each}}
+                <input type="submit" value="I did this!">
+            </form>
+            </p>
+            <br>
+        </div>
         {{/each}}
     </div>
 

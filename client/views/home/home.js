@@ -13,11 +13,15 @@ Template.home.helpers({
 });
 
 Template.home.events({
-    "click .action": function(e) {
-        //When something with this class is clicked, get its ID attribute
-        var actionId = e.currentTarget.getAttribute("id");
+    "submit form": function(e) {
+        var actionId = e.target.getAttribute("id");
+        var length = parseInt(e.target.getAttribute("name"));
+        var fieldEntries = [];
+        for (var i = 0; i < length; i++) {
+            fieldEntries.push(parseInt($(e.target).find('[name="'+i+'"]').val()));
+        }
         // Call the "takeAction" method with the given ID attribute
-        Meteor.call("takeAction", actionId, function(err, res) {
+        Meteor.call("takeAction", actionId, fieldEntries, function(err, res) {
             if (err) {
                 console.log(err);
                 return;
@@ -25,5 +29,6 @@ Template.home.events({
             // When it returns/if there is no error, reset total
             Session.set('total', Session.get('total') + res);
         });
+        return false;
     }
 });
