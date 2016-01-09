@@ -56,7 +56,7 @@ Meteor.methods({
 
 		Groups.findOne({ __id: groupId }, { parentGroups: 1 })
 	},
-	addAction: function(groupId, actionId) {
+	addActionToGroup: function(groupId, actionId) {
 		check(groupId, String);
 		check(actionId, String);
 

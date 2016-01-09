@@ -5,7 +5,7 @@ Meteor.methods({
         check(userId, String);
         Meteor.users.update(
             {_id: userId},
-            {$push: {profile.groups: groupId}}
+            {$push: {'profile.groups': groupId}}
         )
         // TODO: Make sure no duplicate group Ids
         // TODO: Do something/call something on the group side
@@ -17,7 +17,7 @@ Meteor.methods({
 
         Meteor.users.update(
             {_id: userId},
-            {$push: {profile.competitions: competitionId}}
+            {$push: {'profile.competitions': competitionId}}
         )
         // TODO: Make sure no duplicate competition Ids
         // TODO: Do something/call something on the group side
@@ -72,15 +72,16 @@ Meteor.methods({
         return sumActionPoints(matchingActions);
     },
 
-    takeAction: function(actionId, points) {
+    usertakeAction: function(actionId, points) {
         check(actionId, String);
         check(points, Number);
 
         var now = new Date();
+        
         Meteor.users.update(
             {_id: userId},
-            {$push: {profile.history: {actionId, now, points}},
-             $inc: {profile.points: points}
+            {$push: {'profile.history': {actionId: actionId, timestamp: now, points: points}},
+             $inc: {'profile.points': points}
             }
         );
     }
