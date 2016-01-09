@@ -50,7 +50,7 @@ var GroupSchema = new SimpleSchema({
 		label: "IDs of group admin users"
 	},
 	creationDate: {
-		type: Date
+		type: Date,
 		label: "date of creation for this group"
 	}
 });

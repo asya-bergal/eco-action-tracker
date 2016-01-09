@@ -20,7 +20,7 @@ var CompetitionSchema = new SimpleSchema({
 		label: "groups belonging to competition"
 	},
 	"groups.$.groupId": {
-		type: String
+		type: String,
 		label: "ID of group"
 	},
 	"groups.$.points": {
