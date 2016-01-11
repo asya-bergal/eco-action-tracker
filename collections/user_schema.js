@@ -1,6 +1,16 @@
 var UserProfileSchema = new SimpleSchema({
+    firstName: {
+        type: String,
+        label: "First name"
+    },
+    lastName: {
+        type: String,
+        label: "Last name"
+    },
     history: {
-        type: [Object]
+        type: [Object],
+        defaultValue: [],
+        label: "All actions taken by user"
     },
     "history.$.actionId": {
         type: String
@@ -12,28 +22,29 @@ var UserProfileSchema = new SimpleSchema({
         type: Number
     },
     groups: {
-        type: [Object]
-    },
-    "groups.$": {
-        type: String
+        type: [String],
+        defaultValue: [],
+        label: "Groups that the user is in"
     },
     competitions: {
-        type: [Object]
+        type: [String],
+        defaultValue: [],
+        label: "Competitions that the user is in"
     },
-    "competitions.$": {
-        type: String
+    adminGroups: {
+        type: [String],
+        defaultValue: [],
+        label: "Groups that the user is an admin of"
     },
-    admin_groups: {
-        type: [Object]
-    },
-    "admin_groups.$": {
-        type: String
-    },
-    global_admin: {
-        type: Boolean
+    globalAdmin: {
+        type: Boolean,
+        defaultValue: False,
+        label: "Whether the user can change things globally"
     },
     points: {
-        type: Number
+        type: Number,
+        defaultValue: 0,
+        label: "Current number of points the user has"
     }
 });
 

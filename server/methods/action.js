@@ -26,6 +26,14 @@ Meteor.methods({
                 points += fieldEntries[i] * fields[i].scale;
             }
         }
+
+        var now = new Date();
+        Meteor.users.update(
+            {_id: Meteor.userId()},
+            {$push: {"profile.history": {actionId: actionId, timestamp: now,points: points}},
+             $inc: {"profile.points": points}
+            }
+        );
         return points;
     }
 });
