@@ -1,9 +1,43 @@
 Groups = new Mongo.Collection('groups');
 
+var CompetitionSchema = new SimpleSchema({
+	start: {
+		type: Date,
+		label: "Start date for competition"
+	},
+	end: {
+		type: Date,
+		label: "End date for competition"
+	},
+	actions: {
+		type: [String],
+		label: "IDs of actions in competition",
+		defaultValue: []
+	},
+	userLevel: {
+		type: Boolean,
+		label: "True if users competing, false if groups competing"
+	},
+	participants: {
+		type: [Object],
+		label: "Participants (users or groups) in competition",
+		defaultValue: []
+	},
+	"participants.$.userId": {
+		type: String,
+		label: "User ID for competition participants"
+	},
+	"participants.$.points": {
+		type: Number,
+		label: "Points the competition participants each have"
+	}
+});
+
 var GroupSchema = new SimpleSchema({
 	users: {
 		type: [Object],
-		label: "List of users in the group"
+		label: "List of users in the group",
+		defaultValue: []
 	},
 	"users.$.userId": {
 		type: String,
@@ -17,7 +51,8 @@ var GroupSchema = new SimpleSchema({
 	
 	subgroups: {
 		type: [Object],
-		label: "Subgroups belonging to group"
+		label: "Subgroups belonging to group",
+		defaultValue: []
 	},
 	"subgroups.$.groupId": {
 		type: String,
@@ -30,49 +65,20 @@ var GroupSchema = new SimpleSchema({
 	},
 
 	competitions: {
-		type: [Object],
-		label: "Competitions the group owns"
-	},
-	"competitions.$.start": {
-		type: Date
-		label: "Start date for competition"
-	},
-	"competitions.$.end": {
-		type: Date
-		label: "End date for competition"
-	},
-	"competitions.$.actions": {
-		type: [Object]
-		label: "Actions in competition"
-		//not sure if correct implementation
-	},
-	"competitions.$.userLevel": {
-		type: Boolean
-		label: "Whether individuals or groups compete"
-		//True = individual or group?
-	},
-	"competitions.$.participants": {
-		type: [Object]
-		label: "Participants (users or groups) in competition"
-	},
-
-	//not sure if correct implemenation for sub-fields
-	"competitions.$.participants.$.userId": {
-		type: String
-		label: "User ID for competition participants"
-	},
-	"competitions.$.participants.$.points": {
-		type: Number
-		label "Points the competition participants each have"
+		type: [CompetitionSchema],
+		label: "Competitions the group owns",
+		defaultValue: []
 	},
 
 	parentGroups: {
 		type: [String],
-		label: "IDs of parent groups"
+		label: "IDs of parent groups",
+		defaultValue: []
 	},
 	actions: {
 		type: [String],
-		label: "IDs of actions in this group"
+		label: "IDs of actions in this group",
+		defaultValue: []
 	},
 	points: {
 		type: Number,
@@ -80,7 +86,8 @@ var GroupSchema = new SimpleSchema({
 	},
 	admins: {
 		type: [String],
-		label: "IDs of group admin users"
+		label: "IDs of group admin users",
+		defaultValue: []
 	},
 	creationDate: {
 		type: Date,
