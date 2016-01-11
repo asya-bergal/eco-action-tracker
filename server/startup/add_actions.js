@@ -4,6 +4,7 @@ Meteor.startup(function () {
     Actions.insert({
         title: "Test action 1",
         defaultPoints: 0,
+        isGlobal: true,
         fields: [{name: "biked this many miles", operation: ADD, scale: 5},
                  {name: "each day for this many days", operation: MULTIPLY, scale: 1},
                  {name: "recycled this many things", operation: ADD, scale: 1}]

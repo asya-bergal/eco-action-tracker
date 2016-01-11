@@ -26,14 +26,20 @@ Meteor.methods({
                 points += fieldEntries[i] * fields[i].scale;
             }
         }
-
         var now = new Date();
+        var me = Meteor.user();
         Meteor.users.update(
             {_id: Meteor.userId()},
-            {$push: {"profile.history": {actionId: actionId, timestamp: now,points: points}},
-             $inc: {"profile.points": points}
-            }
+            {$push: {"profile.history":
+                {actionId: actionId, timestamp: now, points: points}
+            }}
         );
+        if (action.isGlobal) {
+            Meteor.users.update(
+                {_id: Meteor.userId()},
+                {$inc: {"profile.points": points}}
+            );
+        }
         return points;
     }
 });
