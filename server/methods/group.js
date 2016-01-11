@@ -1,87 +1,99 @@
 Meteor.methods({
 
+	createGroup: function(group) {
+		//Add new group to database
+	},
+	removeGroup: function(group) {
+		//Remove group from database
+	},
 	addUser: function(groupId, userId) {
 		check(groupId, String);
 		check(userId, String);
 
+		//TODO: Check if current user is admin of group
+		
 		Groups.update(
-			{ __id: groupId }, 
+			groupId, 
 			{ $push: { users: {userId: userId, points: 0} } }
 		)
 	},
-	getAllUsers: function(groupId) {
+	getUsers: function(groupId, start, end) {
 		check(groupId, String);
+		check(start, String);
+		check(end, String);
 
-		Groups.findOne({ __id: groupId }, { users: 1 })
+		//return (start-end) consecutive users by (attribute)
 	},
-	addSubgroup: function(groupId, subgroupId) {
-		check(groupId, String);
-		check(subgroupId, String);
+	addSubgroup: function(parentGroupId, childGroupId) {
+		check(parentGroupId, String);
+		check(childGroupId, String);
 
 		Groups.update(
-			{ __id: groupId }, 
-			{ $push: { subgroups: {groupId: subgroupId, points: 0} } }
+			parentGroupId, 
+			{ $push: { subgroups: {groupId: childGroupId, points: 0} } }
 		)
 	},
-	getAllSubgroups: function(groupId) {
+	getSubgroups: function(groupId, start, end) {
 		check(groupId, String);
 
-		Groups.findOne({ __id: groupId }, { subgroups: 1 })
+		//return (start-end) consecutive subgroups by (attribute)
 	},
-	addCompetition: function(groupId, competitionId) {
+	/*addCompetition: function(groupId, competitionId) {
 		check(groupId, String);
 		check(competitionId, String);
 
 		Groups.update(
-			{ __id: groupId }, 
+			groupId, 
 			{ $push: { competitions: competitionId } }
 		)
-	},
-	getAllCompetitions: function(groupId) {
+	},*/
+	getCompetitions: function(groupId, start, end) {
 		check(groupId, String);
+		check(start, String);
+		check(end, String);
 
-		Groups.findOne({ __id: groupId }, { competitions: 1 })
+		//return (start-end) consecutive competitions by (attribute)
 	},
 	addParent: function(groupId, parentId) {
 		check(groupId, String);
 		check(parentId, String);
 
 		Groups.update(
-			{ __id: groupId }, 
+			groupId, 
 			{ $push: { parentGroups: parentId } }
 		)
 	},
-	getAllParents: function(groupId) {
+	/*getAllParents: function(groupId) {
 		check(groupId, String);
 
-		Groups.findOne({ __id: groupId }, { parentGroups: 1 })
+		Groups.findOne(groupId, { parentGroups: 1 })
 	},
-	addAction: function(groupId, actionId) {
+	addActionToGroup: function(groupId, actionId) {
 		check(groupId, String);
 		check(actionId, String);
 
 		Groups.update(
-			{ __id: groupId }, 
+			groupId, 
 			{ $push: { actions: actionId } }
 		)
-	},
-	getAllActions: function(groupId) {
+	},*/
+	getActions: function(groupId, start, end) {
 		check(groupId, String);
 
-		Groups.findOne({ __id: groupId }, { actions: 1 })
+		//return (start-end) consecutive actions by (attribute)
 	},
 	addAdmin: function(groupId, userId) {
 		check(groupId, String);
 		check(userId, String);
 
 		Groups.update(
-			{ __id: groupId }, 
+			groupId, 
 			{ $push: { admins: userId } }
 		)
 	},
-	getAllAdmins: function(groupId) {
+	getAdmins: function(groupId, start, end) {
 		check(groupId, String);
 
-		Groups.findOne({ __id: groupId }, { admins: 1 })
+		//return (start-end) consecutive admins by (attribute)
 	}
 });

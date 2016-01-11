@@ -3,7 +3,7 @@ Meteor.methods({
 
     getUserPoints: function(userId, actions) {
         check(userId, String);
-        check(userId, [String]);
+        check(actions, [String]);
 
         var userProfile = Meteor.users.findOne({_id: userId}).profile;
 
@@ -26,6 +26,7 @@ Meteor.methods({
         var userProfile = Meteor.users.findOne({_id: userId}).profile;
 
         return 0;
+    }
         // Get index of last action in time slice
         // var i = userProfile.history.length - 1;
         // var action = userProfile.history[i];
@@ -49,7 +50,6 @@ Meteor.methods({
         // }
 
         // return sumActionPoints(matchingActions);
-    }
 });
 
 var contains = function (arr, element) {
