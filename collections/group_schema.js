@@ -30,16 +30,49 @@ var GroupSchema = new SimpleSchema({
 	},
 
 	competitions: {
-		type: [String],
-		label: "ID of competitions"
+		type: [Object],
+		label: "Competitions the group owns"
 	},
+	"competitions.$.start": {
+		type: Date
+		label: "Start date for competition"
+	},
+	"competitions.$.end": {
+		type: Date
+		label: "End date for competition"
+	},
+	"competitions.$.actions": {
+		type: [Object]
+		label: "Actions in competition"
+		//not sure if correct implementation
+	},
+	"competitions.$.userLevel": {
+		type: Boolean
+		label: "Whether individuals or groups compete"
+		//True = individual or group?
+	},
+	"competitions.$.participants": {
+		type: [Object]
+		label: "Participants (users or groups) in competition"
+	},
+
+	//not sure if correct implemenation for sub-fields
+	"competitions.$.participants.$.userId": {
+		type: String
+		label: "User ID for competition participants"
+	},
+	"competitions.$.participants.$.points": {
+		type: Number
+		label "Points the competition participants each have"
+	},
+
 	parentGroups: {
 		type: [String],
-		label: "ID of parent groups"
+		label: "IDs of parent groups"
 	},
 	actions: {
 		type: [String],
-		label: "ID of actions in this group"
+		label: "IDs of actions in this group"
 	},
 	points: {
 		type: Number,
@@ -51,7 +84,7 @@ var GroupSchema = new SimpleSchema({
 	},
 	creationDate: {
 		type: Date,
-		label: "date of creation for this group"
+		label: "Date of creation for this group"
 	}
 });
 
