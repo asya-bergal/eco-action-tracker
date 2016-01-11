@@ -6,5 +6,5 @@ if (Meteor.App) {
 
 Meteor.App = {
   NAME: 'Eco Action Tracker',
-  DESCRIPTION: 'A boilerplate for meteorjs projects http://matteodem.github.io/meteor-boilerplate/'
+  DESCRIPTION: ''
 };

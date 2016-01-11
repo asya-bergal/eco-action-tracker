@@ -1,22 +1,21 @@
 <template name="home">
     <div class="ui main-content">
-        <p style="font-size:30px; font-weight:bold"> Total: {{total}} </p>
+        <div class="splash-content">
+            <img src="/images/splash.png"/>
+            <div id="site_descr>">
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </div>
 
-        {{#each action}}
-        <div>
-            <p>{{title}}
-            <form id={{_id}} name={{fields.length}}>
-                {{#each fields}}
-                {{name}} <input type="number" name="{{@index}}">
-                <br>
-                {{/each}}
-                <input type="submit" value="I did this!">
-            </form>
-            </p>
-            <br>
         </div>
-        {{/each}}
     </div>
-
+    <div class="leaderboard-container">
+        {{#if user}}
+        <ul class="leaderboard">
+        {{#each user}}
+          <li class="leaderboard item"><a href="/user/{{_id}}/">{{@index}} {{username}} Points: {{points}}</a></li>        
+        {{/each}}
+        </ul>
+        {{/if}}
+    </div>
 
 </template>
