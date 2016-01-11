@@ -1,11 +1,10 @@
+// Set the session variable just for this session
+Session.set('total', 0);
+
 Template.home.helpers({
-    'user' : function () {
+    'action' : function () {
         // Get a cursor pointing to all the actions and fetch them all
-        return [
-            {username: "Bo-billy", points:10, _id:1},
-            {username: "Bob", points:5, _id:1},
-            {username: "Billy", points:4, _id:1}
-        ];
+        return Actions.find({}).fetch();
     },
     'total': function () {
         // This is reactive! (Changes when total changes)

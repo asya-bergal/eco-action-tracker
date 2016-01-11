@@ -1,42 +1,18 @@
 @import 'variables';
 @import 'lib/elements';
+@import 'lib/flex';
 
 
-.header-wrapper {
-    background-image: url('/images/background/background1.jpg');
-    height: 450px;
-    background-position: 100% 100%;
-    transition: height 0.8s;
-
-    .ui.main.header {
-        font-size: 3em;
-        padding-top: 160px;
-        color: @secondaryFontColor;
-
-        > .sub.header {
-            color: @secondaryFontColorVariation;
-        }
+.header-container{
+    padding: 30px;
+    .display(flex);
+    .title{
+        flex: 1 1 0;
+        font-size: 50px;
     }
+    .button_container{
+        flex: 1 1 0;
 
-    .resize.button {
-        margin-top: 40px;
-        font-size: 1.5em;
-
-        .icon {
-            color: @secondaryFontColor;
-        }
-
-        &:hover {
-            background-color: inherit !important;
-        }
-    }
-
-    a:hover {
-        color: @secondaryLinkHoverColor;
-    }
-
-    &.active {
-        height: 900px;
     }
 }
 

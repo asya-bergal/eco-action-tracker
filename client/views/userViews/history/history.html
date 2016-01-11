@@ -1,0 +1,22 @@
+<template name="history">
+    <div class="ui main-content">
+        <p style="font-size:30px; font-weight:bold"> Total: {{total}} </p>
+
+        {{#each action}}
+        <div>
+            <p>{{title}}
+            <form id={{_id}} name={{fields.length}}>
+                {{#each fields}}
+                {{name}} <input type="number" name="{{@index}}">
+                <br>
+                {{/each}}
+                <input type="submit" value="I did this!">
+            </form>
+            </p>
+            <br>
+        </div>
+        {{/each}}
+    </div>
+
+
+</template>
