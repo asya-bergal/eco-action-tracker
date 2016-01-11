@@ -33,7 +33,7 @@ var UserProfileSchema = new SimpleSchema({
     },
     globalAdmin: {
         type: Boolean,
-        defaultValue: False,
+        defaultValue: false,
         label: "Whether the user can change things globally"
     },
     points: {

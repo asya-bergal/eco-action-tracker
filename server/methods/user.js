@@ -49,6 +49,7 @@ Meteor.methods({
         }
 
         return sumActionPoints(matchingActions);
+    }
 });
 
 var contains = function (arr, element) {
