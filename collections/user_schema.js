@@ -26,11 +26,6 @@ var UserProfileSchema = new SimpleSchema({
         defaultValue: [],
         label: "Groups that the user is in"
     },
-    competitions: {
-        type: [String],
-        defaultValue: [],
-        label: "Competitions that the user is in"
-    },
     adminGroups: {
         type: [String],
         defaultValue: [],

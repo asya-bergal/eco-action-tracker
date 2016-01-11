@@ -25,31 +25,30 @@ Meteor.methods({
 
         var userProfile = Meteor.users.findOne({_id: userId}).profile;
 
-        return 0;
-    }
-        // Get index of last action in time slice
-        // var i = userProfile.history.length - 1;
-        // var action = userProfile.history[i];
-        // while(action.timestamp >= end) {
-        //     i--;
-        //     action = userProfile.history[i];
-        // }
+        var matchingActions = [];
 
-        // var timelyActions = [];
+        // We don't need actions to be in the action list
+        if (actions === "undefined") {
+            // Get index of last action in time slice
+            var i = userProfile.history.length - 1;
+            var action = userProfile.history[i];
+            while(action.timestamp >= end) {
+                i--;
+                action = userProfile.history[i];
+            }
 
-        // // Add all actions in range to timelyActions
-        // while(action.timestamp <= start) {
-        //     timelyActions.push(action);
-        //     i--; 
-        //     action = userProfile.history[i];
-        // }
+            // Add all actions while the action's timestamp is greater than th estart
+            while(action.timestamp >= start) {
+                matchingActions.push(action);
+                i--;
+                action = userProfile.history[i];
+            }
+        } else {
+            // Get actions that are timely and matching the actions
+            matchingActions = getMatchingTimelyActions(userProfile.history, actions, start, end);
+        }
 
-        // var matchingActions = timelyActions;
-        // if(typeof actions !== "undefined") {
-        //     matchingActions = getMatchingActions(userProfile.history, actions);
-        // }
-
-        // return sumActionPoints(matchingActions);
+        return sumActionPoints(matchingActions);
 });
 
 var contains = function (arr, element) {
@@ -71,5 +70,11 @@ var sumActionPoints = function(actions) {
 var getMatchingActions = function(allActions, ids) {
     return allActions.filter(function(action) {
         return contains(ids, action._id);
+    });
+}
+
+var getMatchingTimelyActions = function(allActions, ids, start, end) {
+    return allActions.filter(function(action) {
+        return action.timestamp >= start && action.timestamp < end && contains(ids, action._id);
     });
 }
