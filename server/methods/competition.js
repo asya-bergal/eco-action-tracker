@@ -11,7 +11,7 @@ Meteor.methods({
 	},
 	removeCompetition: function(groupId, competitionId) {
 		check(groupId, String);
-		check(competition, Object);
+		check(competitionId, String);
 
 		Groups.update(
 			groupId, 
