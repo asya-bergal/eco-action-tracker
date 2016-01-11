@@ -1,7 +1,28 @@
 <template name="profile">
-    <div class="">
+    <div class="profile-info">
+        {{username}}: {{points}}
 
     </div>
+    <div class="profile-groups">
+        {{#if groups}}
+            <ul class="groups-list">
+                {{#each group}}
+                <li>{{@Index}}. {{name}}</li>
+                {{/each}}
+            </ul>
+        {{/if}}
+    </div>
+
+    <div class="profile-competitions">
+        {{#if groups}}
+            <ul class="groups-list">
+                {{#each group}}
+                <li>{{@Index}}. {{name}}</li>
+                {{/each}}
+            </ul>
+        {{/if}}
+    </div>
+
     {{log}}
 
 </template>
