@@ -44,6 +44,10 @@ Meteor.methods({
                 { _id: Meteor.userId() },
                 { $inc: { "profile.points": points } }
             );
+            Groups.update(
+                { _id: { $in: me.profile.groups } },
+                { $inc: { "points", points } }
+            );
         }
         Groups.update(
             { "actions": actionId, "users.userId": Meteor.userId() },
