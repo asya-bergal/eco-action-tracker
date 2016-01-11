@@ -1,87 +1,89 @@
 Meteor.methods({
 
+	createGroup: function(group) {
+		//Add new group to database
+		check(group, Object);
+		Groups.insert(group, function(err, group) {
+            if (err) {
+                throw new Meteor.Error("Adding new group failed.");
+            }
+        });
+	},
+	removeGroup: function(groupId) {
+		//Remove group from database
+		Groups.remove(groupId, true);
+	},
 	addUser: function(groupId, userId) {
 		check(groupId, String);
 		check(userId, String);
+		if(isAdmin = Meteor.user().profile.adminGroups.indexOf(groupId) == -1) {
+			throw new Meteor.Error("User is not admin of this group.");
+		} else {
+			Groups.update(
+				groupId, 
+				{ $push: { users: {userId: userId, points: 0} } }
+			)
+		}
+	},
+	getUsers: function(groupId, start, end) {
+		check(groupId, String);
+		check(start, String);
+		check(end, String);
+
+		return Groups.findOne(groupId).users.slice(start, end);
+	},
+	addSubgroup: function(parentGroupId, childGroupId) {
+		check(parentGroupId, String);
+		check(childGroupId, String);
 
 		Groups.update(
-			{ __id: groupId }, 
-			{ $push: { users: {userId: userId, points: 0} } }
+			parentGroupId, 
+			{ $push: { subgroups: {groupId: childGroupId, points: 0} } }
 		)
 	},
-	getAllUsers: function(groupId) {
+	getSubgroups: function(groupId, start, end) {
 		check(groupId, String);
 
-		Groups.findOne({ __id: groupId }, { users: 1 })
+		return Groups.findOne(groupId).subgroups.slice(start, end);
 	},
-	addSubgroup: function(groupId, subgroupId) {
+	getCompetitions: function(groupId, start, end) {
 		check(groupId, String);
-		check(subgroupId, String);
+		check(start, String);
+		check(end, String);
 
-		Groups.update(
-			{ __id: groupId }, 
-			{ $push: { subgroups: {groupId: subgroupId, points: 0} } }
-		)
-	},
-	getAllSubgroups: function(groupId) {
-		check(groupId, String);
-
-		Groups.findOne({ __id: groupId }, { subgroups: 1 })
-	},
-	addCompetition: function(groupId, competitionId) {
-		check(groupId, String);
-		check(competitionId, String);
-
-		Groups.update(
-			{ __id: groupId }, 
-			{ $push: { competitions: competitionId } }
-		)
-	},
-	getAllCompetitions: function(groupId) {
-		check(groupId, String);
-
-		Groups.findOne({ __id: groupId }, { competitions: 1 })
+		return Groups.findOne(groupId).competitions.slice(start, end);
 	},
 	addParent: function(groupId, parentId) {
 		check(groupId, String);
 		check(parentId, String);
 
 		Groups.update(
-			{ __id: groupId }, 
+			groupId, 
 			{ $push: { parentGroups: parentId } }
 		)
 	},
-	getAllParents: function(groupId) {
+	/*getAllParents: function(groupId) {
 		check(groupId, String);
 
-		Groups.findOne({ __id: groupId }, { parentGroups: 1 })
-	},
-	addActionToGroup: function(groupId, actionId) {
-		check(groupId, String);
-		check(actionId, String);
-
-		Groups.update(
-			{ __id: groupId }, 
-			{ $push: { actions: actionId } }
-		)
-	},
-	getAllActions: function(groupId) {
+		Groups.findOne(groupId, { parentGroups: 1 })
+	},*/
+	getActions: function(groupId, start, end) {
 		check(groupId, String);
 
-		Groups.findOne({ __id: groupId }, { actions: 1 })
+		return Groups.findOne(groupId).actions.slice(start, end);
 	},
 	addAdmin: function(groupId, userId) {
 		check(groupId, String);
 		check(userId, String);
 
 		Groups.update(
-			{ __id: groupId }, 
+			groupId, 
 			{ $push: { admins: userId } }
 		)
 	},
-	getAllAdmins: function(groupId) {
+	getAdmins: function(groupId, start, end) {
 		check(groupId, String);
 
-		Groups.findOne({ __id: groupId }, { admins: 1 })
+		return Groups.findOne(groupId).admins.slice(start, end);
 	}
 });

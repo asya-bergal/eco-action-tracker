@@ -1,46 +1,9 @@
 //TODO: Error handling?
 Meteor.methods({
 
-    addToGroup: function(userId, groupId) {
+    getUserPoints: function(userId, actions) {
         check(userId, String);
-        Meteor.users.update(
-            {_id: userId},
-            {$push: {'profile.groups': groupId}}
-        )
-        // TODO: Make sure no duplicate group Ids
-        // TODO: Do something/call something on the group side
-    },
-
-    addToCompetition: function(userId, competitionId) {
-        check(userId, String);
-        check(competitionId, String);
-
-        Meteor.users.update(
-            {_id: userId},
-            {$push: {'profile.competitions': competitionId}}
-        )
-        // TODO: Make sure no duplicate competition Ids
-        // TODO: Do something/call something on the group side
-    },
-
-    getGroups: function(userId) {
-        check(userId, String);
-        return Meteor.users.findOne({_id: userId}).profile.groups;
-    },
-
-    getCompetitions: function(userId) {
-        check(userId, String);
-        return Meteor.users.findOne({_id: userId}).profile.competitions;
-    },
-
-    isGlobalAdmin: function(userId) {
-        check(userId, String);
-        return Meteor.users.findOne({_id: userId}).profile.global_admin;
-    },
-
-    getPoints: function(userId, actions) {
-        check(userId, String);
-        check(userId, [String]);
+        check(actions, [String]);
 
         var userProfile = Meteor.users.findOne({_id: userId}).profile;
 
@@ -51,41 +14,42 @@ Meteor.methods({
             // Filter by whether or not actions contains action
             matchingActions = getMatchingActions(userProfile.history, actions);
         }
-    },
-
-    getPointsSince: function(userId, time, actions) {
-        check(userId, String);
-        check(time, Match.Any); //TODO: should probably be something else
-        check(actions, [String]);
-
-        var userProfile = Meteor.users.findOne({_id: userId}).profile;
-
-        var lateActions = userProfile.history.filter(function(action) {
-            return action.timestamp >= time;
-        });
-
-        var matchingActions = lateActions;
-        if(typeof actions !== "undefined") {
-            matchingActions = getMatchingActions(userProfile.history, actions);
-        }
-
         return sumActionPoints(matchingActions);
     },
 
-    usertakeAction: function(actionId, points) {
-        check(actionId, String);
-        check(points, Number);
+    getUserPointsBetween: function(userId, start, end, actions) {
+        check(userId, String);
+        check(start, Match.Any); //TODO: should probably be something else
+        check(end, Match.Any); //TODO: should probably be something else
+        check(actions, Match.Any); //TODO: should probably be something else
 
-        var now = new Date();
-        
-        Meteor.users.update(
-            {_id: userId},
-            {$push: {'profile.history': {actionId: actionId, timestamp: now, points: points}},
-             $inc: {'profile.points': points}
+        var userProfile = Meteor.users.findOne({_id: userId}).profile;
+
+        var matchingActions = [];
+
+        // We don't need actions to be in the action list
+        if (actions === "undefined") {
+            // Get index of last action in time slice
+            var i = userProfile.history.length - 1;
+            var action = userProfile.history[i];
+            while(action.timestamp >= end) {
+                i--;
+                action = userProfile.history[i];
             }
-        );
-    }
 
+            // Add all actions while the action's timestamp is greater than th estart
+            while(action.timestamp >= start) {
+                matchingActions.push(action);
+                i--;
+                action = userProfile.history[i];
+            }
+        } else {
+            // Get actions that are timely and matching the actions
+            matchingActions = getMatchingTimelyActions(userProfile.history, actions, start, end);
+        }
+
+        return sumActionPoints(matchingActions);
+    }
 });
 
 var contains = function (arr, element) {
@@ -107,5 +71,11 @@ var sumActionPoints = function(actions) {
 var getMatchingActions = function(allActions, ids) {
     return allActions.filter(function(action) {
         return contains(ids, action._id);
+    });
+}
+
+var getMatchingTimelyActions = function(allActions, ids, start, end) {
+    return allActions.filter(function(action) {
+        return action.timestamp >= start && action.timestamp < end && contains(ids, action._id);
     });
 }
