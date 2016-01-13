@@ -31,5 +31,6 @@ Template['header'].events({
   'click .log-out.button' : function () {
     Meteor.logout();
   }
+
 });
 

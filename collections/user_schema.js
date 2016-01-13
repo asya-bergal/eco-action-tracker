@@ -46,17 +46,28 @@ var UserProfileSchema = new SimpleSchema({
 var UserSchema = new SimpleSchema({
     username: {
         type: String,
-        optional: true
     },
-    email: {
+    emails: {
+        optional: true, // TODO: This shouldn't be optional
+        type: [Object],
+    },
+    "emails.$.address": {
+        optional: true,
         type: String,
-        regEx: SimpleSchema.RegEx.Email,
-        optional: true
+        regEx: SimpleSchema.RegEx.Email
+    },
+    "emails.$.verified": {
+        optional: true,
+        type: Boolean
     },
     profile: {
         type: UserProfileSchema,
-        optional: true
     },
+    services: {
+        type: Object,
+        optional: true,
+        blackbox: true
+    }
 });
 
 Meteor.users.attachSchema(UserSchema);
