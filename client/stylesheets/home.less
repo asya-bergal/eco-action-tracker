@@ -1,51 +1,15 @@
 @import 'variables';
 @import 'lib/elements';
+@import 'lib/flex';
 
-#main .content{
 
-    .boilerplate-feature.icon {
-        margin-top: 10px;
-        transition: 0.7s color;
-
-        &:hover {
-            color: @primaryIconColor;
-        }
-
-        &.hover-orange.html5:hover {
-            color: @html5Orange;
-        }
+.splash-content{
+    .display(flex);
+    .splash-img{
+    }
+    .splash-site-desc{
+      .flex(1, 1, 0);
     }
 
-    .features.grid {
-        width: 100%;
-        margin: 0%;
-        margin-top: 30px;
-    }
 
-    .main-content > .ui.two.column.grid {
-        padding-top: 20px;
-    }
-
-    .column > .icon-wrapper {
-        font-size: 2em;
-        color: @primaryIconColor;
-    }
-
-    @media (max-width: @largeDesktopWidth) {
-        .column > .icon-wrapper {
-            font-size: 1.5em;
-        }
-    }
-
-    @media (max-width: @mediumDesktopWidth) {
-        .column > .icon-wrapper {
-            font-size: 1em;
-        }
-    }
-
-    @media (max-width: @tabletWidth) {
-        .features.grid .headline {
-            display: none;
-        }
-    }
 }

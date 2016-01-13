@@ -8,8 +8,11 @@ Template.profile.helpers({
         var groups = Groups.find({_id: {$in: this.groups}}).fetch();
         return groups.map(function(item){return item.competitions}).filter(function(item){return item.userLevel});
     },
-    'log': function () {
-        // This is reactive! (Changes when total changes)
-        console.log(this);
+    'has': function(col){
+      return col.length > 0;
+    },
+    'action': function(){
+        var action_data = Actions.find({_id: {$in:this.history.map(function(action){return action.id})}});
+        return this.history.map(function(action));
     }
 });

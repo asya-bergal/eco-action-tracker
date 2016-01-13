@@ -1,28 +1,55 @@
 <template name="profile">
-    <div class="profile-info">
-        {{username}}: {{points}}
+    <div class="profile-container">
+        <div class="left">
+            <div class="profile-info">
+                <h3>{{username}}</h3>
+                Points: {{points}}
+            </div>
+            <div class="profile-actions">
+                    <div>My Actions</div>
+                    {{#if groups}}
+                        <ul class="action-list">
+                            {{#each action}}
+                            <li>{{increment @Index}}. {{name}}</li>
+                            {{/each}}
+                        </ul>
+                    {{else}}
+                        <span>It looks like you haven't performed any actions yet!</span>
+                    {{/if}}
+            </div>
+        </div>
+        <div class="right">
+            <div class="profile-groups">
+                <div>My Groups</div>
+                {{#if groups}}
+                    <ul class="groups-list">
+                        {{#each groups}}
+                        <li>{{increment @Index}}. <a href="/group/_id">{{name}}</a></li>
+                        {{/each}}
+                    </ul>
+                {{else}}
+                    <span>It looks like you haven't joined any groups yet!</span>
+                    <span>Find groups <a href="/group"> here!</a></span>
+
+                {{/if}}
+            </div>
+
+            <div class="profile-competitions">
+                <div>My Competitions</div>
+                {{#if competitions}}
+                    <ul class="groups-list">
+                        {{#each competitions}}
+                        <li>{{increment @Index}}. {{name}}</li>
+                        {{/each}}
+                    </ul>
+                {{else}}
+                    <span>It looks like you aren't currently in any competitions!</span>
+                    <span>Find groups that have some <a href="/group">here!</a></span>
+
+                {{/if}}
+            </div>
+        </div>
 
     </div>
-    <div class="profile-groups">
-        {{#if groups}}
-            <ul class="groups-list">
-                {{#each group}}
-                <li>{{@Index}}. {{name}}</li>
-                {{/each}}
-            </ul>
-        {{/if}}
-    </div>
-
-    <div class="profile-competitions">
-        {{#if groups}}
-            <ul class="groups-list">
-                {{#each group}}
-                <li>{{@Index}}. {{name}}</li>
-                {{/each}}
-            </ul>
-        {{/if}}
-    </div>
-
-    {{log}}
 
 </template>

@@ -7,6 +7,13 @@ Router.route('/group/:_id', {
   }
 });
 
+Router.route('/group', {
+  name: 'groupList',
+  action: function () {
+    this.render('groupList');
+    SEO.set({ title: 'Home - ' + Meteor.App.NAME });
+  }
+});
 
 Router.route('/group/:_id/newCompetition', {
   name: 'newCompetition',
@@ -16,10 +23,10 @@ Router.route('/group/:_id/newCompetition', {
   }
 });
 
-Router.route('/group/:_id/lol', {
-  name: 'lol',
+Router.route('/group/:_id/edit', {
+  name: 'editGroup',
   action: function () {
-    this.render('register');
+    this.render('editGroup');
     SEO.set({ title: 'Home - ' + Meteor.App.NAME });
   }
 });
