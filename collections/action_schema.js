@@ -8,19 +8,26 @@ ActionSchema = new SimpleSchema({
         type: String
     },
     defaultPoints: {
-        type: Number
+        type: Number,
+        defaultValue: 0
+    },
+    isGlobal: {
+        type: Boolean
     },
     fields: {
-        type: [Object]
+        type: [Object],
+        defaultValue: []
     },
     "fields.$.name": {
         type: String
     },
     "fields.$.operation": {
-        type: Number
+        type: Number,
+        defaultValue: MULTIPLY
     },
     "fields.$.scale": {
-        type: Number
+        type: Number,
+        defaultValue: 1
     }
 });
 
