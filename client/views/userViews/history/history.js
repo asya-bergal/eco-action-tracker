@@ -1,7 +1,7 @@
 // Set the session variable just for this session
 Session.set('total', 0);
 
-Template.home.helpers({
+Template.history.helpers({
     'action' : function () {
         // Get a cursor pointing to all the actions and fetch them all
         return Actions.find({}).fetch();
@@ -12,7 +12,7 @@ Template.home.helpers({
     }
 });
 
-Template.home.events({
+Template.history.events({
     "submit form": function(e) {
         var actionId = e.target.getAttribute("id");
         var length = parseInt(e.target.getAttribute("name"));

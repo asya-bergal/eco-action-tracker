@@ -15,6 +15,9 @@ Template['header'].helpers({
   },
   iconClass: function () {
     return Meteor.user() ? 'user' : 'sign in';
+  },
+  title: function(){
+    return Meteor.App.NAME;
   }
 });
 

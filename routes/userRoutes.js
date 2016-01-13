@@ -5,7 +5,7 @@ Router.route('/user/:_id', {
   action: function () {
     this.render('profile', {
       data: function(){
-        return {username: "Bo-billy", points:10, _id:1};// Meteor.users.findOne(this.params._id);
+        return {username: "Bo-billy", groups:[], points:10, _id:1};// Meteor.users.findOne(this.params._id);
       }
     });
     SEO.set({ title: 'Home - ' + Meteor.App.NAME });
