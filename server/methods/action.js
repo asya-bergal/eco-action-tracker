@@ -46,7 +46,7 @@ Meteor.methods({
             );
             Groups.update(
                 { _id: { $in: me.profile.groups } },
-                { $inc: { "points", points } }
+                { $inc: { "points": points } }
             );
         }
         Groups.update(
