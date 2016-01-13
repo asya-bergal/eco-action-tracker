@@ -16,7 +16,8 @@ var CompetitionSchema = new SimpleSchema({
 	},
 	userLevel: {
 		type: Boolean,
-		label: "True if users competing, false if groups competing"
+		label: "True if users competing, false if groups competing",
+		defaultValue: true
 	},
 	participants: {
 		type: [Object],
@@ -34,6 +35,10 @@ var CompetitionSchema = new SimpleSchema({
 });
 
 var GroupSchema = new SimpleSchema({
+	name: {
+		type: String,
+		label: "Name of group"
+	},
 	users: {
 		type: [Object],
 		label: "List of users in the group",
@@ -46,7 +51,8 @@ var GroupSchema = new SimpleSchema({
 	"users.$.points": {
 		type: Number,
 		label: "Points the user has",
-		min: 0
+		min: 0,
+		defaultValue: 0
 	},
 	
 	subgroups: {
