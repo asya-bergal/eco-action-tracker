@@ -1,7 +1,31 @@
 @import 'variables';
 @import 'lib/elements';
 
-#main .content{
+.action-samples {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+
+    .action-sample {
+        width: 50%;
+
+        .action-icon {
+            height: 100px;
+            width: 100px;
+            float: left;
+            padding: 10px 10px;
+        }
+
+        .action-text {
+            vertical-align: center;
+        }
+    }
+}
+
+
+/*#main .content{
 
     .boilerplate-feature.icon {
         margin-top: 10px;
@@ -31,6 +55,8 @@
         color: @primaryIconColor;
     }
 
+    
+
     @media (max-width: @largeDesktopWidth) {
         .column > .icon-wrapper {
             font-size: 1.5em;
@@ -48,4 +74,4 @@
             display: none;
         }
     }
-}
+}*/
