@@ -1,6 +1,14 @@
 Groups = new Mongo.Collection('groups');
 
 var CompetitionSchema = new SimpleSchema({
+	name: {
+		type: String,
+		label: "Name of competition"
+	},
+	description:{
+		type: String,
+		label: "Description of competition"
+	},
 	start: {
 		type: Date,
 		label: "Start date for competition"

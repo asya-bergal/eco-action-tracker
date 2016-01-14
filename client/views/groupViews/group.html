@@ -10,16 +10,25 @@
   <div class="group-content">
     <div class="left">
       <div class="competition-listing">
-        {{#each competition}}
+        <h3>Competitions</h3>
+        {{#each comp in competitions}}
+          {{> competition comp}}
         {{/each}}
       </div>
       <div class="stats">
+        <canvas id="myChart" width="400" height="400"></canvas>
       </div>
     </div>
     <div class="right">
-      LeaderBoard
-      {{#each user}}
-      {{/each}}
+      <div>
+        <span>LeaderBoard</span>
+        {{#each user}}
+          <div class="leaderboard-listing">
+            {{increment @Index}} {{username}} {{points}}
+          </div>
+
+        {{/each}}
+      </div>
     </div>
   </div>
 </div>
@@ -32,6 +41,17 @@
       <span class="group-name">{{name}}</span>
       <span class="edit-pen"></span>
     </div>
-    
+
+  </div>
+</template>
+
+<template name="competition">
+  <div class="competition-item">
+    <div class="comp-name">
+      <span class="name">{{name}}</span> <span class="end-time"> {{end}}</span>
+    </div>
+    <div class="comp-desc">
+      <span class="desc">{{description}}</span>
+    </div>
   </div>
 </template>

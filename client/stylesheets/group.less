@@ -14,6 +14,23 @@
     .display(flex);
     .left{
       .flex(2,1,0);
+      .competition-listing{
+        padding: 10px 7%;
+        .competition-item{
+          .display(flex);
+          padding: 10px 20px;
+          .flex-direction(column);
+          .comp-name{
+            .display(flex);
+            .name{
+              .flex(1,1,0);
+            }
+          }
+          .comp-desc{
+            padding: 5px 20px;
+          }
+        }
+      }
     }
     .right{
       .flex(1,1,0);      

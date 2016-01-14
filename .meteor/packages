@@ -39,3 +39,4 @@ twbs:bootstrap
 accounts-base
 insecure
 chart:chart
+momentjs:moment
