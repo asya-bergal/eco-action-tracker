@@ -67,7 +67,7 @@ Meteor.methods({
         Groups.update(
             { "competitions.actions": actionId,
               "competitions.userLevel": false,
-              "competitions.participants.userId": { $in: me.profile.groups }
+              "competitions.participants": { $in: me.profile.groups }
             },
             { $inc: { "competitions.participants.$.points": points } }
         );

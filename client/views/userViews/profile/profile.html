@@ -1,28 +1,71 @@
 <template name="profile">
-    <div class="profile-info">
-        {{username}}: {{points}}
-
-    </div>
-    <div class="profile-groups">
-        {{#if groups}}
-            <ul class="groups-list">
-                {{#each group}}
-                <li>{{@Index}}. {{name}}</li>
+    <div class="col-sm-10">
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+                {{#each actions}}
+                <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="heading{{_id}}">
+                    <h4 class="panel-title">
+                        <div class="panel-title-box">
+                            <div>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">
+                                {{title}}
+                                </a>
+                            </div>
+                            <div>
+                               <!-- This is a hack. -->
+                               <button class="btn action-button"><label for="submit{{_id}}">I did this!</label></button>
+                            </div>
+                        </div>
+                    </h4>
+                    </div>
+                    <div id="collapse{{_id}}" class="panel-collapse collapse" data-toggle="false" role="tabpanel" aria-labelledby="heading{{_id}}">
+                      <form class="form-horizontal action-form" id={{_id}}>
+                        {{#each fields}}
+                        <div class="form-group">
+                            <label class="control-label col-xs-4 col-sm-2" for={{name}}>{{name}}:</label>
+                            <div class="col-xs-3 col-sm-2 col-md-1">
+                                <input class="form-control" type="number" name={{name}}>
+                            </div>
+                        </div>
+                        {{/each}}
+                        <!-- This is a hack. -->
+                        <input type="submit" id="submit{{_id}}" class="hidden">
+                      </form>
+                    </div>
+                </div>
                 {{/each}}
-            </ul>
-        {{/if}}
+            </div>
+        </div>
+    <div class="col-sm-2">
+       Some text here.
     </div>
-
-    <div class="profile-competitions">
-        {{#if groups}}
-            <ul class="groups-list">
-                {{#each group}}
-                <li>{{@Index}}. {{name}}</li>
-                {{/each}}
-            </ul>
-        {{/if}}
-    </div>
-
-    {{log}}
-
 </template>
+
+            <!-- <ul class="sidebar-nav"> -->
+            <!--     <li class="sidebar-brand"> -->
+            <!--         <a href="#"> -->
+            <!--             Start Bootstrap -->
+            <!--         </a> -->
+            <!--     </li> -->
+            <!--     <li> -->
+            <!--         <a href="#">Dashboard</a> -->
+            <!--     </li> -->
+            <!--     <li> -->
+            <!--         <a href="#">Shortcuts</a> -->
+            <!--     </li> -->
+            <!--     <li> -->
+            <!--         <a href="#">Overview</a> -->
+            <!--     </li> -->
+            <!--     <li> -->
+            <!--         <a href="#">Events</a> -->
+            <!--     </li> -->
+            <!--     <li> -->
+            <!--         <a href="#">About</a> -->
+            <!--     </li> -->
+            <!--     <li> -->
+            <!--         <a href="#">Services</a> -->
+            <!--     </li> -->
+            <!--     <li> -->
+            <!--         <a href="#">Contact</a> -->
+            <!--     </li> -->
+            <!-- </ul> -->

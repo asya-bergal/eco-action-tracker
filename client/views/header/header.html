@@ -1,10 +1,18 @@
 <template name="header">    
+    {{#if currentUser}}
+           <b class="points">Total Points: {{currentUser.profile.points}}</b>
+    {{else}}
     <div class="title">
-        <a href="/">{{title}}</a>
+            <a href="/">{{title}}</a>
     </div>
-    <div class="buttons_container">
+    {{/if}}
+    <div class="button-container">
+      {{#if currentUser}}
+      <span class="btn logout">Logout</span>
+      {{else}}
       <span class="btn"><a href="/login">Log in</a></span>
       <span class="btn"><a href="/register">Register</a></span>      
+      {{/if}}
     </div>
 </template>
 

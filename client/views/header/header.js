@@ -10,28 +10,13 @@ Template['header'].helpers({
   isActive: function () {
     return Session.get('isActive') ? 'active' : '';
   },
-  animateClass: function () {
-    return Session.get('isActive') ? 'fadeIn' : 'fadeOut';
-  },
-  iconClass: function () {
-    return Meteor.user() ? 'user' : 'sign in';
-  },
   title: function(){
     return Meteor.App.NAME;
   }
 });
 
 Template['header'].events({
-  'click .resize.button' : function () {
-    var showLogin = Session.get('showLogin');
-
-    Session.set('isActive', !Session.get('isActive'));
-
-    setTimeout(function () {
-      Session.set('showLogin', !Session.get('showLogin'));
-    }, 600);
-  },
-  'click .log-out.button' : function () {
+  'click .logout' : function () {
     Meteor.logout();
   }
 
