@@ -26,7 +26,7 @@ Meteor.methods({
 		}
 	},
 	getUsers: function(groupId, start, end) {
-		check(groupId, String);
+		check(groupId, Strnig);
 		check(start, String);
 		check(end, String);
 
