@@ -35,11 +35,11 @@ Template.login.events({
         var password = event.target.password.value;
 
         // TODO: Error message if login fails (need to add a callback)
-        Meteor.loginWithPassword(username, password,
-            function (error) {
-                if (error) {
-                    console.log(error);
-                }
+        Meteor.loginWithPassword(username, password, function (error) {
+            if (error) {
+                console.log(error);
+            }
+            Router.go('profile');
         });
     }
 });

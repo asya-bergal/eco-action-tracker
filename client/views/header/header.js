@@ -17,7 +17,9 @@ Template['header'].helpers({
 
 Template['header'].events({
   'click .logout' : function () {
-    Meteor.logout();
+      Meteor.logout(function () {
+          Router.go('home');
+      });
   }
 
 });

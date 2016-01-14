@@ -7,6 +7,13 @@ Router.route('/', {
   }
 });
 
+Router.route('/profile',  {
+    name: 'profile',
+    action: function () {
+        this.render('profile');
+        SEO.set({ title: 'Home - ' + Meteor.App.NAME });
+    }
+});
 
 Router.route('/login', {
   name: 'login',
