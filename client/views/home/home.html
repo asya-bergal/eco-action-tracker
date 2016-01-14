@@ -1,21 +1,24 @@
 <template name="home">
-    <div class="ui main-content">
-        <div class="splash-content">
-            <img class="splash-img" src="/images/splash.png"/>
-            <div class="splash-site-desc" id="site_descr>">
-Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+
+    <div class="row">
+        <div class="action-samples col-md-6">
+            <h2>You can help the environment!</h2><br>
+            <div id="lights" class="action-sample">
+                <img class="action-icon" src="/images/light-bulb.svg"/>
+                <h3 class="action-text">Turn off the lights</h3>
+            </div>
+            <div id="bike" class="action-sample">
+                <img class="action-icon" src="/images/bike.png"/>
+                <h3 class="action-text">Bike to school</h3>
+            </div>
+            <div id="recycle" class="action-sample">
+                <img class="action-icon" src="/images/recycle.png"/>
+                <h3 class="action-text">Recycle your papers</h3>
             </div>
         </div>
+        <div class="col-md-6">
+            <h2 style="text-align:center;">Sign Up</h2><br>
+            {{> register}}
+        </div>
     </div>
-    <div class="leaderboard-container">
-        {{#if user}}
-        
-        <ul class="leaderboard">
-        {{#each user}}
-          <li class="leaderboard item"><a href="/user/{{_id}}/">{{increment @index}} {{username}} Points: {{points}}</a></li>        
-        {{/each}}
-        </ul>
-        {{/if}}
-    </div>
-
 </template>

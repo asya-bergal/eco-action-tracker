@@ -2,14 +2,21 @@
 @import 'lib/elements';
 @import 'lib/flex';
 
-
-.splash-content{
+.action-samples {
+    padding: 20px;
     .display(flex);
-    .splash-img{
-    }
-    .splash-site-desc{
-      .flex(1, 1, 0);
-    }
+    .flex-direction(column);
+    .align-items(center);
+    .align-content(center);
 
+    .action-sample {
+        width: 50%;
 
+        .action-icon {
+            height: 100px;
+            width: 100px;
+            float: left;
+            padding: 10px 10px;
+        }
+    }
 }

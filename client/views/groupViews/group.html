@@ -1,8 +1,37 @@
-<template name="group">
+<template name="Group">
 
 <div class="group-page">
   <div class="group-title">
+    <span class="group-name">{{name}}</span>
+    {{#if admin}}
+    <a class="group-edit" href="/group/{{_id}}/edit">Edit group</a>
+    {{/if}}
+  </div>
+  <div class="group-content">
+    <div class="left">
+      <div class="competition-listing">
+        {{#each competition}}
+        {{/each}}
+      </div>
+      <div class="stats">
+      </div>
+    </div>
+    <div class="right">
+      LeaderBoard
+      {{#each user}}
+      {{/each}}
+    </div>
   </div>
 </div>
 
+</template>
+
+<template name="editGroup">
+  <div class="edit-group">
+    <div class="group-title">
+      <span class="group-name">{{name}}</span>
+      <span class="edit-pen"></span>
+    </div>
+    
+  </div>
 </template>

@@ -2,7 +2,11 @@
 Router.route('/group/:_id', {
   name: 'group',
   action: function () {
-    this.render('group');
+    this.render('Group', {
+      data: function(){
+        return Groups.findOne(this.params._id);
+      }
+    });
     SEO.set({ title: 'Home - ' + Meteor.App.NAME });
   }
 });
@@ -18,7 +22,7 @@ Router.route('/group', {
 Router.route('/group/:_id/newCompetition', {
   name: 'newCompetition',
   action: function () {
-    this.render('login');
+    this.render('newCompetition');
     SEO.set({ title: 'Home - ' + Meteor.App.NAME });
   }
 });
@@ -26,7 +30,11 @@ Router.route('/group/:_id/newCompetition', {
 Router.route('/group/:_id/edit', {
   name: 'editGroup',
   action: function () {
-    this.render('editGroup');
+    this.render('editGroup',{
+      data: function(){
+        return Groups.findOne(this.params._id);
+      }
+    });
     SEO.set({ title: 'Home - ' + Meteor.App.NAME });
   }
 });

@@ -37,3 +37,5 @@ check
 aldeed:simple-schema
 twbs:bootstrap
 accounts-base
+insecure
+chart:chart

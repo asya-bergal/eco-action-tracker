@@ -1,0 +1,38 @@
+@import 'variables';
+@import 'lib/elements';
+@import 'lib/flex';
+
+.group-page{
+  .group-title{
+    border-bottom: 1px solid;
+    .group-name{
+      font-weight: bold;
+      font-size: 30px;
+    }
+  }
+  .group-content{
+    .display(flex);
+    .left{
+      .flex(2,1,0);
+    }
+    .right{
+      .flex(1,1,0);      
+    }
+  }
+
+}
+
+.edit-group{
+  .group-title{
+    border-bottom: 1px solid;
+    .group-name{
+      font-weight: bold;
+      font-size: 30px;
+    }
+    .edit-pen{
+      background-image: url("/images/edit.svg");
+      height: 10px;
+      width: 10px;
+    }
+  }
+}

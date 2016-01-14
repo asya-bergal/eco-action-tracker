@@ -13,6 +13,6 @@ Template.profile.helpers({
     },
     'action': function(){
         var action_data = Actions.find({_id: {$in:this.history.map(function(action){return action.id})}});
-        return this.history.map(function(action));
+        return this.history.map(function(action){});
     }
 });
