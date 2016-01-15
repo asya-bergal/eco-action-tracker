@@ -1,8 +1,8 @@
 <template name="home">
 
-    <div class="row">
-        <div class="action-samples col-md-6">
-            <h2>You can help the environment!</h2><br>
+    <div class="splash-content">
+        <div class="action-samples splash-item">
+            <h2 class="action-title">You can help the environment!</h2>
             <div id="lights" class="action-sample">
                 <img class="action-icon" src="/images/light-bulb.svg"/>
                 <h3 class="action-text">Turn off the lights</h3>
@@ -16,9 +16,10 @@
                 <h3 class="action-text">Recycle your papers</h3>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="register splash-item">
             <h2 style="text-align:center;">Sign Up</h2><br>
             {{> register}}
         </div>
     </div>
+
 </template>

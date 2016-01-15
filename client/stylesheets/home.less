@@ -2,21 +2,49 @@
 @import 'lib/elements';
 @import 'lib/flex';
 
-.action-samples {
-    padding: 20px;
-    .display(flex);
-    .flex-direction(column);
-    .align-items(center);
-    .align-content(center);
+.splash-content {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    justify-content: space-around;
+    margin-top: 30px;
 
-    .action-sample {
-        width: 50%;
+    .action-samples {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        padding-left: 20px;
+        padding-right: 50px;
+        flex: 1 1 0;
+        border-right:1px solid;
 
-        .action-icon {
-            height: 100px;
-            width: 100px;
-            float: left;
-            padding: 10px 10px;
+        .display(flex);
+        .flex-direction(column);
+        align-items: center;
+        justify-content: space-around;  
+
+        .action-title {
+            padding: 10px 0;
+        }
+
+        .action-sample {
+            width: 80%;
+
+            .action-icon {
+                height: 100px;
+                width: 100px;
+                float: left;
+                margin-right: 25px;
+            }
+
+            .action-text{}
         }
     }
+
+    .register {
+        padding: 20px;
+        margin-left: 40px;
+        flex: 1 1 0;
+    }
+
 }
+
