@@ -3,7 +3,7 @@ Template.header.created = function () {
   Session.set('showLogin', false);
 };
 
-Template['header'].helpers({
+Template.header.helpers({
   showLogin: function () {
     return Session.get('showLogin');
   },
@@ -15,7 +15,7 @@ Template['header'].helpers({
   }
 });
 
-Template['header'].events({
+Template.header.events({
   'click .logout' : function () {
       Meteor.logout(function () {
           Router.go('home');

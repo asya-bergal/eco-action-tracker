@@ -4,9 +4,9 @@
   </div>
   <div class="button-container">
     {{#if currentUser}}
-      <span class="points btn">Total Points: {{currentUser.profile.points}}</span>
-      <span class="btn"><a href="/user/profile">Profile</a></span>
-      <span class="btn logout">Logout</span>
+      <span class="btn header-item">Total Points: {{currentUser.profile.points}}</span>
+      <span class="btn header-item"><a href="/user/profile">Profile</a></span>
+      <span class="btn header-item logout">Logout</span>
     {{else}}
       <span>{{> login}}</span>
     {{/if}}
