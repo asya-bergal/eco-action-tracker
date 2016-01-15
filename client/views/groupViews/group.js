@@ -30,19 +30,31 @@ Template.Group.rendered = function(){
         value: 300,
         color:"#F7464A",
         highlight: "#FF5A5E",
-        label: "Red"
+        label: "Riding Bike to School"
     },
     {
         value: 50,
+        color: "#bfc1ca",
+        highlight: "#e5e6e9",
+        label: "Turn Off the Lights"
+    },
+    {
+        value: 150,
+        color: "#33b4ff",
+        highlight: "#84d2ff",
+        label: "Planting a Tree"
+    },
+    {
+        value: 200,
         color: "#46BFBD",
         highlight: "#5AD3D1",
-        label: "Green"
-    },
+        label: "Bought Local Goods"
+    },        
     {
         value: 100,
         color: "#FDB45C",
         highlight: "#FFC870",
-        label: "Yellow"
+        label: "Using Reuseable Water Bottle"
     }
   ],
   donut_ctx = $("#donutChart").get(0).getContext("2d"),

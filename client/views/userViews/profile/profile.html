@@ -37,8 +37,9 @@
             </div>
         </div>
     <div class="col-sm-2">
+        <h3>My Groups</h3>
         {{#each group in getGroups}}
-            <a href="/group/{{group._id}}">{{group.name}}</a>
+            <h4><a href="/group/{{group._id}}">{{group.name}}</a></h4>
         {{/each}}
     </div>
 </template>

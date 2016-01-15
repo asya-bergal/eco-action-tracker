@@ -23,7 +23,7 @@ Template.register.events({
                 if (error) {
                     console.log(error);
                 }
-            Router.go('user/profile');                
+            Router.go('/user/profile');                
         });
     }
 });
@@ -40,7 +40,7 @@ Template.login.events({
             if (error) {
                 console.log(error);
             }
-            Router.go('user/profile');
+            Router.go('/user/profile');
         });
     }
 });
