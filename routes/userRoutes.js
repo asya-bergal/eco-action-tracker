@@ -1,14 +1,9 @@
 //User Routes
 
-Router.route('/user/:_id', {
+Router.route('/user/profile', {
   name: 'userProfile',
   action: function () {
-    this.render('profile', {
-      data: function(){
-          var user = Meteor.users.findOne(this.params._id);
-          return {username: user.username, groups:user.profile.groups, points:user.profile.points, _id:this.params._id};
-      }
-    });
+    this.render('profile');
     SEO.set({ title: 'Home - ' + Meteor.App.NAME });
   }
 });

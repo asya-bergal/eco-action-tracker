@@ -3,9 +3,8 @@ Template.profile.helpers({
         // TODO: Should also be group actions
         return Actions.find({});
     },
-    'groups' : function () {
-        // Get a cursor pointing to all the actions and fetch them all
-        return Groups.find({_id: {$in: this.groups}}).fetch();
+    'getGroups' : function () {
+        return Groups.find({_id: {$in: this.groups}});
     },
     'competitions' : function () {
         // Get a cursor pointing to all the actions and fetch them all

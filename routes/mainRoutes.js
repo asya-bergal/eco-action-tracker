@@ -2,17 +2,13 @@
 Router.route('/', {
   name: 'home',
   action: function () {
-    this.render('home');
-    SEO.set({ title: 'Home - ' + Meteor.App.NAME });
-  }
-});
-
-Router.route('/profile',  {
-    name: 'profile',
-    action: function () {
-        this.render('profile');
-        SEO.set({ title: 'Home - ' + Meteor.App.NAME });
+    if(!Meteor.user()){
+      this.render('home');
+      SEO.set({ title: 'Home - ' + Meteor.App.NAME });
+    } else {
+      Router.redirect("/user/profile");
     }
+  }
 });
 
 Router.route('/login', {
