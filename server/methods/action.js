@@ -31,15 +31,16 @@ Meteor.methods({
             }
         }
         // updates
+        console.log("me", me);
         Meteor.users.update(
-            {_id: Meteor.userId()},
+            me._id,
             { $push:
                 { "profile.history":
                     { actionId: actionId, timestamp: now, points: points }
                 }
             }
         );
-        if (action.isGlobal) {
+        //if (action.isGlobal) {
             Meteor.users.update(
                 { _id: Meteor.userId() },
                 { $inc: { "profile.points": points } }
@@ -48,7 +49,7 @@ Meteor.methods({
                 { _id: { $in: me.profile.groups } },
                 { $inc: { "points": points } }
             );
-        }
+        //}
         Groups.update(
             { "actions": actionId, "users.userId": Meteor.userId() },
             { $inc: { "users.$.points": points } }
@@ -57,20 +58,21 @@ Meteor.methods({
             { "actions": actionId, "subgroups.groupId": { $in: me.profile.groups } },
             { $inc: { "subgroups.$.points": points } }
         );
-        Groups.update(
-            { "competitions.actions": actionId,
-              "competitions.userLevel": true,
-              "competitions.participants.userId": Meteor.userId()
-            },
-            { $inc: { "competitions.participants.$.points": points } }
-        );
-        Groups.update(
-            { "competitions.actions": actionId,
-              "competitions.userLevel": false,
-              "competitions.participants": { $in: me.profile.groups }
-            },
-            { $inc: { "competitions.participants.$.points": points } }
-        );
+        //TODO Fix when competitions are implemented
+        // Groups.update(
+        //     { "competitions.actions": actionId,
+        //       "competitions.userLevel": true,
+        //       "competitions.participants.userId": me._id
+        //     },
+        //     { $inc: { "competitions.participants.$.points": points } }
+        // );
+        // Groups.update(
+        //     { "competitions.actions": actionId,
+        //       "competitions.userLevel": false,
+        //       "competitions.participants": { $in: me.profile.groups }
+        //     },
+        //     { $inc: { "competitions.participants.$.points": points } }
+        // );
         // return value could be useful for front end stuff
         return points;
     }

@@ -16,17 +16,26 @@
         {{/each}}
       </div>
       <div class="stats">
-        <canvas id="myChart" width="400" height="400"></canvas>
+        <div id="actions-donut">
+          <h4>Top 5 Actions</h4>
+          <canvas id="donutChart" width="400" height="400"></canvas>
+        </div>
+        <div id="weekly-points">
+          <h4>Points Over The Past Week</h4>
+          <canvas id="lineChart" width="400" height="400"></canvas>
+        </div>
       </div>
     </div>
     <div class="right">
       <div>
-        <span>LeaderBoard</span>
-        {{#each user}}
-          <div class="leaderboard-listing">
-            {{increment @Index}} {{username}} {{points}}
+        <h3>LeaderBoard</h3>
+          <div class="leaderboard-listing leaderboard-fields">
+            <span class="place">Place</span> <span class="username">Username</span> <span class="points">Points</span>
           </div>
-
+        {{#each user in getUsers}}
+          <div class="leaderboard-listing">
+            <span class="place">{{increment @index}}</span> <span class="username">{{user.username}}</span> <span class="points">{{user.groupPoints}}</span>
+          </div>
         {{/each}}
       </div>
     </div>
@@ -48,7 +57,7 @@
 <template name="competition">
   <div class="competition-item">
     <div class="comp-name">
-      <span class="name">{{name}}</span> <span class="end-time"> {{end}}</span>
+      <span class="name">{{name}}</span> <span class="end-time"> Ends {{humanDate end}}</span>
     </div>
     <div class="comp-desc">
       <span class="desc">{{description}}</span>

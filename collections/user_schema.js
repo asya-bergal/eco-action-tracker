@@ -67,7 +67,13 @@ var UserSchema = new SimpleSchema({
         type: Object,
         optional: true,
         blackbox: true
+    },
+    // In order to avoid an 'Exception in setInterval callback' from Meteor
+    heartbeat: {
+        type: Date,
+        optional: true
     }
+
 });
 
 Meteor.users.attachSchema(UserSchema);

@@ -19,6 +19,9 @@
         .competition-item{
           .display(flex);
           padding: 10px 20px;
+          border:1px solid;
+          border-radius: 10px;
+          background-color: lightgray;
           .flex-direction(column);
           .comp-name{
             .display(flex);
@@ -28,12 +31,45 @@
           }
           .comp-desc{
             padding: 5px 20px;
+            font-style: italic;
           }
+        }
+      }
+      .stats{
+        .display(flex);
+        .justify-content(center);
+        #actions-donut{
+          .display(flex);
+          .justify-content(center);
+          .align-items(center);
+          .flex-direction(column);                 
+        } 
+        #weekly-points{
+          .display(flex);
+          .justify-content(center);
+          .align-items(center);
+          .flex-direction(column);                 
         }
       }
     }
     .right{
       .flex(1,1,0);      
+      padding: 10px 20px;
+      .leaderboard-fields{
+        margin-bottom: 10px;
+      }
+      .leaderboard-listing{
+        .display(flex);
+        .place{
+           .flex(1,1,0);          
+        }
+        .username{
+          .flex(1,1,0);
+        }
+        .points{
+          .flex(1,1,0);      
+        }
+      }
     }
   }
 
