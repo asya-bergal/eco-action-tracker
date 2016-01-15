@@ -6,7 +6,7 @@ Router.route('/', {
       this.render('home');
       SEO.set({ title: 'Home - ' + Meteor.App.NAME });
     } else {
-      Router.redirect("/user/profile");
+      this.redirect("/user/profile");
     }
   }
 });
