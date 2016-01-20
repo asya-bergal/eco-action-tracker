@@ -10,7 +10,7 @@ Template.Group.helpers({
   'getUsers': function(){
     if(this.users){
       return this.users.map(function(user){
-        user_doc = Meteor.users.findOne(user.userId);
+        user_doc = Meteor.user();
         user_doc.groupPoints = user.points;
         return user_doc;
       });

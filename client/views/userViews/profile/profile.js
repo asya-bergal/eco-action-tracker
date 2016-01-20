@@ -1,7 +1,7 @@
 Template.profile.helpers({
     'actions': function () {
         // TODO: Should also be group actions
-        return Actions.find({});
+        return Actions.find({}).fetch().splice(0,2);
     },
     'getGroups' : function () {
         console.log(Groups.find({_id: {$in: Meteor.user().profile.groups}}).fetch());

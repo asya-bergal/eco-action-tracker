@@ -15,8 +15,7 @@
           {{> competition comp}}
         {{/each}}
       </div>
-              <h3 class="stats-header">Summary Statistics</h3>
-
+      <h3 class="stats-header">Summary Statistics</h3>
       <div class="stats">
         <div id="actions-donut">
           <h4>Top 5 Actions</h4>
@@ -36,7 +35,7 @@
           </div>
         {{#each user in getUsers}}
           <div class="leaderboard-listing">
-            <span class="place">{{increment @index}}</span> <span class="username">{{user.username}}</span> <span class="points">{{user.groupPoints}}</span>
+            <span class="place">{{increment @index}}</span> <span class="username">{{user.username}}_{{@index}}</span> <span class="points">{{user.groupPoints}}</span>
           </div>
         {{/each}}
       </div>
@@ -51,6 +50,12 @@
     <div class="group-title">
       <span class="group-name">{{name}}</span>
       <span class="edit-pen"></span>
+    </div>
+    <div class="competition-listing">
+      <h3>Competitions <span class="new=competition">New Competition</span></h3>
+      {{#each comp in competitions}}
+        {{> competition comp}}
+      {{/each}}
     </div>
 
   </div>

@@ -3,7 +3,11 @@
 Router.route('/user/profile', {
   name: 'userProfile',
   action: function () {
-    this.render('profile');
+    if(Meteor.user()){
+      this.render('profile');
+    } else {
+      this.redirect('/')
+    }
     SEO.set({ title: 'Home - ' + Meteor.App.NAME });
   }
 });
