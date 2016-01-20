@@ -1,0 +1,36 @@
+- Team explains demo
+- Lawrence explains groups, competitions
+- Songela: How do you want groups/competitions implemented? How points to groups, global points?
+	- Patrick: Good if individuals contributed to groups, group points earned should also go to individual
+	- Patrick: How moderate adding actions?
+		- Victor: Set automatic cap on number of points earned
+		- Asya: Group admins can do whatever in the group
+		- Patrick: Problem is that anyone can add anything to get free points
+		- Songela: Could also have people submit actions for you, approve it for all users, or that group only?
+		- Lawrence: In current model, group points don't get things for actions so getting free user points isn't a problem
+		- Patrick: What about being able to create actions in a group, don't get points for user, and then you can submit as global to get points for user
+		- FINAL: Group actions contribute to user's individual points if they're global, if not global only contribute to group points until actions are approved by Change is Simple
+		- Songela: Confusing for users to take actions, not get points
+		- Asya/Patrick: Need good visual indicator for global actions
+	- Features:
+		- Map would be cool! Submit what town they live in when they register an account.
+		- Search for usernames/names to see people, just like Facebook
+		- New landing page: Map of the US with spots all over it, total actions, total users, total group numbers, that's updating itself
+		- Statistics we want:
+			- Days you're most active, per week
+			- Stats on groups, competition, users, global
+		- Take worksheet and upload online
+			- "Click here to take energy challenge?"
+			- Fill out form, get points
+			- You can make form, with checkboxes/radio buttons/text
+			- Can use Google forms API
+		- How to join group?
+			- Can search for groups, request to join group, admin approves
+			- Can we search users or groups?
+		- Don't forget action sharing with social media, share button
+			- I got X points from Y action, shows username, # of points, link to profile or action history
+		- Notification system
+		- Cap # of points you can get from an action per day
+		- Some things you can only do once?
+		- What to display on profile page?
+			- Whatever makes most sense, groups they're in, recent history, location, etc.
