@@ -16,13 +16,20 @@ Meteor.methods({
 	addUser: function(groupId, userId) {
 		check(groupId, String);
 		check(userId, String);
-		if(isAdmin = Meteor.user().profile.adminGroups.indexOf(groupId) == -1) {
-			throw new Meteor.Error("User is not admin of this group.");
+		if(Meteor.user().profile.adminGroups.indexOf(groupId) == -1) {
+			throw new Meteor.Error("Current user is not admin of this group.");
 		} else {
 			Groups.update(
 				groupId, 
 				{ $push: { users: {userId: userId, points: 0} } }
 			)
+
+			if (Groups.findOne(groupId).usersRequesting.indexOf(userId) != -1) {
+				Groups.update(
+					groupId,
+					{ $pull: { usersRequesting: { userId: userId } } }
+				)
+			}
 		}
 	},
 	getUsers: function(groupId, start, end) {

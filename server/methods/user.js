@@ -49,6 +49,22 @@ Meteor.methods({
         }
 
         return sumActionPoints(matchingActions);
+    },
+
+    requestToJoinGroup: function(userId, groupId) {
+        if (Meteor.user().profile.groups.indexOf(groupId) != -1) {
+            // User already in group
+            throw new Meteor.Error("User is already in this group.");
+        } else if (Groups.findOne(groupId).usersRequesting.indexOf(userId) != -1) {
+            // User already made request to join
+            throw new Meteor.Error("User has already made request to join this group.");
+        } else {
+            // Add user to request list
+            Groups.update(
+                groupId,
+                { $push: { usersRequesting: { userId: userId } } }
+            )
+        }
     }
 });
 

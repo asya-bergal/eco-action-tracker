@@ -62,7 +62,11 @@ var GroupSchema = new SimpleSchema({
 		min: 0,
 		defaultValue: 0
 	},
-	
+	usersRequesting: {
+		type: [String],
+		label: "List of names of users requesting to join the group",
+		defaultValue: []
+	},
 	subgroups: {
 		type: [Object],
 		label: "Subgroups belonging to group",
@@ -77,7 +81,6 @@ var GroupSchema = new SimpleSchema({
 		label: "Points the group has",
 		min: 0
 	},
-
 	competitions: {
 		type: [CompetitionSchema],
 		label: "Competitions the group owns",
