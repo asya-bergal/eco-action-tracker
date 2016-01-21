@@ -7,3 +7,7 @@ Template.searchGroups.helpers({
       return c;
   }
 });
+
+Template.searchGroups.rendered = function() {
+    $(".selectize-input > input").attr('placeholder','Search Groups').css('width', '100%');
+}
