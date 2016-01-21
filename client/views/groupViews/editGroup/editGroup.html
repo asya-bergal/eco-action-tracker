@@ -1,0 +1,40 @@
+<template name="editGroup">
+  <div class="edit-group">
+    <div class="group-title">
+      <span class="group-name">{{name}}</span>
+      <span class="edit-pen"></span>
+    </div>
+    <div class="competition-listing">
+      <h3>Competitions <span class="new-competition">New Competition</span></h3>
+      {{#each comp in competitions}}
+        {{> editCompetition comp}}
+      {{/each}}
+    </div>
+    <div class="user-listing">
+      <h3>Users <span class="add-user">Add User</span></h3>
+      {{#each user in getUsers}}
+        <div class="user-container"><a class="user-profile-link" href="user/{{_id}}">{{user.username}}</a></div>
+      {{/each}}
+    </div>
+    <div class="admin-listing">
+      <h3>Admins <span class="add-admin">Add Admin</span></h3>
+      {{#each admin in getAdmins}}
+        <div class="Admin-container"><a class="Admin-profile-link" href="user/{{_id}}">{{admin.username}}</a></div>
+      {{/each}}
+    </div>
+
+  </div>
+</template>
+
+<template name="editCompetition">
+  <div class="competition-item">
+    <div class="comp-name">
+      <span class="name">{{name}}</span> <span class="end-time"> Ends {{humanDate end}}</span>
+    </div>
+    <div class="comp-desc">
+      <span class="desc">{{description}}</span>
+    </div>
+  </div>
+</template>
+
+

@@ -10,7 +10,14 @@ Template.profile.helpers({
     'competitions' : function () {
         // Get a cursor pointing to all the actions and fetch them all
         var groups = Groups.find({_id: {$in: Meteor.user().profile.groups}}).fetch();
-        return groups.map(function(item){return item.competitions}).filter(function(item){return item.userLevel});
+        var competitions = groups.map(function(item){
+            return item.competitions;
+        }).reduce(function(a, b) {
+            return a.concat(b);
+        }, []).filter(function(item){
+            return item.userLevel
+        });
+        return competitions;
     },
     'has': function(col){
       return col.length > 0;

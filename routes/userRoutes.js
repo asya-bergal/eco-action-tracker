@@ -1,6 +1,6 @@
 //User Routes
 
-Router.route('/user/profile', {
+Router.route('/user/profile/', {
   name: 'userProfile',
   action: function () {
     if(Meteor.user()){

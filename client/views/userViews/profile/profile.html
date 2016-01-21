@@ -44,6 +44,12 @@
         {{#each group in getGroups}}
             <h4><a href="/group/{{group._id}}">{{group.name}}</a></h4>
         {{/each}}
+        <h3>My Competitions</h3>
+        {{#each comp in competitions}}
+            <h4>{{comp.name}}</h4>
+        {{/each}}
+
+
     </div>
 </template>
 

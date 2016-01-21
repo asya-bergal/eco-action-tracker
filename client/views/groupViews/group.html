@@ -45,22 +45,6 @@
 
 </template>
 
-<template name="editGroup">
-  <div class="edit-group">
-    <div class="group-title">
-      <span class="group-name">{{name}}</span>
-      <span class="edit-pen"></span>
-    </div>
-    <div class="competition-listing">
-      <h3>Competitions <span class="new=competition">New Competition</span></h3>
-      {{#each comp in competitions}}
-        {{> competition comp}}
-      {{/each}}
-    </div>
-
-  </div>
-</template>
-
 <template name="competition">
   <div class="competition-item">
     <div class="comp-name">
@@ -71,3 +55,4 @@
     </div>
   </div>
 </template>
+
