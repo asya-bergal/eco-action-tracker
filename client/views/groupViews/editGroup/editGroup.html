@@ -10,16 +10,27 @@
         {{> editCompetition comp}}
       {{/each}}
     </div>
-    <div class="user-listing">
+    <div class="action-listing">
+      <h3>Actions <span class="add-actions">Add Actions</span></h3>
+      {{#each action in getActions}}
+        <div class="action-container">{{action.title}}</div>
+      {{/each}}
+    </div>    <div class="user-listing">
       <h3>Users <span class="add-user">Add User</span></h3>
       {{#each user in getUsers}}
-        <div class="user-container"><a class="user-profile-link" href="user/{{_id}}">{{user.username}}</a></div>
+        <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a></div>
       {{/each}}
     </div>
     <div class="admin-listing">
       <h3>Admins <span class="add-admin">Add Admin</span></h3>
+      <form class="new-group-form form">
+          <div class="add-admin-form form-group">
+            <label>Username:</label> <input class="form-control" name="groupname" type="text">
+          </div>
+          <input class="btn btn-default" type="submit" value="Add Admin">        
+      </form>      
       {{#each admin in getAdmins}}
-        <div class="Admin-container"><a class="Admin-profile-link" href="user/{{_id}}">{{admin.username}}</a></div>
+        <div class="admin-container"><a class="admin-profile-link" href="/user/{{_id}}">{{admin.username}}</a></div>
       {{/each}}
     </div>
 
