@@ -1,5 +1,6 @@
 <template name="profile">
     <div class="col-sm-10 actions">
+        {{#if isGlobalAdmin}}
         <div id="approve-actions" class="section">
             <h3 class="section-heading">Actions for global approval:</h3>
             {{#if approvalNeeded}}
@@ -42,6 +43,7 @@
                 <h4>No actions for approval!</h4>
             {{/if}}
         </div>
+        {{/if}}
 
         <div id="takeActions" class="section">
             <h3 class="section-heading">What actions have you taken today?</h3>

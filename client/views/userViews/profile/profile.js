@@ -21,6 +21,9 @@ Template.profile.helpers({
     'action': function(){
         var action_data = Actions.find({_id: {$in:Meteor.user().history.map(function(action){return action.id})}});
         return Meteor.user().history.map(function(action){});
+    },
+    'isGlobalAdmin': function () {
+        return Meteor.user().profile.globalAdmin;
     }
 });
 
