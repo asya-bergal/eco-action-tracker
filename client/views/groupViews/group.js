@@ -1,6 +1,5 @@
 Template.Group.helpers({
   'admin': function(){
-    console.log(this);
     if(this.admins){
       return this.admins.indexOf(Meteor.userId()) !== -1;
     } else{
@@ -20,6 +19,14 @@ Template.Group.helpers({
     if(this.competitions){
       return this.competitions.filter(function(c){return c.name});
     }
+  },
+  'notInGroup': function(){
+    return $.grep(this.users, function(e){
+        return e.userId === Meteor.userId();
+    }).length !== 1;
+  },
+  'requestPending': function(){
+    return $.grep(this.usersRequesting, function(e){return e === Meteor.userId();}).length === 1;
   }
 
 });

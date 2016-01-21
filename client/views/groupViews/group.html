@@ -6,6 +6,13 @@
     {{#if admin}}
     <a class="group-edit" href="/group/{{_id}}/edit">Edit group</a>
     {{/if}}
+    {{#if notInGroup}}
+      {{#if requestPending}}
+        <span>Request Pending</span>
+      {{else}}
+        <span>Request to Join</span>
+      {{/if}}
+    {{/if}}
   </div>
   <div class="group-content">
     <div class="left">
@@ -13,7 +20,10 @@
         <h3>Competitions</h3>
         {{#each comp in competitions}}
           {{> competition comp}}
+        {{else}}
+          No Competitions Currently
         {{/each}}
+
       </div>
       <h3 class="stats-header">Summary Statistics</h3>
       <div class="stats">

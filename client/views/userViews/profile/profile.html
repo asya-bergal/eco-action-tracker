@@ -55,7 +55,10 @@
                         <div class="panel-title-box">
                             <div>
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">
-                                {{title}}
+                                {{title}} 
+                                {{#if isGlobalAction}}
+                                - isGlobal
+                                {{/if}}
                                 </a>
                             </div>
                             <div>
@@ -100,7 +103,5 @@
         {{#each comp in competitions}}
             <h4>{{comp.name}}</h4>
         {{/each}}
-
-
     </div>
 </template>

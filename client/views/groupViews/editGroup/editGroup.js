@@ -28,6 +28,13 @@ Template.editGroup.helpers({
     if(this.competitions){
       return this.competitions.filter(function(c){return c.name});
     }
+  },
+  'getUserRequests': function(){
+    if(this.usersRequesting){
+      return this.usersRequesting.map(function(userId){
+        return Meteor.users.findOne(userId);
+      });
+    }    
   }
 });
 

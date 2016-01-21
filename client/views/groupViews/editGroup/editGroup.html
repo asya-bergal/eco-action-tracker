@@ -51,9 +51,16 @@
             <input class="btn btn-default" type="submit" value="Add Admin">        
         </form>
         {{#each admin in getAdmins}}
-          <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{admin.username}}</a></div>
+          <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{admin.username}}</a><img class="remove-user" id={{user._id}} src="/images/remove.svg" /></div>
         {{/each}}
       </div>
+      <div class="user-listing">
+        <h3 class="header">Users Requesting To Join</h3>
+        {{#each user in getUserRequests}}
+          <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a><img class="remove-user" id={{user._id}} src="/images/remove.svg" /></div>
+        {{/each}}
+      </div>
+
     </div>
 
   </div>
