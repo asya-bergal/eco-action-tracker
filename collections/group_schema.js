@@ -109,8 +109,7 @@ var GroupSchema = new SimpleSchema({
 	},
 	creationDate: {
 		type: Date,
-		label: "Date of creation for this group",
-		defaultValue: Date.now()
+		label: "Date of creation for this group"
 	}
 });
 

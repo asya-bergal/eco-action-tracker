@@ -21,13 +21,13 @@ Meteor.methods({
 	},
 	removeGroup: function(groupId) {
 		//Remove group from database
-		Groups.remove(groupId, true);
+		Groups.remove(groupId);
 	},
 	requestToJoinGroup: function(groupId, userId) {
 		check(groupId, String);
 		check(userId, String);
 
-		if (Groups.findOne(groupId).users.indexOf(userId) != -1) {
+		if (!Groups.findOne({_id: groupId, "users.userId": userId})) {
 			// User already in group
 			throw new Meteor.Error("User already in group.");
 		} else if (Groups.findOne(groupId).usersRequesting.indexOf(userId) != -1) {
@@ -46,7 +46,7 @@ Meteor.methods({
 		check(userId, String);
 		if(Meteor.user().profile.adminGroups.indexOf(groupId) == -1) {
 			throw new Meteor.Error("Current user is not admin of this group.");
-		} else if (Groups.findOne(groupId).users.indexOf(userId) != -1) {
+		} else if (!Groups.findOne({_id: groupId, "users.userId": userId})) {
 			throw new Meteor.Error("User is already part of group.");
 		} else {
 			// Add user to group's list of users
@@ -68,6 +68,28 @@ Meteor.methods({
 					{ $pull: { usersRequesting: { userId: userId } } }
 				)
 			}
+		}
+	},
+	removeUser: function(groupId, userId) {
+		check(groupId, String);
+		check(userId, String);
+
+		if (Groups.findOne({_id: groupId, "users.userId": userId})) {
+			console.log("User is supposedly in the group.");
+
+			// Remove user from group
+			Groups.update(
+				groupId, 
+				{ $pull: { users: {userId: userId} } }
+			)
+
+			// Remove group from user
+			Meteor.users.update(
+				userId,
+				{ $pull: { "profile.groups": groupId } }
+			)
+		} else {
+			console.log("Something didn't work with the query.");
 		}
 	},
 	getUsers: function(groupId, start, end) {
