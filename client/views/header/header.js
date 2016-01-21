@@ -1,15 +1,3 @@
-$("#searchInput").popover({
-    html: true,
-    placement: "bottom",
-    trigger: "hover",
-    title: function () {
-        return $(".searchInput").html();
-    },
-    content: function () {
-        return $(".searchResults").html();
-    }
-});
-
 Template.header.created = function () {
   Session.set('isActive', false);
   Session.set('showLogin', false);
@@ -33,8 +21,4 @@ Template.header.events({
           Router.go('home');
       });
   }
-});
-
-Template.search.helpers({
-  groupsIndex: () => GroupsIndex
 });

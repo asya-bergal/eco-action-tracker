@@ -40,3 +40,4 @@ insecure
 chart:chart
 momentjs:moment
 easy:search
+easysearch:autosuggest
