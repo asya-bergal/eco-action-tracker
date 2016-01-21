@@ -1,69 +1,8 @@
-<template name="searchTest">
-  <div class="searchBox">
-    <form class="searchInput">
-      {{> EasySearch.Input index=groupsIndex }}
+<template name="searchGroups">
+    <form class="form-inline search-groups">
+        <div class="form-group" style="width:240px">
+            {{> EasySearch.Autosuggest index=groupsIndex changeConfiguration=addLink}}
+        </div>
+        <input class="btn btn-default" type="submit" value="Search Groups">
     </form>
-
-    {{#EasySearch.IfInputEmpty index=groupsIndex }}
-      <div class="padded examples">Type here to search for groups</div>
-
-    {{else}}
-      {{#EasySearch.Each index=groupsIndex }}
-        <div class="groupName"><a href="/group/{{_id}}">{{name}}</a></div>
-      {{/EasySearch.Each}}
-    {{/EasySearch.IfInputEmpty}}
-
-    {{#EasySearch.IfSearching index=groupsIndex }}
-      <div>Searching</div>
-    {{/EasySearch.IfSearching }}
-  </div>
-</template>
-
-<template name="leaderboard">
-  {{> EasySearch.Input index=groupsIndex attributes=inputAttributes }}
-
-  {{#EasySearch.IfInputEmpty index=groupsIndex }}
-    <div class="padded examples">For example "Grace Gaga"</div>
-  {{else}}
-    {{#if resultsCount}}
-      <div class="padded count-results">{{resultsCount}} results found.</div>
-    {{/if}}
-  {{/EasySearch.IfInputEmpty}}
-
-  {{#EasySearch.IfSearching index=groupsIndex }}
-    <div>Searching</div>
-  {{/EasySearch.IfSearching }}
-
-  <ol class="leaderboard">
-    {{#EasySearch.Each index=groupsIndex }}
-      {{> player}}
-    {{/EasySearch.Each}}
-  </ol>
-
-  {{#EasySearch.IfNoResults index=groupsIndex }}
-    <div class="padded no-results">No results found</div>
-  {{else}}
-    {{#if selectedName}}
-      <div class="details">
-        <div class="name">{{selectedName}}</div>
-        <button class="inc">Add 5 points</button>
-      </div>
-    {{else}}
-      <div class="message">Click a player to select</div>
-    {{/if}}
-  {{/EasySearch.IfNoResults }}
-
-  {{> EasySearch.Pagination index=groupsIndex maxPages=10 }}
-  {{! > EasySearch.LoadMore index=groupsIndex }}
-
-  {{#if showMore}}
-    {{> EasySearch.Input name="mini-index" index=groupsIndex attributes=inputAttributes }}
-
-    <ul>
-      {{#EasySearch.Each name="mini-index" index=groupsIndex }}
-        <li>{{name}}</li>
-      {{/EasySearch.Each}}
-    </ul>
-  {{/if}}
-
 </template>
