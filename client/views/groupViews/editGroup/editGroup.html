@@ -5,13 +5,13 @@
       <span class="edit-pen"></span>
     </div>
     <div class="competition-listing">
-      <h3>Competitions <span class="new-competition">New Competition</span></h3>
+      <h3>Competitions <span class="new-competition new-tag">New Competition</span></h3>
       {{#each comp in competitions}}
         {{> editCompetition comp}}
       {{/each}}
     </div>
     <div class="action-listing">
-      <h3>Actions <span class="add-actions">Add Actions</span></h3>
+      <h3>Actions <span class="add-actions new-tag">Add Actions</span></h3>
       <form class="add-action-form form">
           <div class="form-group">
             <label>Title:</label> <input class="form-control" name="title" type="text">
@@ -29,7 +29,7 @@
         <div class="action-container">{{action.title}}</div>
       {{/each}}
     </div>    <div class="user-listing">
-      <h3>Users <span class="add-user">Add User</span></h3>
+      <h3>Users <span class="add-user new-tag">Add User</span></h3>
       <form class="add-user-form form">
           <div class=" form-group">
             <label>Username:</label> <input class="form-control" name="username" type="text">
@@ -41,7 +41,7 @@
       {{/each}}
     </div>
     <div class="admin-listing">
-      <h3>Admins <span class="add-admin">Add Admin</span></h3>
+      <h3>Admins <span class="add-admin new-tag">Add Admin</span></h3>
       <form class="add-admin-form form">
           <div class=" form-group">
             <label>Username:</label> <input class="form-control" name="username" type="text">
@@ -49,7 +49,7 @@
           <input class="btn btn-default" type="submit" value="Add Admin">        
       </form>
       {{#each admin in getAdmins}}
-        <div class="admin-container"><a class="admin-profile-link" href="/user/{{_id}}">{{admin.username}}</a></div>
+        <div class="user-container"><a class="admin-profile-link" href="/user/{{_id}}">{{admin.username}}</a></div>
       {{/each}}
     </div>
 

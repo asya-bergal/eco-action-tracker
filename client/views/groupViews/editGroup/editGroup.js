@@ -32,6 +32,17 @@ Template.editGroup.helpers({
 });
 
 Template.editGroup.events({
+  'click .add-actions': function(e){
+    $('.add-action-form').toggleClass('visible');
+  },
+  'click .add-user': function(e){
+    $('.add-user-form').toggleClass('visible');
+
+  },
+  'click .add-admin': function(e){
+    $('.add-admin-form').toggleClass('visible');
+  },
+
   'submit .add-action-form': function(e){
     e.preventDefault();
     var actionJson = {

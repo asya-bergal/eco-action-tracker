@@ -3,7 +3,7 @@
         <a href="/">{{title}}</a>
     </div>
     {{#if currentUser}}
-        <div class="searchBar">{{> search}}</div>
+        <div class="searchBar col-xs-4 col-sm-4 col-md-4 col-lg-4">{{> searchGroups}}</div>
     {{/if}}
     <div class="button-container">
         {{#if currentUser}}
@@ -14,34 +14,4 @@
             <span>{{> login}}</span>
         {{/if}}
     </div>
-</template>
-
-<template name="search">
-    <div class="searchBox">
-        <form class="searchInput form-control" data-toggle="popover" data-placement="bottom" data-content='' trigger="focus ">
-            {{> EasySearch.Input index=groupsIndex }}
-        </form>
-
-        
-        {{#EasySearch.IfInputEmpty index=groupsIndex }}
-        {{else}}
-            <div class="searchResults">
-                {{#EasySearch.Each index=groupsIndex }}
-                    <div class="groupName"><a href="/group/{{_id}}">{{name}}</a></div>
-                {{/EasySearch.Each}}
-            </div>
-        {{/EasySearch.IfInputEmpty}}
-
-<!--
-    {{#EasySearch.IfSearching index=groupsIndex }}
-      <div>Searching</div>
-    {{/EasySearch.IfSearching }}
--->
-    </div>
-    
-    <script>
-    $(document).ready(function(){
-        $('[data-toggle="popover"]').popover();   
-    });
-    </script>
 </template>
