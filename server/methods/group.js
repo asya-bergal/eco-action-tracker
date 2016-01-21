@@ -13,16 +13,51 @@ Meteor.methods({
 		//Remove group from database
 		Groups.remove(groupId, true);
 	},
+	requestToJoinGroup: function(groupId, userId) {
+		check(groupId, String);
+		check(userId, String);
+
+		if (Groups.findOne(groupId).users.indexOf(userId) != -1) {
+			// User already in group
+			throw new Meteor.Error("User already in group.");
+		} else if (Groups.findOne(groupId).usersRequesting.indexOf(userId) != -1) {
+			// User already made request to join
+			throw new Meteor.Error("User has already requested to join group.");
+		} else {
+			// Add user to request list
+			Groups.update(
+				groupId, 
+				{ $push: { usersRequesting: userId } }
+			)
+		}
+	},
 	addUser: function(groupId, userId) {
 		check(groupId, String);
 		check(userId, String);
-		if(isAdmin = Meteor.user().profile.adminGroups.indexOf(groupId) == -1) {
-			throw new Meteor.Error("User is not admin of this group.");
+		if(Meteor.user().profile.adminGroups.indexOf(groupId) == -1) {
+			throw new Meteor.Error("Current user is not admin of this group.");
+		} else if (Groups.findOne(groupId).users.indexOf(userId) != -1) {
+			throw new Meteor.Error("User is already part of group.");
 		} else {
+			// Add user to group's list of users
 			Groups.update(
 				groupId, 
 				{ $push: { users: {userId: userId, points: 0} } }
 			)
+
+			// Add group to user's list of groups
+			Meteor.users.update(
+				userId,
+				{ $push: { "profile.groups": groupId } }
+			)
+
+			// Remove user from group's list of join requests
+			if (Groups.findOne(groupId).usersRequesting.indexOf(userId) != -1) {
+				Groups.update(
+					groupId,
+					{ $pull: { usersRequesting: { userId: userId } } }
+				)
+			}
 		}
 	},
 	getUsers: function(groupId, start, end) {
@@ -76,14 +111,26 @@ Meteor.methods({
 		check(groupId, String);
 		check(userId, String);
 
-		Groups.update(
-			groupId, 
-			{ $push: { admins: userId } }
-		)
+		if (Groups.findOne(groupId).admins.indexOf(userId) != -1) {
+			throw new Meteor.Error("User is already admin of group.");
+		} else {
+			Groups.update(
+				groupId, 
+				{ $push: { admins: userId } }
+			)
+
+			Meteor.users.update(
+				userId,
+				{ $push: { "profile.adminGroups": groupId } }
+			)
+		}
 	},
 	getAdmins: function(groupId, start, end) {
 		check(groupId, String);
 
 		return Groups.findOne(groupId).admins.slice(start, end);
+	},
+	sortLeaderboard: function(groupId) {
+		Groups.findOne(groupId).users.sort(function(a,b){return b.points-a.points})
 	}
 });

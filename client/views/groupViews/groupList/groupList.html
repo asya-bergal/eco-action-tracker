@@ -3,7 +3,7 @@
 <div class="group-listings">
   All groups:
   {{#each group in groups}}
-    <h2>{{group.name}}</h2>
+    <h2><a href="/group/{{group._id}}">{{group.name}}</a></h2>
   {{/each}}
 </div>
 
