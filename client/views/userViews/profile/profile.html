@@ -40,7 +40,13 @@
         </div>
     </div>
     <div class="col-sm-2 groups">
-        <h3>My Groups</h3>
+        <h3>My Groups <span class="new-group">Make A New Group</span></h3> 
+        <form class="new-group-form form-inline">
+            <div class="form-group">
+                <label>Group Name:</label> <input class="form-control" name="groupname" type="text">
+            </div>
+            <input class="btn btn-default" type="submit" value="Create Group">        
+        </form>
         {{#each group in getGroups}}
             <h4><a href="/group/{{group._id}}">{{group.name}}</a></h4>
         {{/each}}

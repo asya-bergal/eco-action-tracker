@@ -50,5 +50,22 @@ Template.profile.events({
                 console.log(error);
             }
         });
+    },
+    "submit .new-group-form": function(event){
+        event.preventDefault();
+        var groupJson = {
+            name: event.target.groupname.value
+        };
+
+
+        Meteor.call('createGroup', groupJson , function(error, result) {
+            if (error) {
+                console.log(error);
+            }else{
+                console.log("success");
+            }
+        });
     }
+
+
 });

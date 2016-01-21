@@ -99,7 +99,8 @@ var GroupSchema = new SimpleSchema({
 	},
 	points: {
 		type: Number,
-		label: "running total of group points"
+		label: "running total of group points",
+		defaultValue: 0
 	},
 	admins: {
 		type: [String],

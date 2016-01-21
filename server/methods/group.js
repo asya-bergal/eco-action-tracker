@@ -3,11 +3,21 @@ Meteor.methods({
 	createGroup: function(group) {
 		//Add new group to database
 		check(group, Object);
-		Groups.insert(group, function(err, group) {
+		group.creationDate = Date.now();
+		group.admins = [Meteor.userId()];
+		group.users = [{userId:Meteor.userId(), points:0}]
+
+		var groupId = Groups.insert(group, function(err, group) {
             if (err) {
+            	console.log(err);
                 throw new Meteor.Error("Adding new group failed.");
             }
         });
+
+		Meteor.users.update(
+			Meteor.userId(),
+			{ $push: { "profile.groups": groupId } }
+		);	
 	},
 	removeGroup: function(groupId) {
 		//Remove group from database
