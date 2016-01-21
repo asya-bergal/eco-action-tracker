@@ -16,7 +16,9 @@ Meteor.methods({
 
 		Meteor.users.update(
 			Meteor.userId(),
-			{ $push: { "profile.groups": groupId } }
+			{ $push: { "profile.groups": groupId,
+				 "profile.adminGroups": groupId } 
+			}
 		);	
 	},
 	removeGroup: function(groupId) {
@@ -30,7 +32,7 @@ Meteor.methods({
 		if (Groups.findOne({_id: groupId, "users.userId": userId})) {
 			// User already in group
 			throw new Meteor.Error("User already in group.");
-		} else if (Groups.findOne(groupId).usersRequesting.indexOf(userId) != -1) {
+		} else if (Groups.findOne(groupId).usersRequesting.indexOf(userId) !== -1) {
 			// User already made request to join
 			throw new Meteor.Error("User has already requested to join group.");
 		} else {
@@ -44,7 +46,7 @@ Meteor.methods({
 	addUser: function(groupId, userId) {
 		check(groupId, String);
 		check(userId, String);
-		if(Meteor.user().profile.adminGroups.indexOf(groupId) == -1) {
+		if(Meteor.user().profile.adminGroups.indexOf(groupId) === -1) {
 			throw new Meteor.Error("Current user is not admin of this group.");
 		} else if (Groups.findOne({_id: groupId, "users.userId": userId})) {
 			throw new Meteor.Error("User is already part of group.");

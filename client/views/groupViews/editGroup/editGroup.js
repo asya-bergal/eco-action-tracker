@@ -30,3 +30,33 @@ Template.editGroup.helpers({
     }
   }
 });
+
+Template.editGroup.events({
+  'submit .add-action-form': function(e){
+    e.preventDefault();
+    var actionJson = {
+      title: e.target.title.value,
+      defaultPoints: e.target.points.value,
+      dailyCap: e.target.cap.value
+    }
+
+  },
+  'submit .add-user-form': function(e){
+    e.preventDefault();
+    var userId = Meteor.users.findOne({username:event.target.username.value})._id;
+    Meteor.call("addUser",this._id,userId, function(err,res){
+      if(err){
+        console.log(err);
+      }
+    });
+  },
+  'submit .add-admin-form': function(e){
+    e.preventDefault();
+    var userId = Meteor.users.findOne({username:event.target.username.value})._id;
+    Meteor.call("addAdmin",this._id,userId, function(err,res){
+      if(err){
+        console.log(err);
+      }
+    });
+  }
+});

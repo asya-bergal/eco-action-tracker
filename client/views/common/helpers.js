@@ -1,5 +1,5 @@
 Template.registerHelper('increment', function (index) {
-    return ++index;
+    return index + 1;
 });
 
 Template.registerHelper('humanDate', function (date) {
