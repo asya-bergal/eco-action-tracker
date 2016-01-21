@@ -114,3 +114,9 @@ var GroupSchema = new SimpleSchema({
 });
 
 Groups.attachSchema(GroupSchema);
+
+GroupsIndex = new EasySearch.Index({
+	collection: Groups,
+	fields: ['name'],
+	engine: new EasySearch.Minimongo()
+});

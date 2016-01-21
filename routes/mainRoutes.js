@@ -27,3 +27,11 @@ Router.route('/register', {
     SEO.set({ title: 'Home - ' + Meteor.App.NAME });
   }
 });
+
+Router.route('/search', {
+  name: 'search',
+  action: function () {
+    this.render('search');
+    SEO.set({ title: 'Search - ' + Meteor.App.NAME});
+  }
+});
