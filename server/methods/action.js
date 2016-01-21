@@ -118,8 +118,24 @@ function takeAction(actionId, fieldEntries) {
     return points;
 }
 
+function approveAction(actionId) {
+    check(actionId, String);
+    Actions.update(actionId, {$set: 
+        { isGlobal: true, needsApproval: false } 
+    });
+}
+
+function notApproveAction(actionId) {
+    check(actionId, String);
+    Actions.update(actionId, {$set: 
+        { isGlobal: false, needsApproval: false } 
+    });
+}
+
 Meteor.methods({
     'pointsToday': pointsToday,
     'addAction': addAction,
-    'takeAction': takeAction
+    'takeAction': takeAction,
+    'approveAction': approveAction,
+    'notApproveAction': notApproveAction
 });

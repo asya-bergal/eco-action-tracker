@@ -1,7 +1,10 @@
 Template.profile.helpers({
     'actions': function () {
         // TODO: Should also be group actions
-        return Actions.find({}).fetch().splice(0,2);
+        return Actions.find({}).fetch();
+    },
+    'approvalNeeded': function (){
+        return Actions.find({needsApproval: true}).fetch().length > 0;
     },
     'getGroups' : function () {
         console.log(Groups.find({_id: {$in: Meteor.user().profile.groups}}).fetch());
@@ -43,5 +46,29 @@ Template.profile.events({
                 console.log(error);
             }
         });
+    },
+
+    "click .approve": function (event) {
+        console.log("Approving");
+        event.preventDefault();
+        var actionId = event.target.getAttribute("id");
+        console.log(actionId);
+        Meteor.call('approveAction', actionId, function(error, result) {
+            if (error) {
+                console.log(error);
+            }
+        });
+    },
+
+    "click .not-approve": function (event) {
+        console.log("Not approving");
+        event.preventDefault();
+        var actionId = event.target.getAttribute("id");
+        console.log(actionId);
+        Actions.update(actionId, {$set: 
+            { isGlobal: false, needsApproval: false } 
+        })
     }
+
+
 });
