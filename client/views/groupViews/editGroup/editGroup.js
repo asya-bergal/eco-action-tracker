@@ -69,5 +69,14 @@ Template.editGroup.events({
         console.log(err);
       }
     });
+  },
+  'click .remove-user': function(e){
+    var userId = e.target.getAttribute('id');
+    Meteor.call('removeUser', this._id, userId, function(err){
+      if(err){
+        console.log(err);
+      }
+    });
+
   }
 });

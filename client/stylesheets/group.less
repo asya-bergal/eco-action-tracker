@@ -82,47 +82,71 @@
 
 .edit-group{
   .group-title{
+    .display(flex);
+    .align-items(center);
     border-bottom: 1px solid;
     .group-name{
       font-weight: bold;
       font-size: 30px;
     }
-    .edit-pen{
-      background-image: url("/images/edit.svg");
-      height: 10px;
-      width: 10px;
+    .edit-group-name{
+      margin-left: 20px;
+      height: 25px;
+      width: 25px;
     }
   }
-
-  .competition-item{
-    .display(flex);
-    padding: 10px 20px;
-    border:1px solid;
-    border-radius: 10px;
-    background-color: lightgray;
-    .flex-direction(column);
-    .comp-name{
+  .items{
+    padding:10px;
+    .header{
+      margin: 20px 0px;
+    }
+    .competition-item{
       .display(flex);
-      .name{
-        .flex(1,1,0);
-        font-size: 20px;
+      padding: 10px 20px;
+      border:1px solid;
+      border-radius: 10px;
+      background-color: lightgray;
+      .flex-direction(column);
+      .comp-name{
+        .display(flex);
+        .name{
+          .flex(1,1,0);
+          font-size: 20px;
+        }
       }
     }
-  }
-  .new-tag{
-    font-size: 14px;
-  }
-  .new-tag:hover{
-    text-decoration: underline;
-    cursor: pointer;    
-  }
-  .user-container{
-    padding: 10px 5px;
-  }
-  .form{
-    display: none;
-  }
-  .visible{
-    display: block !important;
+    .new-tag{
+      font-size: 14px;
+    }
+    .new-tag:hover{
+      text-decoration: underline;
+      cursor: pointer;    
+    }
+    .user-listing, .admin-listing{
+      .user-container{
+        .display(flex);
+        padding: 10px 30px;
+        margin: 0px 50px;
+        border-bottom: 1px solid;
+        .user-profile-link{
+          .flex(1,1,0);
+        }
+        .remove-user{
+          margin-left: 20px;
+          height: 25px;
+          width: 25px;          
+        }
+      }
+      .user-container:first-of-type{
+        border-top: 1px solid;
+      }
+    }
+    .form{
+      display: none;
+      padding:0px 20px 20px 20px;
+    }
+    .visible{
+      display: block !important;
+    }
   }
 }
