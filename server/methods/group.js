@@ -55,20 +55,21 @@ Meteor.methods({
 			Groups.update(
 				groupId, 
 				{ $push: { users: {userId: userId, points: 0} } }
-			)
+			);
 
 			// Add group to user's list of groups
 			Meteor.users.update(
 				userId,
 				{ $push: { "profile.groups": groupId } }
-			)
+			);
 
 			// Remove user from group's list of join requests
-			if (Groups.findOne(groupId).usersRequesting.indexOf(userId) != -1) {
-				Groups.update(
+			if (Groups.findOne(groupId).usersRequesting.indexOf(userId) !== -1) {
+                                console.log("sample");
+                                Groups.update(
 					groupId,
-					{ $pull: { usersRequesting: { userId: userId } } }
-				)
+					{ $pull: { usersRequesting: userId } }
+				);
 			}
 		}
 	},
@@ -82,17 +83,17 @@ Meteor.methods({
 			Groups.update(
 				groupId, 
 				{ $pull: { users: {userId: userId} } }
-			)
+			);
 
 			// Remove group from user
 			Meteor.users.update(
 				userId,
 				{ $pull: { "profile.groups": groupId } }
-			)
+			);
 		}
 	},
 	getUsers: function(groupId, start, end) {
-		check(groupId, Strnig);
+		check(groupId, String);
 		check(start, String);
 		check(end, String);
 
@@ -105,11 +106,10 @@ Meteor.methods({
 		Groups.update(
 			parentGroupId, 
 			{ $push: { subgroups: {groupId: childGroupId, points: 0} } }
-		)
+		);
 	},
 	getSubgroups: function(groupId, start, end) {
 		check(groupId, String);
-
 		return Groups.findOne(groupId).subgroups.slice(start, end);
 	},
 	getCompetitions: function(groupId, start, end) {
@@ -126,7 +126,7 @@ Meteor.methods({
 		Groups.update(
 			groupId, 
 			{ $push: { parentGroups: parentId } }
-		)
+		);
 	},
 	/*getAllParents: function(groupId) {
 		check(groupId, String);
@@ -135,44 +135,43 @@ Meteor.methods({
 	},*/
 	getActions: function(groupId, start, end) {
 		check(groupId, String);
-
 		return Groups.findOne(groupId).actions.slice(start, end);
 	},
 	addAdmin: function(groupId, userId) {
 		check(groupId, String);
 		check(userId, String);
 
-		if (Groups.findOne(groupId).admins.indexOf(userId) != -1) {
+		if (Groups.findOne(groupId).admins.indexOf(userId) !== -1) {
 			throw new Meteor.Error("User is already admin of group.");
 		} else {
 			Groups.update(
 				groupId, 
 				{ $push: { admins: userId } }
-			)
+			);
 
 			Meteor.users.update(
 				userId,
 				{ $push: { "profile.adminGroups": groupId } }
-			)
+			);
 		}
 	},
 	removeAdmin: function(groupId, userId) {
 		check(groupId, String);
 		check(userId, String);
 
-		if (Groups.findOne(groupId).admins.indexOf(userId) != -1) {
+		if (Groups.findOne(groupId).admins.indexOf(userId) !== -1) {
 			
 			// Remove user from group
 			Groups.update(
 				groupId, 
 				{ $pull: { admins: userId } }
-			)
+			);
 
 			// Remove group from user
 			Meteor.users.update(
 				userId,
 				{ $pull: { "profile.adminGroups": groupId } }
-			)
+			);
 		}
 	},
 	getAdmins: function(groupId, start, end) {
@@ -181,6 +180,21 @@ Meteor.methods({
 		return Groups.findOne(groupId).admins.slice(start, end);
 	},
 	sortLeaderboard: function(groupId) {
-		Groups.findOne(groupId).users.sort(function(a,b){return b.points-a.points})
-	}
+            Groups.findOne(groupId).users.sort(function(a,b){return b.points-a.points;});
+	},
+        'topFiveActions': function(groupId){
+            check(groupId, String);
+            var group = Groups.findOne(groupId);
+            return group.actions.map(function(action){
+                return Actions.findOne(action);
+            });
+        },
+        'requestToJoin' : function(groupId){
+            check(groupId, String);
+            var group = Groups.findOne(groupId);
+            Groups.update(
+                groupId, 
+		{ $push: { usersRequesting: Meteor.userId() } }
+            );
+        }
 });

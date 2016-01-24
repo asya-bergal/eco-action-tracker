@@ -6,13 +6,17 @@
     </div>
     <div class='items'>
       <div class="competition-listing">
-        <h3 class="header">Competitions <span class="new-competition new-tag">New Competition</span></h3>
+        <div class="section-heading">
+            <span class="section-title">Competitions</span><span class="new-competition new-tag">New Competition</span>
+        </div>
         {{#each comp in competitions}}
           {{> editCompetition comp}}
         {{/each}}
       </div>
       <div class="action-listing">
-        <h3 class="header">Actions <span class="add-actions new-tag">Add Actions</span></h3>
+        <div class="section-heading">
+            <span class="section-title">Actions </span><span class="add-actions new-tag">Add Actions</span>
+        </div>
         <form class="add-action-form form">
             <div class="form-group">
               <label>Title:</label> <input class="form-control" name="title" type="text">
@@ -31,7 +35,9 @@
         {{/each}}
       </div>    
       <div class="user-listing">
-        <h3 class="header">Users <span class="add-user new-tag">Add User</span></h3>
+        <div class="section-heading">
+            <span class="section-title">Users </span><span class="add-user new-tag">Add User</span>
+        </div>
         <form class="add-user-form form">
             <div class=" form-group">
               <label>Username:</label> <input class="form-control" name="username" type="text">
@@ -39,11 +45,13 @@
             <input class="btn btn-default" type="submit" value="Add User">        
         </form>
         {{#each user in getUsers}}
-          <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a><img class="remove-user" id={{user._id}} src="/images/remove.svg" /></div>
+          <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a><img class="remove-user user-button" id={{user._id}} src="/images/remove.svg" /></div>
         {{/each}}
       </div>
       <div class="admin-listing">
-        <h3 class="header">Admins <span class="add-admin new-tag">Add Admin</span></h3>
+        <div class="section-heading">
+            <span class="section-title">Admins </span><span class="add-admin new-tag">Add Admin</span>
+        </div>
         <form class="add-admin-form form">
             <div class=" form-group">
               <label>Username:</label> <input class="form-control" name="username" type="text">
@@ -51,13 +59,15 @@
             <input class="btn btn-default" type="submit" value="Add Admin">        
         </form>
         {{#each admin in getAdmins}}
-          <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{admin.username}}</a><img class="remove-user" id={{user._id}} src="/images/remove.svg" /></div>
+          <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{admin.username}}</a><img class="remove-user user-button" id={{user._id}} src="/images/remove.svg" /></div>
         {{/each}}
       </div>
       <div class="user-listing">
-        <h3 class="header">Users Requesting To Join</h3>
+         <div class="section-heading">
+           <span class="section-title">Users Requesting To Join</span>
+         </div>
         {{#each user in getUserRequests}}
-          <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a><img class="remove-user" id={{user._id}} src="/images/remove.svg" /></div>
+          <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a><img class="request-user user-button" id={{user._id}} src="/images/add.svg" /><img class="remove-user user-button" id={{user._id}} src="/images/remove.svg" /></div>
         {{/each}}
       </div>
 

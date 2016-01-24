@@ -44,7 +44,6 @@ Template.editGroup.events({
   },
   'click .add-user': function(e){
     $('.add-user-form').toggleClass('visible');
-
   },
   'click .add-admin': function(e){
     $('.add-admin-form').toggleClass('visible');
@@ -56,7 +55,7 @@ Template.editGroup.events({
       title: e.target.title.value,
       defaultPoints: e.target.points.value,
       dailyCap: e.target.cap.value
-    }
+    };
 
   },
   'submit .add-user-form': function(e){
@@ -84,6 +83,13 @@ Template.editGroup.events({
         console.log(err);
       }
     });
-
+  },
+  'click .request-user': function(e){
+    var userId = e.target.getAttribute('id');
+    Meteor.call('addUser', this._id, userId, function(err){
+      if(err){
+        console.log(err);
+      }
+    });  
   }
 });

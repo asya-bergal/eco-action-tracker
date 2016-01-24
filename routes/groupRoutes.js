@@ -2,12 +2,26 @@
 Router.route('/group/:_id', {
   name: 'group',
   action: function () {
-    this.render('Group', {
+    var group = Groups.findOne(this.params._id);      
+    this.render('Group', {        
       data: function(){
-        return Groups.findOne(this.params._id);
+        return group;
       }
     });
-    SEO.set({ title: 'Home - ' + Meteor.App.NAME });
+    SEO.set({ title: group.name });
+  }
+});
+
+Router.route('/group/:_id/stats', {
+  name: 'groupStats',
+  action: function () {
+    var group = Groups.findOne(this.params._id);
+    this.render('GroupStats', {
+      data: function(){
+        return group;
+      }
+    });
+    SEO.set({ title: group.name });
   }
 });
 
@@ -30,11 +44,13 @@ Router.route('/group/:_id/newCompetition', {
 Router.route('/group/:_id/edit', {
   name: 'editGroup',
   action: function () {
-    this.render('editGroup',{
+    var group = Groups.findOne(this.params._id);      
+    this.render('editGroup', {        
       data: function(){
-        return Groups.findOne(this.params._id);
+        return group;
       }
     });
-    SEO.set({ title: 'Home - ' + Meteor.App.NAME });
+    console.log(group);
+    SEO.set({ title: group ? group.name : 'loading' });
   }
 });

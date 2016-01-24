@@ -3,150 +3,160 @@
 @import 'lib/flex';
 
 .group-page{
-  .group-title{
-    border-bottom: 1px solid;
-    .group-name{
-      font-weight: bold;
-      font-size: 30px;
+    .group-title{
+        border-bottom: 1px solid;
+        .group-name{
+            font-weight: bold;
+            font-size: 30px;
+        }
     }
-  }
-  .group-content{
-    .display(flex);
-    .left{
-      .flex(2,1,0);
-      .competition-listing{
-        padding: 10px 7%;
-        .competition-item{
-          .display(flex);
-          padding: 10px 20px;
-          border:1px solid;
-          border-radius: 10px;
-          background-color: lightgray;
-          .flex-direction(column);
-          .comp-name{
-            .display(flex);
-            .name{
-              .flex(1,1,0);
-              font-size: 20px;
+    .group-content{
+        .display(flex);
+        .left{
+            .flex(2,1,0);
+            .competition-listing{
+                padding: 10px 7%;
+                .competition-item{
+                    .display(flex);
+                    padding: 10px 20px;
+                    border:1px solid;
+                    border-radius: 10px;
+                    background-color: lightgray;
+                    .flex-direction(column);
+                    .comp-name{
+                        .display(flex);
+                        .name{
+                            .flex(1,1,0);
+                            font-size: 20px;
+                        }
+                    }
+                    .comp-desc{
+                        padding: 5px 20px;
+                        font-style: italic;
+                    }
+                }
             }
-          }
-          .comp-desc{
-            padding: 5px 20px;
-            font-style: italic;
-          }
+            .stats-header{
+                text-align: center;
+                margin-top: 50px;
+            }
+            .stats{
+                .display(flex);
+                .justify-content(center);
+                #actions-donut{
+                    .display(flex);
+                    .justify-content(center);
+                    .align-items(center);
+                    .flex-direction(column);
+                }
+                #weekly-points{
+                    .display(flex);
+                    .justify-content(center);
+                    .align-items(center);
+                    .flex-direction(column);
+                }
+            }
         }
-      }
-      .stats-header{
-        text-align: center;
-        margin-top: 50px;
-      }
-      .stats{
-        .display(flex);
-        .justify-content(center);
-        #actions-donut{
-          .display(flex);
-          .justify-content(center);
-          .align-items(center);
-          .flex-direction(column);                 
-        } 
-        #weekly-points{
-          .display(flex);
-          .justify-content(center);
-          .align-items(center);
-          .flex-direction(column);                 
+        .right{
+            .flex(1,1,0);
+            padding: 10px 20px;
+            .leaderboard-fields{
+                margin-bottom: 10px;
+            }
+            .leaderboard-listing{
+                .display(flex);
+                .place{
+                    .flex(1,1,0);
+                }
+                .username{
+                    .flex(1,1,0);
+                }
+                .points{
+                    .flex(1,1,0);
+                }
+            }
         }
-      }
     }
-    .right{
-      .flex(1,1,0);      
-      padding: 10px 20px;
-      .leaderboard-fields{
-        margin-bottom: 10px;
-      }
-      .leaderboard-listing{
-        .display(flex);
-        .place{
-           .flex(1,1,0);          
-        }
-        .username{
-          .flex(1,1,0);
-        }
-        .points{
-          .flex(1,1,0);      
-        }
-      }
-    }
-  }
 
 }
 
 .edit-group{
-  .group-title{
-    .display(flex);
-    .align-items(center);
-    border-bottom: 1px solid;
-    .group-name{
-      font-weight: bold;
-      font-size: 30px;
-    }
-    .edit-group-name{
-      margin-left: 20px;
-      height: 25px;
-      width: 25px;
-    }
-  }
-  .items{
-    padding:10px;
-    .header{
-      margin: 20px 0px;
-    }
-    .competition-item{
-      .display(flex);
-      padding: 10px 20px;
-      border:1px solid;
-      border-radius: 10px;
-      background-color: lightgray;
-      .flex-direction(column);
-      .comp-name{
+    .group-title{
         .display(flex);
-        .name{
-          .flex(1,1,0);
-          font-size: 20px;
-        }
-      }
-    }
-    .new-tag{
-      font-size: 14px;
-    }
-    .new-tag:hover{
-      text-decoration: underline;
-      cursor: pointer;    
-    }
-    .user-listing, .admin-listing{
-      .user-container{
-        .display(flex);
-        padding: 10px 30px;
-        margin: 0px 50px;
+        .align-items(center);
         border-bottom: 1px solid;
-        .user-profile-link{
-          .flex(1,1,0);
+        .group-name{
+            font-weight: bold;
+            font-size: 30px;
         }
-        .remove-user{
-          margin-left: 20px;
-          height: 25px;
-          width: 25px;          
+        .edit-group-name{
+            margin-left: 20px;
+            height: 25px;
+            width: 25px;
         }
-      }
-      .user-container:first-of-type{
-        border-top: 1px solid;
-      }
     }
-    .form{
-      display: none;
-      padding:0px 20px 20px 20px;
+    .items{
+        padding:10px;
+        .section-heading{
+            .display(flex);
+            .align-items(center);
+            font-size: 20px;
+            font-weight: bold;
+            border-bottom: 1px solid;
+            padding: 10px;
+            .section-title{
+                .flex(1,1,0);
+            }
+            .new-tag{
+                .align-self(flex-start);
+                font-size: 14px;
+                width: 150px;
+            }
+            .new-tag:hover{
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+        .competition-item{
+            .display(flex);
+            padding: 10px 20px;
+            border:1px solid;
+            border-radius: 10px;
+            background-color: lightgray;
+            .flex-direction(column);
+            .comp-name{
+                .display(flex);
+                .name{
+                    .flex(1,1,0);
+                    font-size: 20px;
+                }
+            }
+        }
+        .user-listing, .admin-listing{
+            .user-container{
+                .display(flex);
+                .align-items(center);
+                padding: 10px 30px;
+                margin: 5px 50px;
+                border: 1px solid rgba(150,150,150,1);
+                border-radius: 10px;
+                background-color: rgba(250,250,250,1);
+                .user-profile-link{
+                    .flex(1,1,0);
+                }
+                .user-button{
+                    margin-left: 20px;
+                    height: 25px;
+                    width: 25px;
+                }
+            }
+        }
+        .form{
+            display: none;
+            padding:0px 20px 20px 20px;
+        }
+        .visible{
+            display: block !important;
+        }
     }
-    .visible{
-      display: block !important;
-    }
-  }
 }
