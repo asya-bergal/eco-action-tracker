@@ -124,6 +124,6 @@ Template.editGroup.events({
    });
   },
   'click .new-competition': function(e){
-    $('.add-competition-here').toggleClass('visible');
+    $('.add-competition-form').toggleClass('visible');
   }
 });
