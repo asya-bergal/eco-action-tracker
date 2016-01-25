@@ -19,10 +19,10 @@ function pointsToday(actionId) {
     // computation
     for (var i = 0; i < me.profile.history.length; i++) {
         var h = me.profile.history[i];
-        if (h.timestamp.getFullYear() == now.getFullYear() &&
-                h.timestamp.getMonth() == now.getMonth() &&
-                h.timestamp.getDate() == now.getDate() &&
-                h.actionId == actionId) {
+        if (h.timestamp.getFullYear() === now.getFullYear() &&
+                h.timestamp.getMonth() === now.getMonth() &&
+                h.timestamp.getDate() === now.getDate() &&
+                h.actionId === actionId) {
             points += h.points;
         }
     }
@@ -36,12 +36,11 @@ function pointsToday(actionId) {
  */
 function addAction(data) {
     check(data, Object);
-    Actions.insert(data, function(err, action) {
+    return Actions.insert(data, function(err, action) {
         if (err) {
             throw new Meteor.Error("Adding new action failed.")
         }
     });
-    return;
 }
 
 /**

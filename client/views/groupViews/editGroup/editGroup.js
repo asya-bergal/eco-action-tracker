@@ -1,6 +1,13 @@
 // TODO : Fix this way of closing the form
-closeActionForm = function(){
+closeActionForm = function(actionId){
     $('.add-action-form').toggleClass('visible');
+    var groupId = $('.group-title').attr("id");
+    
+    Meteor.call('addActionToGroup', groupId, actionId, function(err){
+       if(err){
+           console.log(err);
+       } 
+    });
 };
 
 Template.editGroup.helpers({
@@ -8,7 +15,7 @@ Template.editGroup.helpers({
   'getActions': function(){
     if(this.actions){
       return this.actions.map(function(actionId){
-         return Meteor.users.findOne(actionId);;
+         return Actions.findOne(actionId);;
       });
     }
   },

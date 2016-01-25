@@ -100,7 +100,7 @@ Template['addAction'].events({
 			dailyCap: parseInt(e.target.dailyCap.value),
 			fields: fieldsParsed
 		}
-		Meteor.call("addAction", actionJson, function(err){
+		Meteor.call("addAction", actionJson, function(err, result){
                     if(err){
                         console.log(err);
                     } else{
@@ -108,7 +108,7 @@ Template['addAction'].events({
 			e.target.title.value = '';
 			e.target.defaultPoints.value = '';
 			e.target.dailyCap.value = '';
-                        closeActionForm();
+                        closeActionForm(result);
                     }
                 });
 		count = 0;

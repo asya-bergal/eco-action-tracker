@@ -1,11 +1,11 @@
-var getTopActionData = function(){
-    this.users.map(function(user){
+var getTopActionData = function(group){
+    group.users.map(function(user){
         return Meteor.users.findOne(user.userId);
     });
 
     var actionMap = {};
 
-    this.users.forEach(function(user){
+    group.users.forEach(function(user){
         user.history.forEach(function(action){
             if(actionMap[action.actionId] !== undefined){
                 actionMap[action.actionId] += action.points;
@@ -73,7 +73,7 @@ var getTopActionData = function(){
 };
 
 Template.GroupStats.rendered = function(){
-  var data = getTopActionData(),
+  var data = getTopActionData(this.data),
   donut_ctx = $("#donutChart").get(0).getContext("2d"),
   myDoughnutChart = new Chart(donut_ctx).Doughnut(data,{
     //Boolean - Whether we should show a stroke on each segment

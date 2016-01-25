@@ -1,6 +1,6 @@
 <template name="editGroup">
     <div class="edit-group">
-        <div class="group-title">
+        <div class="group-title" id={{_id}}>
             <span class="group-name">{{name}}</span>
             <input class="group-name-field hidden"  value="{{name}}" />
             <input type="image" class="edit-group-name" id={{this._id}} src="/images/edit.svg" />
@@ -27,7 +27,12 @@
                     {{> addAction}}
                 </div>                
                 {{#each action in getActions}}
-                <div class="action-container">{{action.title}}</div><img class="global user-button" id={{action._id}} src="/images/global.svg" />
+                <div class="action-container">
+                    <span class="action-title">{{action.title}}</span> 
+                    {{#unless action.needsApproval}}
+                    <img class="global user-button" id={{action._id}} src="/images/global.svg" />
+                    {{/unless}}
+                </div>
 
                 {{else}}
                 <div class="empty-collection">No Actions In This Group</div>
