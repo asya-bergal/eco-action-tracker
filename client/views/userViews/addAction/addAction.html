@@ -1,0 +1,27 @@
+<template name="addAction">
+	<div id="add-action-title">
+		<span>Add an action</span>
+	</div>
+    <form id="add-action">
+    	<div class="to-add form-group">
+    		<label>Action name: </label><input class="form-control" name="title" type="text">
+    	</div>
+    	<div class="to-add form-group">
+    		<label>Default point value: </label><input class="form-control" name="defaultPoints" type="number" min="0">
+    	</div>
+    	<div class="to-add form-group">
+    		<label>Daily maximum points: </label><input class="form-control" name="dailyCap" type="number" min="0">
+    	</div>
+    	
+    	<div id="add-fields">
+    		<div class="add-fields-header">
+    			<h3>Add fields:</h3>
+    			<input type="image" src="/images/add139.svg" class="icon add-field-button">
+    		</div>
+    	</div>
+    	<div class="text-center">
+    		<button type="submit" class="btn btn-default">Add new action</button>
+    	</div>
+    	
+    </form>
+</template>

@@ -23,11 +23,13 @@ ActionSchema = new SimpleSchema({
     },
     isGlobal: {
         type: Boolean,
-        label: "Whether the action counts for global points"
+        label: "Whether the action counts for global points",
+        defaultValue: false
     },
     needsApproval: {
         type: Boolean,
-        label: "Whether action is awaiting global approval"
+        label: "Whether action is awaiting global approval",
+        defaultValue: false
     },
     fields: {
         type: [Object],

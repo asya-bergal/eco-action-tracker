@@ -35,3 +35,11 @@ Router.route('/search', {
     SEO.set({ title: 'Search - ' + Meteor.App.NAME});
   }
 });
+
+Router.route('/add-action', {
+  name: 'addAction',
+  action: function () {
+    this.render('addAction');
+    SEO.set({ title: 'Add an action - ' + Meteor.App.NAME});
+  }
+});
