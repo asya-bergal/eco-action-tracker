@@ -5,23 +5,39 @@
 .group-page{
     .group-title{
         border-bottom: 1px solid;
+        margin-bottom: 10px;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: flex-start;
+        align-items: center;
+
         .group-name{
             font-weight: bold;
             font-size: 30px;
+            margin-right: 15px;
         }
     }
     .group-content{
         .display(flex);
+        padding: 0 10px;
+
+        .section-header {
+            border-bottom: 1px solid rgba(150,150,150,1);
+            padding-bottom: 10px;
+            margin-bottom: 0;
+        }
+
         .left{
             .flex(2,1,0);
             .competition-listing{
-                padding: 10px 7%;
+                padding: 10px 0;
+                margin-right: 30px;
+
                 .competition-item{
                     .display(flex);
                     padding: 10px 20px;
-                    border:1px solid;
-                    border-radius: 10px;
-                    background-color: lightgray;
+                    border-bottom:1px solid rgba(150,150,150,1);
+                    background-color: rgba(250,250,250,1);
                     .flex-direction(column);
                     .comp-name{
                         .display(flex);
@@ -37,8 +53,9 @@
                 }
             }
             .stats-header{
-                text-align: center;
+                /*text-align: center;*/
                 margin-top: 50px;
+                margin-bottom: 20px;
             }
             .stats{
                 .display(flex);
@@ -59,21 +76,39 @@
         }
         .right{
             .flex(1,1,0);
-            padding: 10px 20px;
+            padding: 10px 0;
+            margin-left: 30px;
+
             .leaderboard-fields{
                 margin-bottom: 10px;
+                font-size: 1.25em;
+                font-weight: bold;
+                margin-top: 10px;
+                /*border-top: 1px solid rgba(150,150,150,1);*/
+                
+                text-align: center;
             }
+
             .leaderboard-listing{
                 .display(flex);
+                text-align: center;
+
                 .place{
                     .flex(1,1,0);
+
                 }
                 .username{
-                    .flex(1,1,0);
+                    .flex(2,1,0);
                 }
                 .points{
                     .flex(1,1,0);
                 }
+            }
+
+            .leaderboard-content {
+                font-size: 1.1em;
+                margin-bottom: 5px;
+                /*padding-top: 10px;*/
             }
         }
     }
@@ -123,13 +158,6 @@
                 cursor: pointer;
             }
         }
-
-/*        .add-competition-form {
-            padding: 10px;
-            border: 1px solid;
-            border-radius: 5px;
-            background-color: rgb(161,232,161,0.8);
-        }*/
 
         .competition-item{
             .display(flex);
