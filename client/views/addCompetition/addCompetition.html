@@ -17,8 +17,11 @@
     	</div>
 
     	<div id="competitionActions">
+    		<div class="select-actions-header add-fields-header">
+    			<h3>Select actions:</h3>
+    		</div>
     		{{#each getActions}}
-    		<label><input type="checkbox" checked="true" name="{{_id}}">{{title}}</label>
+    		<label class="action-to-add"><input type="checkbox" checked="true" name="{{_id}}">{{title}}</label>
     		{{/each}}
     	</div>
 
