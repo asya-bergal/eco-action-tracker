@@ -114,7 +114,6 @@ Template.editGroup.events({
    });
   },
   'click .new-competition': function(e){
-    console.log("Adding new competition");
     $('.add-competition-here').toggleClass('visible');
   }
 });
