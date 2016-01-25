@@ -7,7 +7,7 @@ Meteor.methods({
 		Groups.update(
 			groupId, 
 			{ $push: { competitions: competition } }
-		)
+		);
 	},
 	removeCompetition: function(groupId, competitionId) {
 		check(groupId, String);
@@ -16,6 +16,6 @@ Meteor.methods({
 		Groups.update(
 			groupId, 
 			{ $pull: { competitions: competitionId } }
-		)
+		);
 	}
 });

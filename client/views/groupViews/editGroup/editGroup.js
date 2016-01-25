@@ -35,6 +35,9 @@ Template.editGroup.helpers({
         return Meteor.users.findOne(userId);
       });
     }    
+  },
+  diff: function(id){
+      return id !== Meteor.userId();
   }
 });
 
@@ -91,5 +94,23 @@ Template.editGroup.events({
         console.log(err);
       }
     });  
+  },
+  'click .global': function(e){
+    var actionId = e.target.getAttribute('id');
+    Meteor.call('submitForApproval', actionId, function(err){
+      if(err){
+        console.log(err);
+      }
+    });     
+  },
+  'click .edit-group-name': function(e){
+      console.log('eyy');
+   $('.group-name').toggleClass('hidden');
+   $('.group-name-field').toggleClass('visible');
+   Meteor.call('updateGroupName', this._id, $('.group-name-field').val(), function(err){
+      if(err){
+          console.log(err);
+      } 
+   });
   }
 });

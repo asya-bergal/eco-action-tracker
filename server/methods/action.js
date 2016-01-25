@@ -132,10 +132,18 @@ function notApproveAction(actionId) {
     });
 }
 
+function submitForApproval(actionId){
+    check(actionId, String);
+    Actions.update(actionId, {$set: 
+        { needsApproval: false } 
+    });    
+}
+
 Meteor.methods({
     'pointsToday': pointsToday,
     'addAction': addAction,
     'takeAction': takeAction,
     'approveAction': approveAction,
-    'notApproveAction': notApproveAction
+    'notApproveAction': notApproveAction,
+    'submitForApproval': submitForApproval
 });

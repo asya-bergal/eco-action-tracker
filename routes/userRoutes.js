@@ -8,7 +8,7 @@ Router.route('/user/profile/', {
     } else {
       this.redirect('/')
     }
-    SEO.set({ title: 'Home - ' + Meteor.App.NAME });
+    SEO.set({ title: Meteor.user().username});
   }
 });
 
@@ -21,7 +21,7 @@ Router.route('/user/:_id/history', {
         return Meteor.users.findOne(this.params._id);
       }
     });
-    SEO.set({ title: 'Home - ' + Meteor.App.NAME });
+    SEO.set({ title: Meteor.user().username });
   }
 });
 

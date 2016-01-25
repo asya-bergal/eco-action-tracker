@@ -196,5 +196,15 @@ Meteor.methods({
                 groupId, 
 		{ $push: { usersRequesting: Meteor.userId() } }
             );
+        },
+        'updateGroupName' : function(groupId, newName){
+            check(groupId, String);
+            check(newName, String);
+            var group = Groups.findOne(groupId);
+            Groups.update(
+                groupId, 
+		{ $set: { name: newName } }
+            );
+            
         }
 });

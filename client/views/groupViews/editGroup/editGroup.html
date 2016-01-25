@@ -1,90 +1,115 @@
 <template name="editGroup">
-  <div class="edit-group">
-    <div class="group-title">
-      <span class="group-name">{{name}}</span>
-      <img class="edit-group-name" id={{this._id}} src="/images/edit.svg" />
-    </div>
-    <div class='items'>
-      <div class="competition-listing">
-        <div class="section-heading">
-            <span class="section-title">Competitions</span><span class="new-competition new-tag">New Competition</span>
+    <div class="edit-group">
+        <div class="group-title">
+            <span class="group-name">{{name}}</span>
+            <input class="group-name-field hidden"  value="{{name}}" />
+            <img class="edit-group-name" id={{this._id}} src="/images/edit.svg" />
         </div>
-        {{#each comp in competitions}}
-          {{> editCompetition comp}}
-        {{/each}}
-      </div>
-      <div class="action-listing">
-        <div class="section-heading">
-            <span class="section-title">Actions </span><span class="add-actions new-tag">Add Actions</span>
+        <div class='items'>
+            <div class="competition-listing">
+                <div class="section-heading">
+                    <span class="section-title">Competitions</span><span class="new-competition new-tag">New Competition</span>
+                </div>
+                {{#each comp in competitions}}
+                    {{> editCompetition comp}}
+                {{else}}
+                <div class="empty-collection">No Competitions</div>
+                {{/each}}
+            </div>
+            <div class="action-listing">
+                <div class="section-heading">
+                    <span class="section-title">Actions </span><span class="add-actions new-tag">Add Actions</span>
+                </div>
+                <form class="add-action-form form">
+                    <div class="form-group">
+                        <label>Title:</label> <input class="form-control" name="title" type="text">
+                    </div>
+                    <div class="form-group">
+                        <label>Base Points:</label> <input class="form-control" name="points" type="number">
+                    </div>
+                    <div class="form-group">
+                        <label>Daily Cap:</label> <input class="form-control" name="cap" type="number">
+                    </div>
+
+                    <input class="btn btn-default" type="submit" value="Add Action">        
+                </form>      
+                {{#each action in getActions}}
+                <div class="action-container">{{action.title}}</div><img class="global user-button" id={{action._id}} src="/images/global.svg" />
+
+                {{else}}
+                <div class="empty-collection">No Actions In This Group</div>
+                {{/each}}
+            </div>    
+            <div class="user-listing">
+                <div class="section-heading">
+                    <span class="section-title">Users </span><span class="add-user new-tag">Add User</span>
+                </div>
+                <form class="add-user-form form">
+                    <div class=" form-group">
+                        <label>Username:</label> <input class="form-control" name="username" type="text">
+                    </div>
+                    <input class="btn btn-default" type="submit" value="Add User">        
+                </form>
+                {{#each user in getUsers}}
+                <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a>
+                    {{#if diff user._id}}
+                    <img class="remove-user user-button" id={{user._id}} src="/images/remove.svg" />
+                    {{/if}}
+                </div>              
+                {{else}}
+                <div class="empty-collection">No Users</div>
+                {{/each}}
+            </div>
+            <div class="admin-listing">
+                <div class="section-heading">
+                    <span class="section-title">Admins </span><span class="add-admin new-tag">Add Admin</span>
+                </div>
+                <form class="add-admin-form form">
+                    <div class=" form-group">
+                        <label>Username:</label> <input class="form-control" name="username" type="text">
+                    </div>
+                    <input class="btn btn-default" type="submit" value="Add Admin">        
+                </form>
+                {{#each admin in getAdmins}}
+                <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{admin.username}}</a>
+                    {{#if diff admin._id}}
+                    <img class="remove-user user-button" id={{admin._id}} src="/images/remove.svg" />
+                    {{/if}}
+                </div>                    
+                {{else}}
+                <div class="empty-collection">No Admins In This Group</div>
+                {{/each}}
+            </div>
+            <div class="user-listing">
+                <div class="section-heading">
+                    <span class="section-title">Users Requesting To Join</span>
+                </div>
+                {{#each user in getUserRequests}}
+                <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a>
+                    {{#if diff user._id}}
+                        <img class="request-user user-button" id={{user._id}} src="/images/add.svg" />
+                        <img class="remove-user user-button" id={{user._id}} src="/images/remove.svg" />                   
+                    {{/if}}
+                </div>
+                {{else}}
+                <div class="empty-collection">No Join Requests Currently</div>
+                {{/each}}
+            </div>
+
         </div>
-        <form class="add-action-form form">
-            <div class="form-group">
-              <label>Title:</label> <input class="form-control" name="title" type="text">
-            </div>
-            <div class="form-group">
-              <label>Base Points:</label> <input class="form-control" name="points" type="number">
-            </div>
-            <div class="form-group">
-              <label>Daily Cap:</label> <input class="form-control" name="cap" type="number">
-            </div>
-                                   
-            <input class="btn btn-default" type="submit" value="Add Action">        
-        </form>      
-        {{#each action in getActions}}
-          <div class="action-container">{{action.title}}</div>
-        {{/each}}
-      </div>    
-      <div class="user-listing">
-        <div class="section-heading">
-            <span class="section-title">Users </span><span class="add-user new-tag">Add User</span>
-        </div>
-        <form class="add-user-form form">
-            <div class=" form-group">
-              <label>Username:</label> <input class="form-control" name="username" type="text">
-            </div>
-            <input class="btn btn-default" type="submit" value="Add User">        
-        </form>
-        {{#each user in getUsers}}
-          <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a><img class="remove-user user-button" id={{user._id}} src="/images/remove.svg" /></div>
-        {{/each}}
-      </div>
-      <div class="admin-listing">
-        <div class="section-heading">
-            <span class="section-title">Admins </span><span class="add-admin new-tag">Add Admin</span>
-        </div>
-        <form class="add-admin-form form">
-            <div class=" form-group">
-              <label>Username:</label> <input class="form-control" name="username" type="text">
-            </div>
-            <input class="btn btn-default" type="submit" value="Add Admin">        
-        </form>
-        {{#each admin in getAdmins}}
-          <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{admin.username}}</a><img class="remove-user user-button" id={{user._id}} src="/images/remove.svg" /></div>
-        {{/each}}
-      </div>
-      <div class="user-listing">
-         <div class="section-heading">
-           <span class="section-title">Users Requesting To Join</span>
-         </div>
-        {{#each user in getUserRequests}}
-          <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a><img class="request-user user-button" id={{user._id}} src="/images/add.svg" /><img class="remove-user user-button" id={{user._id}} src="/images/remove.svg" /></div>
-        {{/each}}
-      </div>
 
     </div>
-
-  </div>
 </template>
 
 <template name="editCompetition">
-  <div class="competition-item">
-    <div class="comp-name">
-      <span class="name">{{name}}</span> <span class="end-time"> Ends {{humanDate end}}</span>
+    <div class="competition-item">
+        <div class="comp-name">
+            <span class="name">{{name}}</span> <span class="end-time"> Ends {{humanDate end}}</span>
+        </div>
+        <div class="comp-desc">
+            <span class="desc">{{description}}</span>
+        </div>
     </div>
-    <div class="comp-desc">
-      <span class="desc">{{description}}</span>
-    </div>
-  </div>
 </template>
 
 
