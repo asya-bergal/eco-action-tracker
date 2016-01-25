@@ -1,3 +1,8 @@
+// TODO : Fix this way of closing the form
+closeActionForm = function(){
+    $('.add-action-form').toggleClass('visible');
+};
+
 Template.editGroup.helpers({
 
   'getActions': function(){
@@ -51,22 +56,15 @@ Template.editGroup.events({
   'click .add-admin': function(e){
     $('.add-admin-form').toggleClass('visible');
   },
-
-  'submit .add-action-form': function(e){
-    e.preventDefault();
-    var actionJson = {
-      title: e.target.title.value,
-      defaultPoints: e.target.points.value,
-      dailyCap: e.target.cap.value
-    };
-
-  },
   'submit .add-user-form': function(e){
     e.preventDefault();
-    var userId = Meteor.users.findOne({username:event.target.username.value})._id;
+    var userId = Meteor.users.findOne({username:e.target.username.value})._id;
     Meteor.call("addUser",this._id,userId, function(err,res){
       if(err){
         console.log(err);
+      }else {
+        e.target.username.value = '';
+        $('.add-user-form').toggleClass('visible');
       }
     });
   },
@@ -76,6 +74,9 @@ Template.editGroup.events({
     Meteor.call("addAdmin",this._id,userId, function(err,res){
       if(err){
         console.log(err);
+      }else {
+        e.target.username.value = '';
+        $('.add-admin-form').toggleClass('visible');
       }
     });
   },
@@ -92,6 +93,8 @@ Template.editGroup.events({
     Meteor.call('addUser', this._id, userId, function(err){
       if(err){
         console.log(err);
+      } else {
+          
       }
     });  
   },

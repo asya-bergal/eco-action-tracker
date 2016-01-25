@@ -59,8 +59,8 @@ Template['addAction'].events({
 
 	'submit #add-action': function(e) {
 		e.preventDefault();
-
-		var fieldsParsed = []
+                console.log('add');
+		var fieldsParsed = [];
 		var fields = $('#add-fields').children();
 		for(var i = 1; i < fields.length; i++) {
 			var fieldName = "fieldName" + (i-1);
@@ -84,6 +84,16 @@ Template['addAction'].events({
 			fields: fieldsParsed
 		}
 		console.log(actionJson);
-		Meteor.call("addAction", actionJson)
+		Meteor.call("addAction", actionJson, function(err){
+                    if(err){
+                        console.log(err);
+                    } else{
+                        $("#add-fields").html('');
+			e.target.title.value = '';
+			e.target.defaultPoints.value = '';
+			e.target.dailyCap.value = '';
+                        closeActionForm();
+                    }
+                });
 	}
 });

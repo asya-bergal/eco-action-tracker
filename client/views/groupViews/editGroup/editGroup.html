@@ -20,19 +20,9 @@
                 <div class="section-heading">
                     <span class="section-title">Actions </span><span class="add-actions new-tag">Add Actions</span>
                 </div>
-                <form class="add-action-form form">
-                    <div class="form-group">
-                        <label>Title:</label> <input class="form-control" name="title" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label>Base Points:</label> <input class="form-control" name="points" type="number">
-                    </div>
-                    <div class="form-group">
-                        <label>Daily Cap:</label> <input class="form-control" name="cap" type="number">
-                    </div>
-
-                    <input class="btn btn-default" type="submit" value="Add Action">        
-                </form>      
+                <div class="add-action-form edit-form">
+                    {{> addAction}}
+                </div>                
                 {{#each action in getActions}}
                 <div class="action-container">{{action.title}}</div><img class="global user-button" id={{action._id}} src="/images/global.svg" />
 
@@ -44,7 +34,7 @@
                 <div class="section-heading">
                     <span class="section-title">Users </span><span class="add-user new-tag">Add User</span>
                 </div>
-                <form class="add-user-form form">
+                <form class="add-user-form edit-form">
                     <div class=" form-group">
                         <label>Username:</label> <input class="form-control" name="username" type="text">
                     </div>
@@ -64,7 +54,7 @@
                 <div class="section-heading">
                     <span class="section-title">Admins </span><span class="add-admin new-tag">Add Admin</span>
                 </div>
-                <form class="add-admin-form form">
+                <form class="add-admin-form edit-form">
                     <div class=" form-group">
                         <label>Username:</label> <input class="form-control" name="username" type="text">
                     </div>

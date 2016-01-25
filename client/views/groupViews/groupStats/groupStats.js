@@ -1,36 +1,79 @@
-Template.GroupStats.rendered = function(){
-  var data = [
+var getTopActionData = function(){
+    this.users.map(function(user){
+        return Meteor.users.findOne(user.userId);
+    });
+
+    var actionMap = {};
+
+    this.users.forEach(function(user){
+        user.history.forEach(function(action){
+            if(actionMap[action.actionId] !== undefined){
+                actionMap[action.actionId] += action.points;
+            }else {
+                actionMap[action.actionId] = 0;
+            }
+        });     
+    });
+    
+    var topFive = [{points: 0},{points: 0},{points: 0},{points: 0},{points: 0}];
+    
+    Object.keys(actionMap).forEach(function(actionId){
+        if(actionMap[actionId] > topFive[0].points){
+            topFive.pop();
+            topFive.splice(0,0,{actionId: actionId, points: actionMap[actionId]});
+        } else if (actionMap[actionId] > topFive[1].points){
+            topFive.pop();
+            topFive.splice(1,0,{actionId: actionId, points: actionMap[actionId]});            
+        } else if (actionMap[actionId] > topFive[2].points){
+            topFive.pop();
+            topFive.splice(2,0,{actionId: actionId, points: actionMap[actionId]});            
+        } else if (actionMap[actionId] > topFive[3].points){
+            topFive.pop();
+            topFive.splice(3,0,{actionId: actionId, points: actionMap[actionId]});          
+        } else if (actionMap[actionId] > topFive[4].points){
+            topFive.pop();
+            topFive.splice(4,0,{actionId: actionId, points: actionMap[actionId]});            
+        }
+    });
+
+    var colors = [
     {
-        value: 300,
         color:"#F7464A",
-        highlight: "#FF5A5E",
-        label: "Riding Bike to School"
+        highlight: "#FF5A5E"
     },
     {
-        value: 50,
         color: "#bfc1ca",
-        highlight: "#e5e6e9",
-        label: "Turn Off the Lights"
+        highlight: "#e5e6e9"
     },
     {
-        value: 150,
         color: "#33b4ff",
-        highlight: "#84d2ff",
-        label: "Planting a Tree"
+        highlight: "#84d2ff"
     },
     {
-        value: 200,
         color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Bought Local Goods"
+        highlight: "#5AD3D1"
     },        
     {
-        value: 100,
         color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Using Reuseable Water Bottle"
+        highlight: "#FFC870"
     }
-  ],
+  ];
+
+    topFive.map(function(action, index){
+        if(action.actionId){
+            var actionDoc = Actions.findOne(action.actionId),
+            color = colors[index];
+            color.label = actionDoc.title;
+            color.value = action.points;
+            return color;
+        }
+    });
+
+    return topFive;
+};
+
+Template.GroupStats.rendered = function(){
+  var data = getTopActionData(),
   donut_ctx = $("#donutChart").get(0).getContext("2d"),
   myDoughnutChart = new Chart(donut_ctx).Doughnut(data,{
     //Boolean - Whether we should show a stroke on each segment
