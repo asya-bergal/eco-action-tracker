@@ -1,12 +1,10 @@
 var getTopActionData = function(group){
-    group.users.map(function(user){
-        return Meteor.users.findOne(user.userId);
-    });
-
+ 
+    var users = Meteor.users.find({_id: {$in: group.users.map(function(u){return u.userId;})}}).fetch();
     var actionMap = {};
 
-    group.users.forEach(function(user){
-        user.history.forEach(function(action){
+    users.forEach(function(user){
+        user.profile.history.forEach(function(action){
             if(actionMap[action.actionId] !== undefined){
                 actionMap[action.actionId] += action.points;
             }else {
@@ -59,20 +57,61 @@ var getTopActionData = function(group){
     }
   ];
 
-    topFive.map(function(action, index){
+    var data = topFive.map(function(action, index){
         if(action.actionId){
             var actionDoc = Actions.findOne(action.actionId),
             color = colors[index];
-            color.label = actionDoc.title;
-            color.value = action.points;
-            return color;
+            return {
+                label: actionDoc.title,
+                color: color.color,
+                highlight: color.highlight,
+                value: action.points
+            };
+        }else {
+            color = colors[index];
+            return {
+                color: color.color,
+                highlight: color.highlight,
+                value: action.points
+            };
+            
         }
     });
+    return data;
+},
+    getWeeklyData = function(group){
+        var users = Meteor.users.find({_id: {$in: group.users.map(function(u){return u.userId;})}}).fetch();
+        var weekMap = {"Monday":0, "Tuesday":0, "Wednesday":0, "Thursday":0, "Friday":0, "Saturday":0, "Sunday":0 };
+        var weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-    return topFive;
-};
+        users.forEach(function(user){
+            user.profile.history.forEach(function(action){
+                var day = action.timestamp.getDay();
+                weekMap[weekDays[day]] += action.points;
+            });     
+        });
+
+
+        return {
+            labels: weekDays,
+            datasets: [{
+            label: "Points over the last week.",
+            fillColor: "rgba(220,220,220,0.2)",
+            strokeColor: "rgba(220,220,220,1)",
+            pointColor: "rgba(220,220,220,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(220,220,220,1)",
+            data: weekDays.map(function(key){return weekMap[key];})
+        }]
+    };
+        
+    };
 
 Template.GroupStats.rendered = function(){
+  if(!this.data){
+      return;
+  }
   var data = getTopActionData(this.data),
   donut_ctx = $("#donutChart").get(0).getContext("2d"),
   myDoughnutChart = new Chart(donut_ctx).Doughnut(data,{
@@ -106,19 +145,7 @@ Template.GroupStats.rendered = function(){
 
 });
 
-  var points_data = {
-    labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    datasets: [{
-            label: "Points over the last week.",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
-            data: [65, 59, 80, 81, 56, 55, 40]
-        }]
-    },
+  var points_data = getWeeklyData(this.data),
     line_ctx = $("#lineChart").get(0).getContext("2d"),
     myLineChart = new Chart(line_ctx).Line(points_data,{
 

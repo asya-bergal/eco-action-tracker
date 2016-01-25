@@ -1,7 +1,7 @@
 <template name="editGroup">
     <div class="edit-group">
         <div class="group-title" id={{_id}}>
-            <span class="group-name">{{name}}</span>
+            <span class="group-name"><a href="/group/{{this._id}}">{{name}}</a></span>
             <input class="group-name-field hidden"  value="{{name}}" />
             <input type="image" class="edit-group-name" id={{this._id}} src="/images/edit.svg" />
         </div>

@@ -38,7 +38,7 @@
             }
             .stats-header{
                 text-align: center;
-                margin-top: 50px;
+                margin: 50px 0px;
             }
             .stats{
                 .display(flex);
@@ -77,7 +77,30 @@
             }
         }
     }
-
+    .group-stats{
+        .display(flex);
+        .flex-direction(column);
+            .stats-header{
+                text-align: center;
+                margin-top: 50px;
+            }        
+        .stats{
+            .display(flex);
+            .justify-content(center);
+            #actions-donut{
+                .display(flex);
+                .justify-content(center);
+                .align-items(center);
+                .flex-direction(column);
+            }
+            #weekly-points{
+                .display(flex);
+                .justify-content(center);
+                .align-items(center);
+                .flex-direction(column);
+            }
+        }
+    }
 }
 
 .edit-group{
@@ -93,7 +116,7 @@
             display: none;
             font-weight: bold;
             font-size: 30px;
-            
+
         }
         .edit-group-name{
             margin-left: 20px;

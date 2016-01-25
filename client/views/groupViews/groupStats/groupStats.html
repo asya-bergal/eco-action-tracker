@@ -2,7 +2,7 @@
 
 <div class="group-page group-stats-page">
   <div class="group-title">
-    <span class="group-name">{{name}}</span>
+      <span class="group-name"><a href="/group/{{this._id}}">{{name}}</a></span>
     {{#if admin}}
     <a class="group-edit" href="/group/{{_id}}/edit">Edit group</a>
     {{/if}}

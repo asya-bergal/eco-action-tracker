@@ -8,6 +8,7 @@ Template.Group.helpers({
   },
   'getUsers': function(){
     if(this.users){
+        this.users.sort(function(a,b){return a.points - b.points;});
       return this.users.map(function(user){
         user_doc = Meteor.users.findOne(user.userId);
         user_doc.groupPoints = user.points;
