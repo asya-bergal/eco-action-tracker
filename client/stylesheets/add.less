@@ -1,0 +1,63 @@
+@import 'variables';
+@import 'lib/elements';
+@import 'lib/flex';
+
+.add-title {
+	font-weight: bold;
+	font-size: 30px;
+	border-bottom: 1px solid;
+	margin-bottom: 20px;
+}
+
+.to-add {
+	display: block;
+	vertical-align: middle;
+
+	label {
+		text-align: right;
+		padding-right: 15px;
+		width: 20%;
+	}
+
+	input {
+		display: inline-block;
+		width: 80%;
+	}
+}
+
+#add-fields {
+	width: 90%;
+	margin: 30px auto;
+
+	.add-fields-header {
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: space-between;
+		align-items:center;
+
+		border-bottom: 1px solid;
+	}
+
+	.inline-icon {
+		width: 1.5em;
+		height: 1.5em;
+		margin: 0 5px;
+	}
+}
+
+.field {
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+	align-items:center;
+
+	.form-control {
+		margin: 0 10px;
+	}
+
+	input[type="radio"] {
+		height: 3em;
+		width: 3em;
+		margin: 0 10px;
+	}
+}

@@ -1,0 +1,36 @@
+<template name="addCompetition">
+    <div id="add-competition-title" class="add-title">
+    	<span>Add a competition</span>
+    </div>
+    <form id="add-competition">
+    	<div class="to-add form-group">
+    		<label>Competition name: </label><input class="form-control" name="name" type="text">
+    	</div>
+    	<div class="to-add form-group">
+    		<label>Description: </label><input class="form-control" name="description" type="text">
+    	</div>
+    	<div class="to-add form-group">
+    		<label>Start Date: </label><input class="form-control" name="startDate" type="date">
+    	</div>
+    	<div class="to-add form-group">
+    		<label>End Date: </label><input class="form-control" name="endDate" type="date">
+    	</div>
+
+    	<div id="competitionActions">
+    		{{#each actions}}
+    		<label><input type="checkbox" checked="true">{{title}}</label>
+    		{{/each}}
+    	</div>
+    	
+    	<!-- <div id="add-fields">
+    		<div class="add-fields-header">
+    			<h3>Add fields:</h3>
+    			<input type="image" src="/images/add139.svg" class="icon add-field-button">
+    		</div>
+    	</div>
+    	<div class="text-center">
+    		<button type="submit" class="btn btn-default">Add new action</button>
+    	</div> -->
+    	
+    </form>
+</template>
