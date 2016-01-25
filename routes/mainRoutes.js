@@ -31,7 +31,7 @@ Router.route('/register', {
 Router.route('/search', {
   name: 'search',
   action: function () {
-    this.render('search');
+    this.render('searchActions');
     SEO.set({ title: 'Search - ' + Meteor.App.NAME});
   }
 });
@@ -41,5 +41,13 @@ Router.route('/add-action', {
   action: function () {
     this.render('addAction');
     SEO.set({ title: 'Add an action - ' + Meteor.App.NAME});
+  }
+});
+
+Router.route('/add-competition', {
+  name: 'addCompetition',
+  action: function () {
+    this.render('addCompetition');
+    SEO.set({ title: 'Add a competition - ' + Meteor.App.NAME});
   }
 });

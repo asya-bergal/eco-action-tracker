@@ -13,6 +13,7 @@ Template['addAction'].events({
 
 		var container = document.getElementById('add-fields');
 		var field = document.createElement("div");
+		field.id = "field" + count;
 		field.className = "field form-group";
 		
 		var name = document.createElement("input");
@@ -53,8 +54,24 @@ Template['addAction'].events({
 		multiplyLabel.innerHTML = "Multiply";
 		field.appendChild(multiplyLabel);
 
+		var removeButton = document.createElement("input");
+		removeButton.name = "" + count;
+		removeButton.className = "removeButton inline-icon";
+		removeButton.type = "image";
+		removeButton.src = "/images/remove.svg";
+		field.appendChild(removeButton);
+
 		container.appendChild(field);
 		fieldCount();
+	},
+
+	'click .removeButton': function(e) {
+		e.preventDefault();
+		var index = e.target.name;
+		var fieldId = "field" + index;
+		var parent = document.getElementById('add-fields');
+		var child = document.getElementById(fieldId);
+		parent.removeChild(child);
 	},
 
 	'submit #add-action': function(e) {
@@ -85,5 +102,6 @@ Template['addAction'].events({
 		}
 		console.log(actionJson);
 		Meteor.call("addAction", actionJson)
+		count = 0;
 	}
 });

@@ -3,12 +3,15 @@
         <div class="group-title">
             <span class="group-name">{{name}}</span>
             <input class="group-name-field hidden"  value="{{name}}" />
-            <img class="edit-group-name" id={{this._id}} src="/images/edit.svg" />
+            <input type="image" class="edit-group-name" id={{this._id}} src="/images/edit.svg" />
         </div>
         <div class='items'>
             <div class="competition-listing">
                 <div class="section-heading">
                     <span class="section-title">Competitions</span><span class="new-competition new-tag">New Competition</span>
+                </div>
+                <div class="add-competition-here hidden">
+                    {{> addCompetition this._id}}
                 </div>
                 {{#each comp in competitions}}
                     {{> editCompetition comp}}
