@@ -53,3 +53,9 @@ ActionSchema = new SimpleSchema({
 });
 
 Actions.attachSchema(ActionSchema);
+
+ActionsIndex = new EasySearch.Index({
+    collection: Actions,
+    fields: ['title'],
+    engine: new EasySearch.Minimongo()
+});
