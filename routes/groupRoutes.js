@@ -25,22 +25,6 @@ Router.route('/group/:_id/stats', {
     }
 });
 
-Router.route('/group', {
-    name: 'groupList',
-    action: function () {
-        this.render('groupList');
-        SEO.set({title: 'Home - ' + Meteor.App.NAME});
-    }
-});
-
-Router.route('/group/:_id/newCompetition', {
-    name: 'newCompetition',
-    action: function () {
-        this.render('newCompetition');
-        SEO.set({title: 'Home - ' + Meteor.App.NAME});
-    }
-});
-
 Router.route('/group/:_id/edit', {
     name: 'editGroup',
     action: function () {

@@ -34,3 +34,16 @@ Router.route('/user/:_id/groups', {
         SEO.set({title: 'Home - ' + Meteor.App.NAME});
     }
 });
+
+Router.route('/user/admin', {
+    name: 'userGroups',
+    action: function(){
+        if(Meteor.user().profile.globalAdmin){
+            this.render('admin', {
+            });
+        SEO.set({title: 'Global Settings'});            
+        } else {
+            this.redirect('/user/profile/');
+        }
+    }
+});
