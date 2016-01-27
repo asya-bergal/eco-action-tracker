@@ -11,10 +11,17 @@ Template['addAction'].events({
 	'click .add-field-button': function(e) {
 		e.preventDefault();
 
-		var container = document.getElementById('add-fields');
+		var container = document.getElementById('new-fields');
 		var field = document.createElement("div");
 		field.id = "field" + count;
 		field.className = "field form-group";
+
+		var removeButton = document.createElement("input");
+		removeButton.name = "" + count;
+		removeButton.className = "removeButton inline-icon";
+		removeButton.type = "image";
+		removeButton.src = "/images/remove.svg";
+		field.appendChild(removeButton);
 		
 		var name = document.createElement("input");
 		name.name = "fieldName" + count;
@@ -54,13 +61,6 @@ Template['addAction'].events({
 		multiplyLabel.innerHTML = "Multiply";
 		field.appendChild(multiplyLabel);
 
-		var removeButton = document.createElement("input");
-		removeButton.name = "" + count;
-		removeButton.className = "removeButton inline-icon";
-		removeButton.type = "image";
-		removeButton.src = "/images/remove.svg";
-		field.appendChild(removeButton);
-
 		container.appendChild(field);
 		fieldCount();
 	},
@@ -69,30 +69,33 @@ Template['addAction'].events({
 		e.preventDefault();
 		var index = e.target.name;
 		var fieldId = "field" + index;
-		var parent = document.getElementById('add-fields');
+		var parent = document.getElementById('new-fields');
 		var child = document.getElementById(fieldId);
 		parent.removeChild(child);
 	},
 
 	'submit #add-action': function(e) {
 		e.preventDefault();
-                console.log('add');
+
 		var fieldsParsed = [];
-		var fields = $('#add-fields').children();
-		for(var i = 1; i < fields.length; i++) {
-			var fieldName = "fieldName" + (i-1);
-			var fieldScale = "fieldScale" + (i-1);
-			var fieldOperation = "fieldOperation" + (i-1);
+		var fields = $('#new-fields').children();
 
-			var fieldJson = {
-				name: e.target[fieldName].value, 
-				operation: parseInt(e.target[fieldOperation].value),
-				scale: parseInt(e.target[fieldScale].value)
+		if (fields.length > 0) {
+			for(var i = 0; i < fields.length; i++) {
+				var fieldName = "fieldName" + i;
+				var fieldScale = "fieldScale" + i;
+				var fieldOperation = "fieldOperation" + i;
+
+				var fieldJson = {
+					name: e.target[fieldName].value, 
+					operation: parseInt(e.target[fieldOperation].value),
+					scale: parseInt(e.target[fieldScale].value)
+				}
+
+				fieldsParsed.push(fieldJson);
+				console.log(fieldJson);
 			}
-
-			fieldsParsed.push(fieldJson);
-			console.log(fieldJson);
-		}
+		}		
 
 		var actionJson = {
 			title: e.target.title.value,
@@ -100,17 +103,22 @@ Template['addAction'].events({
 			dailyCap: parseInt(e.target.dailyCap.value),
 			fields: fieldsParsed
 		}
+
+		console.log("about to add action");
+
 		Meteor.call("addAction", actionJson, function(err, result){
-                    if(err){
-                        console.log(err);
-                    } else{
-                        $("#add-fields").html('');
-			e.target.title.value = '';
-			e.target.defaultPoints.value = '';
-			e.target.dailyCap.value = '';
-                        closeActionForm(result);
-                    }
-                });
+            if(err){
+                console.log(err);
+            } else{
+
+            	e.target.title.value = '';
+				e.target.defaultPoints.value = '';
+				e.target.dailyCap.value = '';  
+                $("#new-fields").html('');
+				closeActionForm(result);
+            }
+        });
+        
 		count = 0;
 	}
 });

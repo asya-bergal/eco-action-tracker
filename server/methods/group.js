@@ -128,11 +128,6 @@ Meteor.methods({
 			{ $push: { parentGroups: parentId } }
 		);
 	},
-	/*getAllParents: function(groupId) {
-		check(groupId, String);
-
-		Groups.findOne(groupId, { parentGroups: 1 })
-	},*/
 	getActions: function(groupId, start, end) {
 		check(groupId, String);
 		return Groups.findOne(groupId).actions.slice(start, end);
@@ -182,36 +177,36 @@ Meteor.methods({
 	sortLeaderboard: function(groupId) {
             Groups.findOne(groupId).users.sort(function(a,b){return b.points-a.points;});
 	},
-        'topFiveActions': function(groupId){
-            check(groupId, String);
-            var group = Groups.findOne(groupId);
-            return group.actions.map(function(action){
-                return Actions.findOne(action);
-            });
-        },
-        'requestToJoin' : function(groupId){
-            check(groupId, String);
-            Groups.update(
-                groupId, 
-		{ $push: { usersRequesting: Meteor.userId() } }
-            );
-        },
-        'updateGroupName' : function(groupId, newName){
-            check(groupId, String);
-            check(newName, String);
-            Groups.update(
-                groupId, 
-		{ $set: { name: newName } }
-            );
-            
-        },
-        'addActionToGroup': function(groupId, actionId){
-            check(groupId, String);
-            check(actionId, String);
-            Groups.update(
-                groupId, 
-		{ $push: { actions: actionId } }
-            );
-            
-        }
+    'topFiveActions': function(groupId){
+        check(groupId, String);
+        var group = Groups.findOne(groupId);
+        return group.actions.map(function(action){
+            return Actions.findOne(action);
+        });
+    },
+    'requestToJoin' : function(groupId){
+        check(groupId, String);
+        Groups.update(
+            groupId, 
+			{ $push: { usersRequesting: Meteor.userId() } }
+        );
+    },
+    'updateGroupName' : function(groupId, newName){
+        check(groupId, String);
+        check(newName, String);
+        Groups.update(
+            groupId, 
+			{ $set: { name: newName } }
+        );
+        
+    },
+    'addActionToGroup': function(groupId, actionId){
+        check(groupId, String);
+        check(actionId, String);
+        Groups.update(
+            groupId, 
+			{ $push: { actions: actionId } }
+        );
+        
+    }
 });

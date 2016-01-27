@@ -70,13 +70,14 @@ function takeAction(actionId, fieldEntries) {
     }
     points = Math.min(points, action.dailyCap - pointsToday(actionId));
     // mongo updates
+    var actionInfo = { actionId: actionId, timestamp: now, points: points }
     Meteor.users.update(
         me._id,
-        { $push:
-            { "profile.history":
-                { actionId: actionId, timestamp: now, points: points }
-            }
-        }
+        { $push: { "profile.history": actionInfo } }
+    );
+    Groups.update(
+        { "actions": actionId },
+        { $push: { history: actionInfo } }
     );
     if (action.isGlobal) {
         Meteor.users.update(
@@ -98,6 +99,7 @@ function takeAction(actionId, fieldEntries) {
         },
         { $inc: { "subgroups.$.points": points } }
     );
+
     //TODO Fix when competitions are implemented
     // Groups.update(
     //     { "competitions.actions": actionId,
@@ -134,7 +136,7 @@ function notApproveAction(actionId) {
 function submitForApproval(actionId){
     check(actionId, String);
     Actions.update(actionId, {$set: 
-        { needsApproval: false } 
+        { needsApproval: true } 
     });    
 }
 

@@ -28,9 +28,18 @@
                 </div>                
                 {{#each action in getActions}}
                 <div class="action-container">
-                    <span class="action-title">{{action.title}}</span> 
-                    {{#unless action.needsApproval}}
-                    <img class="global user-button" id={{action._id}} src="/images/global.svg" />
+                    <span class="action-title">{{action.title}}</span>
+                    
+                    {{#unless action.isGlobal}}
+                        {{#if action.needsApproval}}
+                            <span>Pending global approval</span>
+                        {{else}}
+                            <span>Submit for global approval</span>
+                        {{/if}}
+                        <input class="global awaitingGlobal user-button" id={{action._id}} type="image" src="/images/global.svg" />
+                    {{else}}
+                        <span>Global!</span>
+                        <input class="global user-button" id={{action._id}} type="image" src="/images/global.svg" />
                     {{/unless}}
                 </div>
 

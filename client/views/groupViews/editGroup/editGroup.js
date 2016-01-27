@@ -1,4 +1,3 @@
-// TODO : Fix this way of closing the form
 closeActionForm = function(actionId){
     $('.add-action-form').toggleClass('visible');
     var groupId = $('.group-title').attr("id");
@@ -69,7 +68,7 @@ Template.editGroup.events({
     Meteor.call("addUser",this._id,userId, function(err,res){
       if(err){
         console.log(err);
-      }else {
+      } else {
         e.target.username.value = '';
         $('.add-user-form').toggleClass('visible');
       }
@@ -110,6 +109,8 @@ Template.editGroup.events({
     Meteor.call('submitForApproval', actionId, function(err){
       if(err){
         console.log(err);
+      } else {
+        console.log("Action submitted for global approval.");
       }
     });     
   },

@@ -1,7 +1,7 @@
 // Home Route
 Router.route('/group/:_id', {
     name: 'group',
-    action: function () {
+    action: function () {        
         var group = Groups.findOne(this.params._id);
         this.render('Group', {
             data: function () {
@@ -34,7 +34,6 @@ Router.route('/group/:_id/edit', {
                 return group;
             }
         });
-        console.log(group);
         SEO.set({title: group ? group.name : 'loading'});
     }
 });

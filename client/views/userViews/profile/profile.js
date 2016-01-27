@@ -7,7 +7,6 @@ Template.profile.helpers({
         return Actions.find({needsApproval: true}).fetch().length > 0;
     },
     'getGroups' : function () {
-        console.log(Groups.find({_id: {$in: Meteor.user().profile.groups}}).fetch());
         return Groups.find({_id: {$in: Meteor.user().profile.groups}});
     },
     'competitions' : function () {

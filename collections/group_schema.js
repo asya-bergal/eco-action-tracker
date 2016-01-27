@@ -97,6 +97,20 @@ var GroupSchema = new SimpleSchema({
 		label: "IDs of actions in this group",
 		defaultValue: []
 	},
+	history: {
+        type: [Object],
+        defaultValue: [],
+        label: "All group actions taken by users in group"
+    },
+    "history.$.actionId": {
+        type: String
+    },
+    "history.$.timestamp": {
+        type: Date
+    },
+    "history.$.points": {
+        type: Number
+    },
 	points: {
 		type: Number,
 		label: "running total of group points",
