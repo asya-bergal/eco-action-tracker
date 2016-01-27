@@ -1,12 +1,14 @@
 Template.searchGroups.helpers({
-  groupsIndex: function(){
+  groupsIndex: function() {
       return GroupsIndex;
   },
-  addLink:  function (c) {
-      c['onChange'] = function(value) {
-          window.location.href = "/group/" + value;
+  addLink: function() {
+      return function (c) {
+          c['onChange'] = function(value) {
+              window.location.href = "/group/" + value;
+          };
+          return c;
       };
-      return c;
   }
 });
 
@@ -15,14 +17,16 @@ Template.searchGroups.rendered = function() {
 };
 
 Template.searchActions.helpers({
-  actionsIndex: function(){
+  actionsIndex: function() {
       return ActionsIndex
   },
-  addLink: function (c) {
-      c['onChange'] = function(value) {
-          window.location.href = "/action/" + value;
+  addLink: function () {
+      return function (c) {
+          c['onChange'] = function(value) {
+              window.location.href = "/action/" + value;
+          };
+          return c;
       };
-      return c;
   }
 });
 
