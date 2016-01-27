@@ -36,7 +36,7 @@ Router.route('/user/:_id/groups', {
 });
 
 Router.route('/user/admin', {
-    name: 'userGroups',
+    name: 'userAdminGroups',
     action: function(){
         if(Meteor.user().profile.globalAdmin){
             this.render('admin', {
