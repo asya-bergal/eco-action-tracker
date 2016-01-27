@@ -78,7 +78,7 @@ function takeAction(actionId, fieldEntries) {
             }
         }
     );
-    //if (action.isGlobal) {
+    if (action.isGlobal) {
         Meteor.users.update(
             { _id: Meteor.userId() },
             { $inc: { "profile.points": points } }
@@ -87,7 +87,7 @@ function takeAction(actionId, fieldEntries) {
             { _id: { $in: me.profile.groups } },
             { $inc: { "points": points } }
         );
-    //}
+    }
     Groups.update(
         { "actions": actionId, "users.userId": Meteor.userId() },
         { $inc: { "users.$.points": points } }
