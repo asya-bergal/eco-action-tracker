@@ -37,29 +37,6 @@ Template['addAction'].events({
 		scale.placeholder = "Field weight";
 		field.appendChild(scale);
 
-		var addRadioButton = document.createElement("input");
-		addRadioButton.id = "fieldAdd" + count;
-		addRadioButton.name = "fieldOperation" + count;
-		addRadioButton.type = "radio";
-		addRadioButton.checked = true;
-		addRadioButton.value = 0;
-		field.appendChild(addRadioButton);
-
-		var addLabel = document.createElement("span");
-		addLabel.innerHTML = "Add";
-		field.appendChild(addLabel);
-
-		var multiplyRadioButton = document.createElement("input");
-		multiplyRadioButton.id = "fieldMultiply" + count;
-		multiplyRadioButton.name = "fieldOperation" + count;
-		multiplyRadioButton.type = "radio";
-		multiplyRadioButton.value = 1;
-		field.appendChild(multiplyRadioButton);
-
-		var multiplyLabel = document.createElement("span");
-		multiplyLabel.innerHTML = "Multiply";
-		field.appendChild(multiplyLabel);
-
 		container.appendChild(field);
 		fieldCount();
 	},
