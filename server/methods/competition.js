@@ -1,23 +1,29 @@
 Meteor.methods({
-
-	addCompetition: function(groupId, competition) {
-		check(groupId, String);
-		check(competition, Object);
+	addCompetition: function(data) {
+        check(data, Object);
+        var competitionId = Competitions.insert(data, function(err, action) {
+            if (err) {
+                throw new Meteor.Error("Adding new competition failed.")
+            }
+        });
 
 		Groups.update(
-			groupId, 
-			{ $push: { competitions: competition } }
+			data.parentGroup,
+			{ $push: { competitions: competitionId } }
 		);
 
-		return competition.index;
+		return competitionId;
 	},
-	removeCompetition: function(groupId, competitionId) {
-		check(groupId, String);
-		check(competitionId, Number);
+	removeCompetition: function(competitionId) {
+		check(competitionId, String);
+        competition = Competitions.findOne({ _id: competitionId }); 
+        if (!competition) {
+            return null;
+        }
 
 		Groups.update(
-			{ _id: groupId, "competitions.index": competitionId },
-			{ $pull: { competitions: { index: competitionId } } }
+			{ _id: competition.parentGroup },
+			{ $pull: { competitions: competitionId } }
 		);
 
 		return competitionId;

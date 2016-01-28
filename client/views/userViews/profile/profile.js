@@ -7,15 +7,7 @@ Template.profile.helpers({
     },
     'competitions' : function () {
         // Get a cursor pointing to all the actions and fetch them all
-        var groups = Groups.find({_id: {$in: Meteor.user().profile.groups}}).fetch();
-        var competitions = groups.map(function(item){
-            return item.competitions;
-        }).reduce(function(a, b) {
-            return a.concat(b);
-        }, []).filter(function(item){
-            return item.userLevel;
-        });
-        return competitions;
+        return Competitions.find({ "participants.userId" : Meteor.userId() }).fetch();
     },
     'action': function(){
         var action_data = Actions.find({_id: {$in:Meteor.user().history.map(function(action){return action.id})}});

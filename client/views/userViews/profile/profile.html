@@ -19,7 +19,7 @@
         {{/each}}
         <h3>My Competitions</h3>
         {{#each comp in competitions}}
-            <h4><a href="/group/{{comp.parentGroup}}/comp{{comp.index}}">{{comp.name}}</a></h4>
+            <h4><a href="/competitions/{{comp._id}}">{{comp.name}}</a></h4>
         {{/each}}
     </div>
 </template>

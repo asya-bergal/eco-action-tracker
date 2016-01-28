@@ -35,10 +35,8 @@ Template.editGroup.helpers({
       });
     }
   },
-  'competitions': function(){
-    if(this.competitions){
-      return this.competitions.filter(function(c){return c.name});
-    }
+  'getCompetitions': function(){
+    return Competitions.find({ "parentGroup": this._id });
   },
   'getUserRequests': function(){
     if(this.usersRequesting){
@@ -97,6 +95,21 @@ Template.editGroup.events({
   'click .remove-admin': function(e){
     var userId = e.target.getAttribute('id');
     Meteor.call('removeAdmin', this._id, userId, function(err){
+      if(err){
+        console.log(err);
+      }
+    });
+  },
+  'click .remove-comp': function(e){
+    Meteor.call('removeCompetition', this.parentGroup, this.index, function(err){
+      if(err){
+        console.log(err);
+      }
+    });
+  },
+  'click .remove-action': function(e){
+    var actionId = e.target.getAttribute('id');
+    Meteor.call('removeActionFromGroup', this._id, actionId, function(err){
       if(err){
         console.log(err);
       }

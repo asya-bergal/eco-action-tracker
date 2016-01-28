@@ -32,7 +32,7 @@ function pointsToday(actionId) {
 /**
  * Adds action to Mongo.
  *
- * @param {Object} data the action object (should match schema)
+ * @param {ActionSchema} data the action object (should match schema)
  */
 function addAction(data) {
     check(data, Object);
@@ -103,20 +103,20 @@ function takeAction(actionId, fieldEntries) {
     console.log(points);
 
     // TODO Fix when competitions are implemented
-    Groups.update(
-        { "competitions.actions": actionId,
-          "competitions.userLevel": true,
-          "competitions.participants.userId": me._id
+    Competitions.update(
+        { "actions": actionId,
+          "userLevel": true,
+          "participants.userId": me._id
         },
-        { $inc: { "competitions.participants.$.points": points } }
+        { $inc: { "participants.$.points": points } }
     );
-    // Groups.update(
-    //     { "competitions.actions": actionId,
-    //       "competitions.userLevel": false,
-    //       "competitions.participants": { $in: me.profile.groups }
-    //     },
-    //     { $inc: { "competitions.participants.$.points": points } }
-    // );
+    Competitions.update(
+        { "actions": actionId,
+          "userLevel": false,
+          "participants.userId": { $in: me.profile.groups }
+        },
+        { $inc: { "participants.$.points": points } }
+    );
     // return value could be useful for front end stuff
     return points;
 }

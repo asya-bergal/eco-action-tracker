@@ -8,6 +8,11 @@ Meteor.publish('groups', function() {
 	return Groups.find({});
 });
 
+Meteor.publish('competitions', function() {
+    //Publish competitions
+    return Competitions.find({});
+});
+
 Meteor.publish('users', function() {
   //TODO: Fix publishing not to publish all users to the client
   return Meteor.users.find({});
