@@ -100,6 +100,7 @@ function takeAction(actionId, fieldEntries) {
         },
         { $inc: { "subgroups.$.points": points } }
     );
+    console.log(points);
 
     // TODO Fix when competitions are implemented
     Groups.update(

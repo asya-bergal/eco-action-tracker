@@ -13,12 +13,11 @@ Template['addCompetition'].events({
 		e.preventDefault();
 		
 		var actionsParsed = [];
-		var numActions = $('#actions-list').children().length;
-		var actionsDoc = document.getElementById('actions-list');
-		console.log(actionsDoc);
-		for(var i = 0; i < numActions; i++) {
-			if (actionsDoc.getElementsByTagName("input")[0].checked) {
-				var actionId = actionsDoc.getElementsByTagName("input")[0].getAttribute("name");
+
+		var actionsList = $(event.target).find(':input[type="checkbox"]');
+		for(var i = 0; i < actionsList.length; i++) {
+			if (actionsList[i].checked) {
+				var actionId = actionsList[i].name;
 				actionsParsed.push(actionId);
 				console.log(actionId);
 			}
@@ -41,8 +40,6 @@ Template['addCompetition'].events({
 			participants: participants
 		}
 
-		console.log(competitionJson);
-
 		Meteor.call("addCompetition", this._id, competitionJson, function(err, result){
 			if(err) {
 				console.log(err);
@@ -51,7 +48,6 @@ Template['addCompetition'].events({
 				e.target.description.value = '';
 				e.target.startDate.value = '';
 				e.target.endDate.value = '';
-				console.log(result);
 			}
 		});
 	}

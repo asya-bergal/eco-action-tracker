@@ -4,8 +4,8 @@
 
 Actions = new Mongo.Collection('actions');
 
-MULTIPLY = 0;
-ADD = 1;
+ADD = 0;
+MULTIPLY = 1;
 
 ActionSchema = new SimpleSchema({
     title: {

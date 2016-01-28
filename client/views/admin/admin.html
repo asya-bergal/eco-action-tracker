@@ -1,9 +1,14 @@
 <template name="admin">
     <div id="admin-page">
-        <a class='btn btn-success' id='userDownload' href='/userEmails'>Download email list</a>
+        <div id="globalAdmins">
+            <div class="section-heading">
+                <span class="section-title">Download user Emails</span><span class='btn btn-success' id='userDownload'>Download email list</span>
+
+            </div>
+        </div>
         <div id="approve-actions" class="section">
             <div class='section-heading'>
-                <span class="section-title">Actions for global approval</span><span class="add-actions new-tag">Add Actions</span>
+                <span class="section-title">Actions for global approval</span><span class="add-actions new-tag">Add Global Actions</span>
             </div>
             <div class="add-action-form edit-form">
                 {{> addAction}}
