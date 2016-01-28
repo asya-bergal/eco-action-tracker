@@ -10,6 +10,7 @@ Template['competition'].helpers({
 		});
 	},
 	'sortedParticipants': function(){
+		console.log(this);
 	    if(this.participants && this.userLevel){
 			this.participants.sort(function(a,b){return b.points - a.points;});
 		  	return this.participants.map(function(user){

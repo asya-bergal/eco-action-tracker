@@ -11,14 +11,14 @@ Template['addCompetition'].helpers({
 Template['addCompetition'].events({
 	'submit #new-competition': function(e) {
 		e.preventDefault();
-		console.log("here");
 		
 		var actionsParsed = [];
-		var actionsList = $('#competitionActions').children();
-		for(var i = 0; i < actionsList.length; i++) {
-			var check = document.getElementsByTagName("input")[0].checked;
-			if (check) {
-				var actionId = document.getElementsByTagName("input")[0].getAttribute("name");
+		var numActions = $('#actions-list').children().length;
+		var actionsDoc = document.getElementById('actions-list');
+		console.log(actionsDoc);
+		for(var i = 0; i < numActions; i++) {
+			if (actionsDoc.getElementsByTagName("input")[0].checked) {
+				var actionId = actionsDoc.getElementsByTagName("input")[0].getAttribute("name");
 				actionsParsed.push(actionId);
 				console.log(actionId);
 			}
