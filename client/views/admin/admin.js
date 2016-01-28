@@ -37,6 +37,21 @@ Template.admin.events({
                     {isGlobal: false, needsApproval: false}
         });
     },
+    'click #userDownload': function () {
+        Meteor.call('getUserEmails', function (err, result) {
+            if (err) {
+                console.log(err);
+            } else {
+                var element = document.createElement('a');
+                element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(result));
+                element.setAttribute('download', 'userEmails.txt');
+                element.style.display = 'none';
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            }
+        });
+    },
     'submit .add-admin-form': function (e) {
         e.preventDefault();
         var userId = Meteor.users.findOne({username: event.target.username.value})._id;
