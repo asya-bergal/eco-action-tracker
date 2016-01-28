@@ -49,11 +49,11 @@
             <h3 class="section-heading">What actions have you taken today?</h3>
             <div id="accordion" role="tablist" aria-multiselectable="true">
                 {{#each actions}}
-                <div class="panel panel-default">
+                <div class="panel panel-default action-panel">
                     <div class="panel-heading" role="tab" id="heading{{_id}}">
                     <h4 class="panel-title">
                         <div class="panel-title-box">
-                            <div>
+                            <div class="panel-title-text">
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">
                                 {{title}} 
                                 {{#if isGlobalAction}}
@@ -63,7 +63,7 @@
                             </div>
                             <div>
                                <!-- This is a hack. -->
-                               <button class="btn action-button"><label for="submit{{_id}}">I did this!</label></button>
+                               <button class="btn btn-sm action-button"><label class="button-label" for="submit{{_id}}">I did this!</label></button>
                             </div>
                         </div>
                     </h4>
@@ -105,3 +105,5 @@
         {{/each}}
     </div>
 </template>
+
+<!-- TODO: don't uncollapse when no fields, uncollapse on click on anywhere in panel, removing actions should remove from groups menu-->
