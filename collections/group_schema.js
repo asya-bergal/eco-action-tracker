@@ -47,6 +47,11 @@ var GroupSchema = new SimpleSchema({
 		type: String,
 		label: "Name of group"
 	},
+    isVisible: {
+        type: Boolean,
+        label: "Whether the group is visible on the front end",
+        defaultValue: true
+    },
 	users: {
 		type: [Object],
 		label: "List of users in the group",
