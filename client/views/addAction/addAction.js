@@ -64,7 +64,7 @@ Template['addAction'].events({
 
 				var fieldJson = {
 					name: e.target[fieldName].value, 
-					operation: parseInt(e.target[fieldOperation].value),
+					operation: 1,
 					scale: parseInt(e.target[fieldScale].value)
 				}
 
@@ -74,7 +74,7 @@ Template['addAction'].events({
 
 		var actionJson = {
 			title: e.target.title.value,
-      description: e.target.description.value,
+      		description: e.target.description.value,
 			category: e.target.category.value,
 			defaultPoints: parseInt(e.target.defaultPoints.value),
 			dailyCap: parseInt(e.target.dailyCap.value),
