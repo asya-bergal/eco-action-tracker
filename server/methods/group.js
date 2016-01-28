@@ -191,13 +191,6 @@ Meteor.methods({
             return Actions.findOne(action);
         });
     },
-    'requestToJoin' : function(groupId){
-        check(groupId, String);
-        Groups.update(
-            groupId, 
-			{ $push: { usersRequesting: Meteor.userId() } }
-        );
-    },
     'updateGroupName' : function(groupId, newName){
         check(groupId, String);
         check(newName, String);
@@ -213,6 +206,15 @@ Meteor.methods({
         Groups.update(
             groupId, 
 			{ $push: { actions: actionId } }
+        );
+        
+    },
+    'removeActionFromGroup': function(groupId, actionId){
+        check(groupId, String);
+        check(actionId, String);
+        Groups.update(
+            groupId, 
+			{ $pull: { actions: actionId } }
         );
         
     }

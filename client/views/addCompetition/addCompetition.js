@@ -19,7 +19,6 @@ Template['addCompetition'].events({
 			if (actionsList[i].checked) {
 				var actionId = actionsList[i].name;
 				actionsParsed.push(actionId);
-				console.log(actionId);
 			}
 		}
 
@@ -40,7 +39,7 @@ Template['addCompetition'].events({
 			participants: participants
 		}
 
-		Meteor.call("addCompetition", this._id, competitionJson, function(err, result){
+		Meteor.call("addCompetition", competitionJson, function(err, result){
 			if(err) {
 				console.log(err);
 			} else {
@@ -48,6 +47,10 @@ Template['addCompetition'].events({
 				e.target.description.value = '';
 				e.target.startDate.value = '';
 				e.target.endDate.value = '';
+                for(var i = 0; i < actionsList.length; i++) {
+                    actionsList[i].checked = false;
+                }
+                console.log(result);
 			}
 		});
 	}

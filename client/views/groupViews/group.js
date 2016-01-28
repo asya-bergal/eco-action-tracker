@@ -18,7 +18,7 @@ Template.Group.helpers({
   },
   'competitions': function(){
     if(this.competitions){
-      return this.competitions.filter(function(c){return c.name});
+      return Competitions.find({ "parentGroup": this._id });
     }
   },
   'notInGroup': function(){
@@ -34,7 +34,7 @@ Template.Group.helpers({
 
 Template.Group.events({
    'click #request': function(e){
-       Meteor.call("requestToJoin", this._id);
+       Meteor.call("requestToJoinGroup", this._id, Meteor.userId());
    } 
 });
 
