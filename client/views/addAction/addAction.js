@@ -97,6 +97,7 @@ Template['addAction'].events({
 
 		var actionJson = {
 			title: e.target.title.value,
+      description: e.target.description.value,
 			category: e.target.category.value,
 			defaultPoints: parseInt(e.target.defaultPoints.value),
 			dailyCap: parseInt(e.target.dailyCap.value),
