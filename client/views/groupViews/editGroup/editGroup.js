@@ -1,17 +1,16 @@
 // TODO : Fix this way of closing the form
-closeActionForm = function(actionId){
+var closeGroupActionForm = function(actionId){
     $('.add-action-form').toggleClass('visible');
     var groupId = $('.group-title').attr("id");
-    
+
     Meteor.call('addActionToGroup', groupId, actionId, function(err){
        if(err){
            console.log(err);
-       } 
+       }
     });
 };
 
 Template.editGroup.helpers({
-
   'getActions': function(){
     if(this.actions){
       return this.actions.map(function(actionId){
@@ -35,7 +34,7 @@ Template.editGroup.helpers({
         return user_doc;
       });
     }
-  }, 
+  },
   'competitions': function(){
     if(this.competitions){
       return this.competitions.filter(function(c){return c.name});
@@ -46,7 +45,7 @@ Template.editGroup.helpers({
       return this.usersRequesting.map(function(userId){
         return Meteor.users.findOne(userId);
       });
-    }    
+    }
   },
   diff: function(id){
       return id !== Meteor.userId();
@@ -101,9 +100,9 @@ Template.editGroup.events({
       if(err){
         console.log(err);
       } else {
-          
+
       }
-    });  
+    });
   },
   'click .global': function(e){
     var actionId = e.target.getAttribute('id');
@@ -111,7 +110,7 @@ Template.editGroup.events({
       if(err){
         console.log(err);
       }
-    });     
+    });
   },
   'click .edit-group-name': function(e){
       console.log('eyy');
@@ -120,10 +119,14 @@ Template.editGroup.events({
    Meteor.call('updateGroupName', this._id, $('.group-name-field').val(), function(err){
       if(err){
           console.log(err);
-      } 
+      }
    });
   },
   'click .new-competition': function(e){
     $('.add-competition-form').toggleClass('visible');
   }
 });
+
+Template.editGroup.rendered = function(){
+    closeActionForm = closeGroupActionForm;
+};

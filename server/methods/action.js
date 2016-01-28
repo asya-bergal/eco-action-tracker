@@ -62,9 +62,9 @@ function takeAction(actionId, fieldEntries) {
     var me = Meteor.user();
     // computation
     for (var i = 0; i < fields.length; i++) {
-        if (fields[i].operation == MULTIPLY) {
+        if (fields[i].operation === MULTIPLY) {
             points *= fieldEntries[i] * fields[i].scale;
-        } else if (fields[i].operation == ADD) {
+        } else if (fields[i].operation === ADD) {
             points += fieldEntries[i] * fields[i].scale;
         }
     }
@@ -134,7 +134,7 @@ function notApproveAction(actionId) {
 function submitForApproval(actionId){
     check(actionId, String);
     Actions.update(actionId, {$set: 
-        { needsApproval: false } 
+        { needsApproval: true } 
     });    
 }
 

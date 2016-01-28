@@ -1,50 +1,5 @@
 <template name="profile">
     <div class="col-sm-7 actions">
-        {{#if isGlobalAdmin}}
-        <div id="approve-actions" class="section">
-            <h3 class="section-heading">Actions for global approval:</h3>
-            {{#if approvalNeeded}}
-                {{#each actions}}{{#if needsApproval}}
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="heading{{_id}}">
-                        <h4 class="panel-title">
-                            <div class="panel-title-box">
-                                <!-- Action title -->
-                                <div><a data-toggle="collapse" data-parent="#accordion" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">{{title}}</a></div>
-
-                                <!-- Buttons for approval -->
-                                <div>
-                                   <!-- This is a hack. -->
-                                   <button class="btn btn-success approve"><label id="{{_id}}">Approve</label></button>
-                                   <button class="btn btn-danger not-approve"><label id="{{_id}}">Not Approve</label></button>
-                                </div>
-                            </div>
-                        </h4>
-                        </div>
-                        <div id="collapse{{_id}}" class="panel-collapse collapse" data-toggle="false" role="tabpanel" aria-labelledby="heading{{_id}}">
-                            <form class="form-horizontal action-display" id={{_id}}>
-                                {{#each fields}}
-                                <div class="form-group">
-                                    <!-- Name of field -->
-                                    <label class="control-label col-xs-4 col-sm-3 col-md-3" for={{name}}>{{name}}:</label>
-
-                                    <!-- Value of field -->
-                                    <div class="col-xs-8 col-sm-9 col-md-9">{{scale}} point(s) each</div>
-                                </div>
-                                {{/each}}
-                            <!-- This is a hack. -->
-                            <input type="submit" id="submit{{_id}}" class="hidden">
-                            </form>
-                        </div>
-                    </div>
-                {{/if}}{{/each}}
-            {{else}}
-                <h4>No actions for approval!</h4>
-            {{/if}}
-        </div>
-        {{/if}}
-
         <div id="takeActions" class="section">
             <h3 class="section-heading">What actions have you taken today?</h3>
             <div id="accordion" role="tablist" aria-multiselectable="true">

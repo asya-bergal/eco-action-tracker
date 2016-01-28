@@ -15,7 +15,7 @@ Template['addAction'].events({
 		var field = document.createElement("div");
 		field.id = "field" + count;
 		field.className = "field form-group";
-		
+
 		var name = document.createElement("input");
 		name.name = "fieldName" + count;
 		name.className = "form-control";
@@ -38,18 +38,18 @@ Template['addAction'].events({
 		addRadioButton.checked = true;
 		addRadioButton.value = 0;
 		field.appendChild(addRadioButton);
-		
+
 		var addLabel = document.createElement("span");
 		addLabel.innerHTML = "Add";
 		field.appendChild(addLabel);
-		
+
 		var multiplyRadioButton = document.createElement("input");
 		multiplyRadioButton.id = "fieldMultiply" + count;
 		multiplyRadioButton.name = "fieldOperation" + count;
 		multiplyRadioButton.type = "radio";
 		multiplyRadioButton.value = 1;
 		field.appendChild(multiplyRadioButton);
-		
+
 		var multiplyLabel = document.createElement("span");
 		multiplyLabel.innerHTML = "Multiply";
 		field.appendChild(multiplyLabel);
@@ -85,7 +85,7 @@ Template['addAction'].events({
 			var fieldOperation = "fieldOperation" + (i-1);
 
 			var fieldJson = {
-				name: e.target[fieldName].value, 
+				name: e.target[fieldName].value,
 				operation: parseInt(e.target[fieldOperation].value),
 				scale: parseInt(e.target[fieldScale].value)
 			}
