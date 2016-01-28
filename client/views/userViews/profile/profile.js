@@ -1,7 +1,7 @@
 Template.profile.helpers({
     'actions': function () {
         // TODO: Should also be group actions
-        return Actions.find({}).fetch();
+        return Actions.find({}, {sort: {category: 1}}).fetch();
     },
     'approvalNeeded': function (){
         return Actions.find({needsApproval: true}).fetch().length > 0;
