@@ -1,19 +1,10 @@
 Meteor.publish('actions', function() {
-    // Publish all actions (all under "find")
-    var user = Meteor.users.findOne(this.userId);
-    var userGroups = user.profile.groups;
-    var userActions = [];
-    userGroups.forEach(function (groupId) {
-        var group = Groups.findOne({_id: groupId});
-        userActions = userActions.concat(group.actions);
-    });
-
-    return Actions.find({$or: [{isGlobal: true}, {_id: {$in: userActions}}]});
-
+    //TODO: Fix publishing not to publish all actions to the client
+    return Actions.find({});
 });
 
 Meteor.publish('groups', function() {
-	//Publish groups
+  //TODO: Fix publishing not to publish all groups to the client
 	return Groups.find({});
 });
 
@@ -23,6 +14,6 @@ Meteor.publish('competitions', function() {
 });
 
 Meteor.publish('users', function() {
-    //Publish users
-    return Meteor.users.find({});
+  //TODO: Fix publishing not to publish all users to the client
+  return Meteor.users.find({});
 });
