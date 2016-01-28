@@ -35,10 +35,8 @@ Template.editGroup.helpers({
       });
     }
   },
-  'competitions': function(){
-    if(this.competitions){
-      return this.competitions.filter(function(c){return c.name});
-    }
+  'getCompetitions': function(){
+    return Competitions.find({ "parentGroup": this._id });
   },
   'getUserRequests': function(){
     if(this.usersRequesting){

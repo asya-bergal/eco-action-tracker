@@ -13,10 +13,10 @@
                 <div class="add-competition-form edit-form item-container hidden">
                     {{> addCompetition this}}
                 </div>
-                {{#each competitions}}
+                {{#each competition in getCompetitions}}
                     <div class="competition-item item-container">
                         <div class="comp-name">
-                            <span class="name"><a href="/group/{{this.parentGroup}}/comp{{index}}">{{name}}</a></span> 
+                            <span class="name"><a href="/competitions/{{this._id}}">{{name}}</a></span> 
                             <span class="end-time"> Ends {{humanDate end}}</span>
                             <input type="image" class="remove-comp user-button" id={{index}} src="/images/remove.svg" />
                         </div>

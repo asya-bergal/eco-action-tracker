@@ -17,7 +17,12 @@ Meteor.publish('groups', function() {
 	return Groups.find({});
 });
 
+Meteor.publish('competitions', function() {
+    //Publish competitions
+    return Competitions.find({});
+});
+
 Meteor.publish('users', function() {
-  //Publish groups
-  return Meteor.users.find({});
+    //Publish users
+    return Meteor.users.find({});
 });

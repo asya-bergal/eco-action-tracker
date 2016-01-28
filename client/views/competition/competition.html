@@ -2,9 +2,11 @@
 	<div class="competition">
 		
 		<div class="comp-title">
-			<span class="center-align">
-				<span class="comp-name">{{this.name}}</span>
+            <span class="center-align">
+                <span class="comp-name">{{this.name}}</span>
+                {{#if this.parentGroup}}
 				<div class="group-back-link"><a href="/group/{{this.parentGroup}}">Back to group</a></div>
+                {{/if}}
 				<!-- {{#if admin}}
 				<span>Edit competition</span>
 				{{/if}} -->
