@@ -1,4 +1,3 @@
-// TODO : Fix this way of closing the form
 var closeGroupActionForm = function(actionId){
     $('.add-action-form').toggleClass('visible');
     var groupId = $('.group-title').attr("id");
@@ -101,7 +100,9 @@ Template.editGroup.events({
     });
   },
   'click .remove-comp': function(e){
-    Meteor.call('removeCompetition', this.parentGroup, this.index, function(err){
+    var compId = e.target.getAttribute('id');
+    console.log(compId);
+    Meteor.call('removeCompetition', compId, function(err){
       if(err){
         console.log(err);
       }
