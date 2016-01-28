@@ -102,6 +102,21 @@ Template.editGroup.events({
       }
     });
   },
+  'click .remove-comp': function(e){
+    Meteor.call('removeCompetition', this.parentGroup, this.index, function(err){
+      if(err){
+        console.log(err);
+      }
+    });
+  },
+  'click .remove-action': function(e){
+    var actionId = e.target.getAttribute('id');
+    Meteor.call('removeActionFromGroup', this._id, actionId, function(err){
+      if(err){
+        console.log(err);
+      }
+    });
+  },
   'click .request-user': function(e){
     var userId = e.target.getAttribute('id');
     Meteor.call('addUser', this._id, userId, function(err){

@@ -34,7 +34,7 @@ Template.Group.helpers({
 
 Template.Group.events({
    'click #request': function(e){
-       Meteor.call("requestToJoin", this._id);
+       Meteor.call("requestToJoinGroup", this._id, Meteor.userId());
    } 
 });
 
