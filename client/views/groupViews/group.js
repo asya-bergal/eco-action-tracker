@@ -18,7 +18,7 @@ Template.Group.helpers({
   },
   'competitions': function(){
     if(this.competitions){
-      return this.competitions.filter(function(c){return c.name});
+      return Competitions.find({ "parentGroup": this._id });
     }
   },
   'notInGroup': function(){

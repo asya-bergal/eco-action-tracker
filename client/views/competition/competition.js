@@ -2,6 +2,9 @@ Template['competition'].helpers({
 	'admin': function() {
 		var parent = Groups.findOne(this.parentGroup);
 		console.log(parent);
+        if (!parent) { // TODO: more reasonable competition admin system
+            return false;
+        }
 		return parent.admins.indexOf(Meteor.userId()) !== -1;
 	},
 	'actions': function() {
