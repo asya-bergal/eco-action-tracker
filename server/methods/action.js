@@ -75,6 +75,7 @@ function takeAction(actionId, fieldEntries) {
         me._id,
         { $push: { "profile.history": actionInfo } }
     );
+    actionInfo["user"] = me._id;
     Groups.update(
         { "actions": actionId },
         { $push: { history: actionInfo } }
