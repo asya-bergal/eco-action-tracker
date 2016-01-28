@@ -11,20 +11,25 @@ Template['addCompetition'].helpers({
 Template['addCompetition'].events({
 	'submit #new-competition': function(e) {
 		e.preventDefault();
-		console.log("here");
 		
 		var actionsParsed = [];
-		var actionsList = $('#competitionActions').children();
+
+		var actionsList = $(event.target).find(':input[type="checkbox"]');
 		for(var i = 0; i < actionsList.length; i++) {
-			var check = document.getElementsByTagName("input")[0].checked;
-			if (check) {
-				var actionId = document.getElementsByTagName("input")[0].getAttribute("name");
+			if (actionsList[i].checked) {
+				var actionId = actionsList[i].name;
 				actionsParsed.push(actionId);
 				console.log(actionId);
 			}
 		}
 
+		var participants = this.users;
+		for (var i = 0; i < participants.length; i++) {
+			participants[i].points = 0;
+		};
+
 		var competitionJson = {
+			parentGroup: this._id,
 			index: this.competitions.length,
 			name: e.target.name.value,
 			description: e.target.description.value,
@@ -32,10 +37,8 @@ Template['addCompetition'].events({
 			end: Date.parse(e.target.endDate.value),
 			actions: actionsParsed,
 			userLevel: true,
-			participants: this.users
+			participants: participants
 		}
-
-		console.log(competitionJson);
 
 		Meteor.call("addCompetition", this._id, competitionJson, function(err, result){
 			if(err) {
@@ -45,7 +48,6 @@ Template['addCompetition'].events({
 				e.target.description.value = '';
 				e.target.startDate.value = '';
 				e.target.endDate.value = '';
-				console.log(result);
 			}
 		});
 	}

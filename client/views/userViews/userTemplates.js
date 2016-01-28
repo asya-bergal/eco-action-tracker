@@ -2,7 +2,7 @@ Template.register.events({
     "submit .registration-form": function (event) {
         event.preventDefault();
 
-        var password = event.target.password.value;
+        var password = event.target.pw.value;
         var confirm = event.target.confirm.value;
 
         if(password != confirm) {
@@ -11,7 +11,7 @@ Template.register.events({
             return;
         }
 
-        var username = event.target.username.value;
+        var username = event.target.user.value;
         var first = event.target.firstName.value;
         var last = event.target.lastName.value;
         var email = event.target.email.value;

@@ -44,18 +44,18 @@ Template['addAction'].events({
 		addRadioButton.checked = true;
 		addRadioButton.value = 0;
 		field.appendChild(addRadioButton);
-		
+
 		var addLabel = document.createElement("span");
 		addLabel.innerHTML = "Add";
 		field.appendChild(addLabel);
-		
+
 		var multiplyRadioButton = document.createElement("input");
 		multiplyRadioButton.id = "fieldMultiply" + count;
 		multiplyRadioButton.name = "fieldOperation" + count;
 		multiplyRadioButton.type = "radio";
 		multiplyRadioButton.value = 1;
 		field.appendChild(multiplyRadioButton);
-		
+
 		var multiplyLabel = document.createElement("span");
 		multiplyLabel.innerHTML = "Multiply";
 		field.appendChild(multiplyLabel);
@@ -102,7 +102,7 @@ Template['addAction'].events({
 			defaultPoints: parseInt(e.target.defaultPoints.value),
 			dailyCap: parseInt(e.target.dailyCap.value),
 			fields: fieldsParsed
-		}
+		};
 
 		Meteor.call("addAction", actionJson, function(err, result){
             if(err){

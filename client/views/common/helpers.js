@@ -3,9 +3,9 @@ Template.registerHelper('increment', function (index) {
 });
 
 Template.registerHelper('humanDate', function (date) {
-    return moment(date).toNow();
+    return moment(date).fromNow();
 });
 
-Template.registerHelper('log', function(str){
-    console.log(str);
-  });
+Template.registerHelper('isGlobalAdmin', function(){
+    return Meteor.user().profile.globalAdmin;
+});

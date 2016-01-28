@@ -62,9 +62,9 @@ function takeAction(actionId, fieldEntries) {
     var me = Meteor.user();
     // computation
     for (var i = 0; i < fields.length; i++) {
-        if (fields[i].operation == MULTIPLY) {
+        if (fields[i].operation === MULTIPLY) {
             points *= fieldEntries[i] * fields[i].scale;
-        } else if (fields[i].operation == ADD) {
+        } else if (fields[i].operation === ADD) {
             points += fieldEntries[i] * fields[i].scale;
         }
     }
@@ -75,6 +75,7 @@ function takeAction(actionId, fieldEntries) {
         me._id,
         { $push: { "profile.history": actionInfo } }
     );
+    actionInfo["user"] = me._id;
     Groups.update(
         { "actions": actionId },
         { $push: { history: actionInfo } }
@@ -99,6 +100,7 @@ function takeAction(actionId, fieldEntries) {
         },
         { $inc: { "subgroups.$.points": points } }
     );
+    console.log(points);
 
     // TODO Fix when competitions are implemented
     Groups.update(
@@ -108,13 +110,13 @@ function takeAction(actionId, fieldEntries) {
         },
         { $inc: { "competitions.participants.$.points": points } }
     );
-    Groups.update(
-        { "competitions.actions": actionId,
-          "competitions.userLevel": false,
-          "competitions.participants": { $in: me.profile.groups }
-        },
-        { $inc: { "competitions.participants.$.points": points } }
-    );
+    // Groups.update(
+    //     { "competitions.actions": actionId,
+    //       "competitions.userLevel": false,
+    //       "competitions.participants": { $in: me.profile.groups }
+    //     },
+    //     { $inc: { "competitions.participants.$.points": points } }
+    // );
     // return value could be useful for front end stuff
     return points;
 }

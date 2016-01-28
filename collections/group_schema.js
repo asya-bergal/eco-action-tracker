@@ -1,6 +1,14 @@
 Groups = new Mongo.Collection('groups');
 
 var CompetitionSchema = new SimpleSchema({
+	parentGroup: {
+		type: String,
+		label: "ID of group that this competition belongs to"
+	},
+	index: {
+		type: Number,
+		label: "ID of competition in group based on index"
+	},
 	name: {
 		type: String,
 		label: "Name of competition"
@@ -47,6 +55,11 @@ var GroupSchema = new SimpleSchema({
 		type: String,
 		label: "Name of group"
 	},
+    isVisible: {
+        type: Boolean,
+        label: "Whether the group is visible on the front end",
+        defaultValue: true
+    },
 	users: {
 		type: [Object],
 		label: "List of users in the group",
@@ -103,13 +116,20 @@ var GroupSchema = new SimpleSchema({
         label: "All group actions taken by users in group"
     },
     "history.$.actionId": {
-        type: String
+        type: String,
+        label: "ID of action taken"
     },
     "history.$.timestamp": {
-        type: Date
+        type: Date,
+        label: "Time action was taken"
+    },
+    "history.$.user": {
+    	type: String,
+    	label: "User who did this action"
     },
     "history.$.points": {
-        type: Number
+        type: Number,
+        label: "Points associated with action"
     },
 	points: {
 		type: Number,
