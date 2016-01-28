@@ -8,14 +8,18 @@ Meteor.methods({
 			groupId, 
 			{ $push: { competitions: competition } }
 		);
+
+		return competition.index;
 	},
 	removeCompetition: function(groupId, competitionId) {
 		check(groupId, String);
-		check(competitionId, String);
+		check(competitionId, Number);
 
 		Groups.update(
-			groupId, 
-			{ $pull: { competitions: competitionId } }
+			{ _id: groupId, "competitions.index": competitionId },
+			{ $pull: { competitions: { index: competitionId } } }
 		);
+
+		return competitionId;
 	}
 });
