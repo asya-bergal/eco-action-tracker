@@ -17,6 +17,11 @@ ActionSchema = new SimpleSchema({
         defaultValue: "Other",
         label: "Category to put the action in"
     },
+    description: {
+        type: String,
+        defaultValue: "",
+        label: "Information about the action"
+    },
     defaultPoints: {
         type: Number,
         defaultValue: 0,

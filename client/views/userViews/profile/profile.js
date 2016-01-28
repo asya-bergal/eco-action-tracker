@@ -1,8 +1,4 @@
 Template.profile.helpers({
-    'actions': function () {
-        // TODO: Should also be group actions
-        return Actions.find({}, {sort: {category: 1}}).fetch();
-    },
     'approvalNeeded': function (){
         return Actions.find({needsApproval: true}).fetch().length > 0;
     },
@@ -31,28 +27,6 @@ Template.profile.helpers({
 });
 
 Template.profile.events({
-    "submit .action-form": function (event) {
-        event.preventDefault();
-
-        // TODO: This should be IDs when we get IDs working properly
-        var actionId = event.target.getAttribute("id");
-        console.log(actionId);
-        var action = Actions.findOne({_id: actionId});
-
-        var fieldEntries = [];
-        action.fields.forEach(function (field) {
-            var entry = event.target[field.name].value;
-            fieldEntries.push(parseInt(entry));
-        });
-
-        console.log(fieldEntries);
-        // TODO: Better error-handling
-        Meteor.call('takeAction', actionId, fieldEntries, function(error, result) {
-            if (error) {
-                console.log(error);
-            }
-        });
-    },
     "submit .new-group-form": function(event){
         event.preventDefault();
         var groupJson = {
