@@ -57,7 +57,7 @@ var getTopActionData = function(group){
     }
   ];
 
-    var data = topFive.map(function(action, index){
+    return topFive.map(function(action, index){
         if(action.actionId){
             var actionDoc = Actions.findOne(action.actionId),
             color = colors[index];
@@ -77,7 +77,6 @@ var getTopActionData = function(group){
             
         }
     });
-    return data;
 },
     getWeeklyData = function(group){
         var users = Meteor.users.find({_id: {$in: group.users.map(function(u){return u.userId;})}}).fetch();
@@ -105,8 +104,7 @@ var getTopActionData = function(group){
             data: weekDays.map(function(key){return weekMap[key];})
         }]
     };
-        
-    };
+};
 
 Template.GroupStats.rendered = function(){
   if(!this.data){

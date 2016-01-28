@@ -7,7 +7,7 @@ Router.route('/user/profile/', {
         } else {
             this.redirect('/');
         }
-        SEO.set({title: Meteor.user().username});
+        SEO.set({title: Meteor.user() ? Meteor.user().username: 'loading'});
     }
 });
 
@@ -19,7 +19,7 @@ Router.route('/user/:_id/history', {
                 return Meteor.users.findOne(this.params._id);
             }
         });
-        SEO.set({title: Meteor.user().username});
+        SEO.set({title: Meteor.user() ? Meteor.user().username: 'loading'});
     }
 });
 
