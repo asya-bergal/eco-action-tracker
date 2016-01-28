@@ -3,103 +3,100 @@
 @import 'lib/flex';
 
 .add-title {
-	font-weight: bold;
-	font-size: 30px;
-	border-bottom: 1px solid;
-	margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 30px;
+    border-bottom: 1px solid;
+    margin-bottom: 20px;
 }
 
 .to-add {
-	display: block;
-	vertical-align: middle;
+    display: block;
+    vertical-align: middle;
 
-	label {
-		text-align: right;
-		padding-right: 15px;
-		width: 20%;
-	}
+    label {
+        text-align: right;
+        padding-right: 15px;
+        width: 20%;
+    }
 
-	input {
-		display: inline-block;
-		width: 80%;
-	}
+    input {
+        display: inline-block;
+        width: 80%;
+    }
 
-	@media screen and (max-width: @mediumDesktopWidth) {
-		label {
-			width: 40%;
-		}
+    @media screen and (max-width: @mediumDesktopWidth) {
+        label {
+            width: 40%;
+        }
 
-		input {
-			width: 60%;
-		}
-	}
+        input {
+            width: 60%;
+        }
+    }
 
-	@media screen and (max-width: @tabletWidth) {
-		label {
-			text-align: left;
-			width: 100%;
-		}
+    @media screen and (max-width: @tabletWidth) {
+        label {
+            text-align: left;
+            width: 100%;
+        }
 
-		input {
-			width: 100%;
-			display: block;
-		}
-	}
+        input {
+            width: 100%;
+            display: block;
+        }
+    }
 }
 
 .action-to-add {
-	font-size: 1.25em;
-	padding: 5px 10px;
+    font-size: 1.25em;
+    padding: 5px 10px;
 
-	input {
-		margin: 0 10px;
-	}
+    input {
+        margin: 0 10px;
+    }
 }
 
 #add-fields, #competitionActions {
-	width: 90%;
-	margin: 30px auto;
+    width: 90%;
+    margin: 30px auto;
 
-	.add-fields-header{
-		display: flex;
-		flex-flow: row nowrap;
-		justify-content: space-between;
-		align-items:center;
+    .add-fields-header{
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items:center;
 
-		border-bottom: 1px solid;
-	}
+        border-bottom: 1px solid;
+    }
 
-	.select-actions-header {
+    .select-actions-header {
 
-		padding: 10px 0;
-	}
+        padding: 10px 0;
+    }
 
-	.inline-icon {
-		width: 1.5em;
-		height: 1.5em;
-		margin: 0 5px;
-	}
+    .inline-icon {
+        width: 1.5em;
+        height: 1.5em;
+        margin: 0 5px;
+    }
 }
 
 .field {
-	display: flex;
-	flex-flow: row nowrap;
-	justify-content: space-between;
-	align-items:center;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items:center;
 
-	.form-control {
-		margin: 0 10px;
-	}
+    .form-control {
+        margin: 0 10px;
+    }
 
-	input[type="radio"] {
-		height: 3em;
-		width: 3em;
-		margin: 0 10px;
-	}
+    input[type="radio"] {
+        height: 3em;
+        width: 3em;
+        margin: 0 10px;
+    }
 }
 
 .actions-list {
-	@media all (min-width: @mediumDesktopWidth) {
-
-	}
 }

@@ -1,0 +1,63 @@
+@import 'variables';
+@import 'lib/elements';
+@import 'lib/flex';
+
+#admin-page{
+    padding:10px;
+    .section-heading{
+        .display(flex);
+        .align-items(center);
+        font-size: 20px;
+        font-weight: bold;
+        border-bottom: 1px solid;
+        padding: 10px;
+        .section-title{
+            .flex(1,1,0);
+        }
+        .new-tag{
+            .align-self(flex-start);
+            font-size: 14px;
+            width: 150px;
+        }
+        .new-tag:hover{
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+    .item-listing{
+        .item-container{
+            .display(flex);
+            .align-items(center);
+            padding: 10px 30px;
+            margin: 5px 50px;
+            border: 1px solid rgba(150,150,150,1);
+            border-radius: 10px;
+            background-color: rgba(250,250,250,1);
+            .user-profile-link, .action-title{
+                .flex(1,1,0);
+            }
+            .user-button{
+                margin-left: 20px;
+                height: 25px;
+                width: 25px;
+            }
+        }
+    }
+    .edit-form{
+        display: none;
+        margin:10px 50px;
+        padding: 10px 30px;
+        border: 1px solid rgba(150,150,150,1);
+        border-radius: 5px;
+        background-color: rgba(250,250,250,1);
+    }
+    .visible{
+        display: block !important;
+    }
+    .hidden{
+        display: none;
+    }
+    .empty-collection{
+        padding: 15px;
+    }
+}

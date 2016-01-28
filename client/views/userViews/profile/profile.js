@@ -17,12 +17,9 @@ Template.profile.helpers({
         }).reduce(function(a, b) {
             return a.concat(b);
         }, []).filter(function(item){
-            return item.userLevel
+            return item.userLevel;
         });
         return competitions;
-    },
-    'has': function(col){
-      return col.length > 0;
     },
     'action': function(){
         var action_data = Actions.find({_id: {$in:Meteor.user().history.map(function(action){return action.id})}});
@@ -36,7 +33,6 @@ Template.profile.events({
 
         // TODO: This should be IDs when we get IDs working properly
         var actionId = event.target.getAttribute("id");
-        console.log(actionId);
         var action = Actions.findOne({_id: actionId});
 
         var fieldEntries = [];
@@ -44,8 +40,6 @@ Template.profile.events({
             var entry = event.target[field.name].value;
             fieldEntries.push(parseInt(entry));
         });
-
-        console.log(fieldEntries);
         // TODO: Better error-handling
         Meteor.call('takeAction', actionId, fieldEntries, function(error, result) {
             if (error) {
@@ -64,31 +58,9 @@ Template.profile.events({
             if (error) {
                 console.log(error);
             }else{
-                console.log("success");
                 $(".new-group-form").toggleClass('visible');
             }
         });
-    },
-    "click .approve": function (event) {
-        console.log("Approving");
-        event.preventDefault();
-        var actionId = event.target.getAttribute("id");
-        console.log(actionId);
-        Meteor.call('approveAction', actionId, function(error, result) {
-            if (error) {
-                console.log(error);
-            }
-        });
-    },
-
-    "click .not-approve": function (event) {
-        console.log("Not approving");
-        event.preventDefault();
-        var actionId = event.target.getAttribute("id");
-        console.log(actionId);
-        Actions.update(actionId, {$set: 
-            { isGlobal: false, needsApproval: false } 
-        })
     },
     "click #new-group":function(event){
         $(".new-group-form").toggleClass('visible');

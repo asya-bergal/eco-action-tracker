@@ -8,7 +8,7 @@ Router.route('/group/:_id', {
                 return group;
             }
         });
-        SEO.set({title: group.name});
+        SEO.set({title: group ? group.name : "loading"});
     }
 });
 
@@ -21,7 +21,7 @@ Router.route('/group/:_id/stats', {
                 return group;
             }
         });
-        SEO.set({title: group.name});
+        SEO.set({title: group ? group.name : "loading"});
     }
 });
 
