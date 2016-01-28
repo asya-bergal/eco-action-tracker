@@ -100,6 +100,7 @@ function takeAction(actionId, fieldEntries) {
         },
         { $inc: { "subgroups.$.points": points } }
     );
+    console.log(points);
 
     // TODO Fix when competitions are implemented
     Groups.update(
@@ -109,13 +110,13 @@ function takeAction(actionId, fieldEntries) {
         },
         { $inc: { "competitions.participants.$.points": points } }
     );
-    Groups.update(
-        { "competitions.actions": actionId,
-          "competitions.userLevel": false,
-          "competitions.participants": { $in: me.profile.groups }
-        },
-        { $inc: { "competitions.participants.$.points": points } }
-    );
+    // Groups.update(
+    //     { "competitions.actions": actionId,
+    //       "competitions.userLevel": false,
+    //       "competitions.participants": { $in: me.profile.groups }
+    //     },
+    //     { $inc: { "competitions.participants.$.points": points } }
+    // );
     // return value could be useful for front end stuff
     return points;
 }
