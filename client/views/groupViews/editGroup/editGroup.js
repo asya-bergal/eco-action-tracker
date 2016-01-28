@@ -68,7 +68,7 @@ Template.editGroup.events({
     Meteor.call("addUser",this._id,userId, function(err,res){
       if(err){
         console.log(err);
-      }else {
+      } else {
         e.target.username.value = '';
         $('.add-user-form').toggleClass('visible');
       }
@@ -94,6 +94,14 @@ Template.editGroup.events({
       }
     });
   },
+  'click .remove-admin': function(e){
+    var userId = e.target.getAttribute('id');
+    Meteor.call('removeAdmin', this._id, userId, function(err){
+      if(err){
+        console.log(err);
+      }
+    });
+  },
   'click .request-user': function(e){
     var userId = e.target.getAttribute('id');
     Meteor.call('addUser', this._id, userId, function(err){
@@ -109,11 +117,12 @@ Template.editGroup.events({
     Meteor.call('submitForApproval', actionId, function(err){
       if(err){
         console.log(err);
+      } else {
+        console.log("Action submitted for global approval.");
       }
     });
   },
   'click .edit-group-name': function(e){
-      console.log('eyy');
    $('.group-name').toggleClass('hidden');
    $('.group-name-field').toggleClass('visible');
    Meteor.call('updateGroupName', this._id, $('.group-name-field').val(), function(err){

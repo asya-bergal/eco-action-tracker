@@ -1,0 +1,34 @@
+<template name="competition">
+	<div class="competition">
+		
+		<div class="comp-title">
+			<span class="center-align">
+				<span class="comp-name">{{this.name}}</span>
+				<div class="group-back-link"><a href="/group/{{this.parentGroup}}">Back to group</a></div>
+				<!-- {{#if admin}}
+				<span>Edit competition</span>
+				{{/if}} -->
+			</span>
+
+			<span class="end-date">Ends {{humanDate end}}</span>
+		</div>
+		<div class="description">
+			{{description}}
+		</div>
+	    <div class="leaderboard">
+	        <h3 class="section-header">Leaderboard</h3>
+			<div class="leaderboard-listing leaderboard-fields">
+				<span class="place">Place</span> <span class="username">Username</span> <span class="points">Points</span>
+			</div>
+	        {{#each participant in sortedParticipants}}
+				<div class="leaderboard-listing leaderboard-content">
+					<span class="place">{{increment @index}}</span> <span class="username">{{participant.username}}</span> <span class="points">{{participant.groupPoints}}</span>
+				</div>
+	        {{/each}}
+	    </div>
+	    <div class="actions-listing">
+	        <!-- {{#each actions}} -->
+	    </div>
+	</div>
+	
+</template>

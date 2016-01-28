@@ -90,8 +90,13 @@ Meteor.methods({
 				userId,
 				{ $pull: { "profile.groups": groupId } }
 			);
+
+			Meteor.call("removeAdmin", groupId, userId);
+
 		}
 	},
+
+
 	getUsers: function(groupId, start, end) {
 		check(groupId, String);
 		check(start, String);
@@ -128,11 +133,6 @@ Meteor.methods({
 			{ $push: { parentGroups: parentId } }
 		);
 	},
-	/*getAllParents: function(groupId) {
-		check(groupId, String);
-
-		Groups.findOne(groupId, { parentGroups: 1 })
-	},*/
 	getActions: function(groupId, start, end) {
 		check(groupId, String);
 		return Groups.findOne(groupId).actions.slice(start, end);
@@ -140,6 +140,8 @@ Meteor.methods({
 	addAdmin: function(groupId, userId) {
 		check(groupId, String);
 		check(userId, String);
+
+		Meteor.call("addUser", groupId, userId);
 
 		if (Groups.findOne(groupId).admins.indexOf(userId) !== -1) {
 			throw new Meteor.Error("User is already admin of group.");
@@ -182,36 +184,36 @@ Meteor.methods({
 	sortLeaderboard: function(groupId) {
             Groups.findOne(groupId).users.sort(function(a,b){return b.points-a.points;});
 	},
-        'topFiveActions': function(groupId){
-            check(groupId, String);
-            var group = Groups.findOne(groupId);
-            return group.actions.map(function(action){
-                return Actions.findOne(action);
-            });
-        },
-        'requestToJoin' : function(groupId){
-            check(groupId, String);
-            Groups.update(
-                groupId, 
-		{ $push: { usersRequesting: Meteor.userId() } }
-            );
-        },
-        'updateGroupName' : function(groupId, newName){
-            check(groupId, String);
-            check(newName, String);
-            Groups.update(
-                groupId, 
-		{ $set: { name: newName } }
-            );
-            
-        },
-        'addActionToGroup': function(groupId, actionId){
-            check(groupId, String);
-            check(actionId, String);
-            Groups.update(
-                groupId, 
-		{ $push: { actions: actionId } }
-            );
-            
-        }
+    'topFiveActions': function(groupId){
+        check(groupId, String);
+        var group = Groups.findOne(groupId);
+        return group.actions.map(function(action){
+            return Actions.findOne(action);
+        });
+    },
+    'requestToJoin' : function(groupId){
+        check(groupId, String);
+        Groups.update(
+            groupId, 
+			{ $push: { usersRequesting: Meteor.userId() } }
+        );
+    },
+    'updateGroupName' : function(groupId, newName){
+        check(groupId, String);
+        check(newName, String);
+        Groups.update(
+            groupId, 
+			{ $set: { name: newName } }
+        );
+        
+    },
+    'addActionToGroup': function(groupId, actionId){
+        check(groupId, String);
+        check(actionId, String);
+        Groups.update(
+            groupId, 
+			{ $push: { actions: actionId } }
+        );
+        
+    }
 });

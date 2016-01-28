@@ -1,7 +1,7 @@
 // Home Route
 Router.route('/group/:_id', {
     name: 'group',
-    action: function () {
+    action: function () {        
         var group = Groups.findOne(this.params._id);
         this.render('Group', {
             data: function () {
@@ -34,7 +34,20 @@ Router.route('/group/:_id/edit', {
                 return group;
             }
         });
-        console.log(group);
         SEO.set({title: group ? group.name : 'loading'});
     }
+});
+
+// Temporary
+Router.route('/group/:_id/comp:index', {
+  name: 'competition',
+  action: function () {
+    var competition = Groups.findOne(this.params._id).competitions[this.params.index];
+    this.render('competition', {
+        data: function () {
+            return competition;
+        }
+    });
+    SEO.set({ title: 'Competition - ' + Meteor.App.NAME });
+  }
 });
