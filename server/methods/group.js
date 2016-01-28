@@ -90,8 +90,13 @@ Meteor.methods({
 				userId,
 				{ $pull: { "profile.groups": groupId } }
 			);
+
+			Meteor.call("removeAdmin", groupId, userId);
+
 		}
 	},
+
+
 	getUsers: function(groupId, start, end) {
 		check(groupId, String);
 		check(start, String);
@@ -135,6 +140,8 @@ Meteor.methods({
 	addAdmin: function(groupId, userId) {
 		check(groupId, String);
 		check(userId, String);
+
+		Meteor.call("addUser", groupId, userId);
 
 		if (Groups.findOne(groupId).admins.indexOf(userId) !== -1) {
 			throw new Meteor.Error("User is already admin of group.");

@@ -23,6 +23,28 @@
 		display: inline-block;
 		width: 80%;
 	}
+
+	@media screen and (max-width: @mediumDesktopWidth) {
+		label {
+			width: 40%;
+		}
+
+		input {
+			width: 60%;
+		}
+	}
+
+	@media screen and (max-width: @tabletWidth) {
+		label {
+			text-align: left;
+			width: 100%;
+		}
+
+		input {
+			width: 100%;
+			display: block;
+		}
+	}
 }
 
 .action-to-add {
@@ -73,5 +95,11 @@
 		height: 3em;
 		width: 3em;
 		margin: 0 10px;
+	}
+}
+
+.actions-list {
+	@media all (min-width: @mediumDesktopWidth) {
+
 	}
 }

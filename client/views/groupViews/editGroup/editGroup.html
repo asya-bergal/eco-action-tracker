@@ -8,28 +8,34 @@
         <div class='items'>
             <div class="competition-listing">
                 <div class="section-heading">
-                    <span class="section-title">Competitions</span><span class="new-competition new-tag">New Competition</span>
+                    <span class="section-title">Competitions</span><span class="new-competition new-tag">Add Competition</span>
                 </div>
-                <div class="add-competition-form edit-form hidden">
+                <div class="add-competition-form edit-form item-container hidden">
                     {{> addCompetition this}}
                 </div>
-                {{#each comp in competitions}}
-                    {{> editCompetition comp}}
+                {{#each competitions}}
+                    <div class="competition-item item-container">
+                        <div class="comp-name">
+                            <span class="name">{{name}}</span> <span class="end-time"> Ends {{humanDate end}}</span>
+                        </div>
+                        <div class="comp-desc">
+                            <span class="desc">{{description}}</span>
+                        </div>
+                    </div>
                 {{else}}
                 <div class="empty-collection">No Competitions</div>
                 {{/each}}
             </div>
             <div class="action-listing">
                 <div class="section-heading">
-                    <span class="section-title">Actions </span><span class="add-actions new-tag">Add Actions</span>
+                    <span class="section-title">Actions </span><span class="add-actions new-tag">Add Action</span>
                 </div>
-                <div class="add-action-form edit-form">
+                <div class="add-action-form edit-form item-container">
                     {{> addAction}}
                 </div>                
                 {{#each action in getActions}}
-                <div class="action-container">
+                <div class="action-container item-container">
                     <span class="action-title">{{action.title}}</span>
-                    
                     {{#unless action.isGlobal}}
                         {{#if action.needsApproval}}
                             <span>Pending global approval</span>
@@ -51,16 +57,16 @@
                 <div class="section-heading">
                     <span class="section-title">Users </span><span class="add-user new-tag">Add User</span>
                 </div>
-                <form class="add-user-form edit-form">
+                <form class="add-user-form edit-form item-container">
                     <div class=" form-group">
                         <label>Username:</label> <input class="form-control" name="username" type="text">
                     </div>
                     <input class="btn btn-default" type="submit" value="Add User">        
                 </form>
                 {{#each user in getUsers}}
-                <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a>
+                <div class="user-container item-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a>
                     {{#if diff user._id}}
-                    <img class="remove-user user-button" id={{user._id}} src="/images/remove.svg" />
+                    <input type="image" class="remove-user user-button" id={{user._id}} src="/images/remove.svg" />
                     {{/if}}
                 </div>              
                 {{else}}
@@ -71,16 +77,16 @@
                 <div class="section-heading">
                     <span class="section-title">Admins </span><span class="add-admin new-tag">Add Admin</span>
                 </div>
-                <form class="add-admin-form edit-form">
+                <form class="add-admin-form edit-form item-container">
                     <div class=" form-group">
                         <label>Username:</label> <input class="form-control" name="username" type="text">
                     </div>
                     <input class="btn btn-default" type="submit" value="Add Admin">        
                 </form>
                 {{#each admin in getAdmins}}
-                <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{admin.username}}</a>
+                <div class="user-container item-container"><a class="user-profile-link" href="/user/{{_id}}">{{admin.username}}</a>
                     {{#if diff admin._id}}
-                    <img class="remove-user user-button" id={{admin._id}} src="/images/remove.svg" />
+                    <input type="image" class="remove-admin user-button" id={{admin._id}} src="/images/remove.svg" />
                     {{/if}}
                 </div>                    
                 {{else}}
@@ -92,10 +98,12 @@
                     <span class="section-title">Users Requesting To Join</span>
                 </div>
                 {{#each user in getUserRequests}}
-                <div class="user-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a>
+                
+                <div class="user-container item-container">
+                    <a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a>
                     {{#if diff user._id}}
-                        <img class="request-user user-button" id={{user._id}} src="/images/add.svg" />
-                        <img class="remove-user user-button" id={{user._id}} src="/images/remove.svg" />                   
+                        <input type="image" class="request-user user-button" id={{user._id}} src="/images/add.svg" />
+                        <input type="image" class="remove-user user-button" id={{user._id}} src="/images/remove.svg" />
                     {{/if}}
                 </div>
                 {{else}}
@@ -107,16 +115,3 @@
 
     </div>
 </template>
-
-<template name="editCompetition">
-    <div class="competition-item">
-        <div class="comp-name">
-            <span class="name">{{name}}</span> <span class="end-time"> Ends {{humanDate end}}</span>
-        </div>
-        <div class="comp-desc">
-            <span class="desc">{{description}}</span>
-        </div>
-    </div>
-</template>
-
-

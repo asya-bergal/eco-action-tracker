@@ -9,19 +9,23 @@ Template['addCompetition'].helpers({
 });
 
 Template['addCompetition'].events({
-	'submit #derpCompetition': function(e) {
+	'submit #new-competition': function(e) {
 		e.preventDefault();
 		console.log("here");
 		
 		var actionsParsed = [];
 		var actionsList = $('#competitionActions').children();
 		for(var i = 0; i < actionsList.length; i++) {
-			var actionId = document.getElementsByTagName("input")[0].getAttribute("name");
-			actionsParsed.push(actionId);
-			console.log(actionId);
+			var check = document.getElementsByTagName("input")[0].checked;
+			if (check) {
+				var actionId = document.getElementsByTagName("input")[0].getAttribute("name");
+				actionsParsed.push(actionId);
+				console.log(actionId);
+			}
 		}
 
 		var competitionJson = {
+			index: this.competitions.length,
 			name: e.target.name.value,
 			description: e.target.description.value,
 			start: Date.parse(e.target.startDate.value),
@@ -31,8 +35,18 @@ Template['addCompetition'].events({
 			participants: this.users
 		}
 
-
 		console.log(competitionJson);
-		Meteor.call("addCompetition", this._id, competitionJson);
+
+		Meteor.call("addCompetition", this._id, competitionJson, function(err, result){
+			if(err) {
+				console.log(err);
+			} else {
+				e.target.name.value = '';
+				e.target.description.value = '';
+				e.target.startDate.value = '';
+				e.target.endDate.value = '';
+				console.log(result);
+			}
+		});
 	}
 });

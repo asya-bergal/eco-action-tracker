@@ -100,21 +100,21 @@ function takeAction(actionId, fieldEntries) {
         { $inc: { "subgroups.$.points": points } }
     );
 
-    //TODO Fix when competitions are implemented
-    // Groups.update(
-    //     { "competitions.actions": actionId,
-    //       "competitions.userLevel": true,
-    //       "competitions.participants.userId": me._id
-    //     },
-    //     { $inc: { "competitions.participants.$.points": points } }
-    // );
-    // Groups.update(
-    //     { "competitions.actions": actionId,
-    //       "competitions.userLevel": false,
-    //       "competitions.participants": { $in: me.profile.groups }
-    //     },
-    //     { $inc: { "competitions.participants.$.points": points } }
-    // );
+    // TODO Fix when competitions are implemented
+    Groups.update(
+        { "competitions.actions": actionId,
+          "competitions.userLevel": true,
+          "competitions.participants.userId": me._id
+        },
+        { $inc: { "competitions.participants.$.points": points } }
+    );
+    Groups.update(
+        { "competitions.actions": actionId,
+          "competitions.userLevel": false,
+          "competitions.participants": { $in: me.profile.groups }
+        },
+        { $inc: { "competitions.participants.$.points": points } }
+    );
     // return value could be useful for front end stuff
     return points;
 }

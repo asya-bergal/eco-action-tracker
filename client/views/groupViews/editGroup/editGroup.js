@@ -94,6 +94,14 @@ Template.editGroup.events({
       }
     });
   },
+  'click .remove-admin': function(e){
+    var userId = e.target.getAttribute('id');
+    Meteor.call('removeAdmin', this._id, userId, function(err){
+      if(err){
+        console.log(err);
+      }
+    });
+  },
   'click .request-user': function(e){
     var userId = e.target.getAttribute('id');
     Meteor.call('addUser', this._id, userId, function(err){
@@ -115,7 +123,6 @@ Template.editGroup.events({
     });     
   },
   'click .edit-group-name': function(e){
-      console.log('eyy');
    $('.group-name').toggleClass('hidden');
    $('.group-name-field').toggleClass('visible');
    Meteor.call('updateGroupName', this._id, $('.group-name-field').val(), function(err){

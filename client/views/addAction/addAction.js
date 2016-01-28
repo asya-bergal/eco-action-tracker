@@ -1,6 +1,5 @@
 var count = 0;
 function fieldCount() {
-	console.log("inc field");
 	return count++;
 }
 
@@ -93,7 +92,6 @@ Template['addAction'].events({
 				}
 
 				fieldsParsed.push(fieldJson);
-				console.log(fieldJson);
 			}
 		}		
 
@@ -103,8 +101,6 @@ Template['addAction'].events({
 			dailyCap: parseInt(e.target.dailyCap.value),
 			fields: fieldsParsed
 		}
-
-		console.log("about to add action");
 
 		Meteor.call("addAction", actionJson, function(err, result){
             if(err){

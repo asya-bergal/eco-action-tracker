@@ -2,7 +2,7 @@
     <div id="add-competition-title" class="add-title">
     	<span>Add a competition</span>
     </div>
-    <form id="derpCompetition">
+    <form id="new-competition">
     	<div class="to-add form-group">
     		<label>Competition name: </label><input class="form-control" name="name" type="text">
     	</div>
@@ -20,9 +20,11 @@
     		<div class="select-actions-header add-fields-header">
     			<h3>Select actions:</h3>
     		</div>
-    		{{#each getActions}}
-    		<label class="action-to-add"><input type="checkbox" checked="true" name="{{_id}}">{{title}}</label>
-    		{{/each}}
+            <div class="actions-list">
+                {{#each getActions}}
+                    <label class="action-to-add"><input type="checkbox" checked="true" name="{{_id}}">{{title}}</label>
+                {{/each}}
+            </div>
     	</div>
 
     	<div class="text-center">
