@@ -24,7 +24,13 @@ Template['addCompetition'].events({
 			}
 		}
 
+		var participants = this.users;
+		for (var i = 0; i < participants.length; i++) {
+			participants[i].points = 0;
+		};
+
 		var competitionJson = {
+			parentGroup: this._id,
 			index: this.competitions.length,
 			name: e.target.name.value,
 			description: e.target.description.value,
@@ -32,7 +38,7 @@ Template['addCompetition'].events({
 			end: Date.parse(e.target.endDate.value),
 			actions: actionsParsed,
 			userLevel: true,
-			participants: this.users
+			participants: participants
 		}
 
 		console.log(competitionJson);
