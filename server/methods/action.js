@@ -121,6 +121,11 @@ function takeAction(actionId, fieldEntries) {
     return points;
 }
 
+/**
+ * Approve action for global use.
+ * 
+ * @param  {String} actionId Database ID of action to be approved
+ */
 function approveAction(actionId) {
     check(actionId, String);
     Actions.update(actionId, {$set: 
@@ -128,6 +133,11 @@ function approveAction(actionId) {
     });
 }
 
+/**
+ * Do not approve action for global use.
+ * 
+ * @param  {String} actionId Database ID of action to be not approved
+ */
 function notApproveAction(actionId) {
     check(actionId, String);
     Actions.update(actionId, {$set: 
@@ -135,6 +145,11 @@ function notApproveAction(actionId) {
     });
 }
 
+/**
+ * Submit group action for global admin approval.
+ * 
+ * @param  {String} actionId Database ID of action to be submitted for approval
+ */
 function submitForApproval(actionId){
     check(actionId, String);
     Actions.update(actionId, {$set: 

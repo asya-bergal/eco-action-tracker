@@ -2,6 +2,7 @@ Template.searchGroups.helpers({
   groupsIndex: function() {
       return GroupsIndex;
   },
+  // TODO: comment
   addLink: function() {
       return function (c) {
           c['onChange'] = function(value) {
@@ -12,6 +13,7 @@ Template.searchGroups.helpers({
   }
 });
 
+// TODO: comment
 Template.searchGroups.rendered = function() {
     $(".selectize-input > input").attr('placeholder','Search Groups').css('width', '100%');
 };
@@ -20,6 +22,8 @@ Template.searchActions.helpers({
   actionsIndex: function() {
       return ActionsIndex
   },
+
+  // TODO: comment
   addLink: function () {
       return function (c) {
           c['onChange'] = function(value) {
