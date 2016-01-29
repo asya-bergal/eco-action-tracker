@@ -68,7 +68,7 @@ Template['addAction'].events({
 
 				var fieldJson = {
 					name: e.target[fieldName].value, 
-					operation: 1,
+					operation: 0,
 					scale: parseInt(e.target[fieldScale].value)
 				}
 
