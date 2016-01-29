@@ -184,13 +184,12 @@ Meteor.methods({
 	sortLeaderboard: function(groupId) {
             Groups.findOne(groupId).users.sort(function(a,b){return b.points-a.points;});
 	},
-    'topFiveActions': function(groupId){
-        check(groupId, String);
-        var group = Groups.findOne(groupId);
-        return group.actions.map(function(action){
-            return Actions.findOne(action);
-        });
-    },
+    /**
+     * Changes a groups name to the inputed value
+     * 
+     * @param {string} groupId of the group we wish to update
+     * @param {string} newName for the group
+     */
     'updateGroupName' : function(groupId, newName){
         check(groupId, String);
         check(newName, String);
@@ -200,6 +199,12 @@ Meteor.methods({
         );
         
     },
+    /**
+     * Adds an action to a group
+     * 
+     * @param {string} groupId of the group we will add the action to
+     * @param {string} actionId of the action we wish to add
+     */
     'addActionToGroup': function(groupId, actionId){
         check(groupId, String);
         check(actionId, String);
@@ -209,6 +214,12 @@ Meteor.methods({
         );
         
     },
+    /**
+     * Removes an action to a group
+     * 
+     * @param {string} groupId of the group we will removes the action to
+     * @param {string} actionId of the action we wish to remove
+     */
     'removeActionFromGroup': function(groupId, actionId){
         check(groupId, String);
         check(actionId, String);
