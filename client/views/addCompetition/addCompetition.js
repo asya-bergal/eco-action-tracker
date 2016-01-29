@@ -9,6 +9,7 @@ Template['addCompetition'].helpers({
 });
 
 Template['addCompetition'].events({
+	// Add new competition to group based on form input.
 	'submit #new-competition': function(e) {
 		e.preventDefault();
 		

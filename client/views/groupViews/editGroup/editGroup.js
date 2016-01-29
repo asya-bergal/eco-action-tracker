@@ -1,3 +1,4 @@
+// Clear add action form and add action to group
 var closeGroupActionForm = function(actionId){
     $('.add-action-form').toggleClass('visible');
     var groupId = $('.group-title').attr("id");
@@ -101,7 +102,6 @@ Template.editGroup.events({
   },
   'click .remove-comp': function(e){
     var compId = e.target.getAttribute('id');
-    console.log(compId);
     Meteor.call('removeCompetition', compId, function(err){
       if(err){
         console.log(err);

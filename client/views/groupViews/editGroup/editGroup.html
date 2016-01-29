@@ -44,7 +44,7 @@
                 {{#each competition in getCompetitions}}
                     <div class="competition-item item-container">
                         <div class="comp-name">
-                            <span class="name"><a href="/competitions/{{this._id}}">{{competition.name}}</a></span> 
+                            <span class="name"><a href="/competitions/{{competition._id}}">{{competition.name}}</a></span> 
                             <span class="end-time"> Ends {{humanDate competition.end}}</span>
                             <input type="image" class="remove-comp user-button" id={{competition._id}} src="/images/remove.svg" />
                         </div>

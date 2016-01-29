@@ -1,3 +1,4 @@
+// Number of fields already added to action form.
 var count = 0;
 function fieldCount() {
 	return count++;
@@ -7,6 +8,7 @@ Template['addAction'].helpers({
 });
 
 Template['addAction'].events({
+	// Add new fields to action being added.
 	'click .add-field-button': function(e) {
 		e.preventDefault();
 
@@ -41,6 +43,7 @@ Template['addAction'].events({
 		fieldCount();
 	},
 
+	// Remove field from action.
 	'click .removeButton': function(e) {
 		e.preventDefault();
 		var index = e.target.name;
@@ -50,6 +53,7 @@ Template['addAction'].events({
 		parent.removeChild(child);
 	},
 
+	// Add action to group.
 	'submit #add-action': function(e) {
 		e.preventDefault();
 

@@ -1,4 +1,10 @@
 Meteor.methods({
+	/**
+	 * Add a new competition to the database and to its parent group.
+	 * 
+	 * @param {Object} data JSON object containing data for the action to be added
+	 * @return {String} Database ID of competition just added
+	 */
 	addCompetition: function(data) {
         check(data, Object);
         var competitionId = Competitions.insert(data, function(err, action) {
@@ -14,6 +20,13 @@ Meteor.methods({
 
 		return competitionId;
 	},
+
+	/**
+	 * Remove a competition from its parent group and the database.
+	 * 
+	 * @param  {String} competitionId Database ID of competition to be removed
+	 * @return {String} Former dataase ID of competition that was just removed
+	 */
 	removeCompetition: function(competitionId) {
 		check(competitionId, String);
         

@@ -16,6 +16,7 @@ Template.profile.helpers({
 });
 
 Template.profile.events({
+    // Create new group
     "submit .new-group-form": function(event){
         event.preventDefault();
         var groupJson = {
