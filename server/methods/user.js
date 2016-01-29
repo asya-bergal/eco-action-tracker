@@ -1,6 +1,13 @@
 //TODO: Error handling?
 Meteor.methods({
 
+    /**
+     * get the number of points a user has earned, optionally specifying a set of actions to use when calculating
+     *
+     * @param {string} userid id of user to get points from
+     * @param {string[]=} actions list of action ids to use for points calculation
+     * @return {number} points current user has gained from given set of actions
+     */
     getUserPoints: function(userId, actions) {
         check(userId, String);
         check(actions, [String]);
@@ -17,6 +24,16 @@ Meteor.methods({
         return sumActionPoints(matchingActions);
     },
 
+    /**
+     * get the number of points a user has earned between two points in time, optionally specifying a set of actions to use when calculating
+     *
+     * @param {string} userid id of user to get points from
+     * @param {date} start start of period of time to calculate points from
+     * @param {date} end end of period of time to calculate points from
+     * @param {string} userid id of user to get points from
+     * @param {string[]=} actions list of action ids to use for points calculation
+     * @return {number} points current user has gained from given set of actions
+     */
     getUserPointsBetween: function(userId, start, end, actions) {
         check(userId, String);
         check(start, Match.Any); //TODO: should probably be something else
@@ -52,6 +69,7 @@ Meteor.methods({
     },
 });
 
+// Return true if arr contains element, else return False
 var contains = function (arr, element) {
     var i = arr.length;
     while (i--) {
@@ -62,18 +80,21 @@ var contains = function (arr, element) {
     return false;
 }
 
+// Given a list of actions, sum all the points resulting from those actions
 var sumActionPoints = function(actions) {
     return actions.reduce(function(action1, action2) {
         return action1.points + action2.points;
     }, 0);
 }
 
+// Filter a list of allActions by only certain actionids
 var getMatchingActions = function(allActions, ids) {
     return allActions.filter(function(action) {
         return contains(ids, action._id);
     });
 }
 
+// Filter a list of allActions by only certain actionids, as well as a start and end date
 var getMatchingTimelyActions = function(allActions, ids, start, end) {
     return allActions.filter(function(action) {
         return action.timestamp >= start && action.timestamp < end && contains(ids, action._id);

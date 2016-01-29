@@ -1,4 +1,5 @@
 Template.register.events({
+    // Handle registration
     "submit .registration-form": function (event) {
         event.preventDefault();
 
@@ -29,6 +30,7 @@ Template.register.events({
 });
 
 Template.login.events({
+    // Handle login
     "submit .login-form": function (event) {
         event.preventDefault();
 

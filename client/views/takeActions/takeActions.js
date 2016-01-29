@@ -1,10 +1,13 @@
 Template.takeActions.helpers({
+    // Return an array of objects, where each object contains a category field with the name of the category, and an actions field with the list of actions associated with that category
     'categories': function () {
         // TODO: Is there a faster way to do this?
+        // Get the list of all actions, and sort them by category them into categories
         var allActions = Actions.find({}, {sort: {category: 1}}).fetch();
         var categories = [];
 
         // TODO: category cannot be empty string in schema
+        // Sort actions into separate arrays for each category
         var curCategory = "";
         allActions.forEach(function (action) {
             if(action.category != curCategory) {
@@ -21,6 +24,7 @@ Template.takeActions.helpers({
 });
 
 Template.takeActions.events({
+    // Handle taking an action
     "submit .action-form": function (event) {
         event.preventDefault();
 
@@ -29,6 +33,7 @@ Template.takeActions.events({
         console.log(actionId);
         var action = Actions.findOne({_id: actionId});
 
+        // Get all fields to submit to form
         var fieldEntries = [];
         action.fields.forEach(function (field) {
             var entry = event.target[field.name].value;
