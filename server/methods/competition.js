@@ -16,6 +16,7 @@ Meteor.methods({
 	},
 	removeCompetition: function(competitionId) {
 		check(competitionId, String);
+        
         competition = Competitions.findOne({ _id: competitionId }); 
         if (!competition) {
             return null;
@@ -26,6 +27,7 @@ Meteor.methods({
 			{ $pull: { competitions: competitionId } }
 		);
 
+		Competitions.remove(competitionId);
 		return competitionId;
 	}
 });
