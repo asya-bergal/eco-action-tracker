@@ -10,13 +10,21 @@ var closeGroupActionForm = function(actionId){
 };
 
 Template.editGroup.helpers({
+    /**
+     * 
+     * @returns {array of actions} returns the groups actions
+     */
   'getActions': function(){
     if(this.actions){
       return this.actions.map(function(actionId){
-         return Actions.findOne(actionId);;
+         return Actions.findOne(actionId);
       });
     }
   },
+  /**
+   * 
+   * @returns {array of users} who belong to the group
+   */
   'getUsers': function(){
     if(this.users){
       return this.users.map(function(user){
@@ -26,6 +34,10 @@ Template.editGroup.helpers({
       });
     }
   },
+  /**
+   * 
+   * @returns {arrays of users} who are admins
+   */
   'getAdmins': function(){
     if(this.admins){
       return this.admins.map(function(user){
@@ -34,9 +46,17 @@ Template.editGroup.helpers({
       });
     }
   },
+  /**
+   * 
+   * @returns {cursor} competitions which belong to this group
+   */
   'getCompetitions': function(){
     return Competitions.find({ "parentGroup": this._id });
   },
+  /**
+   * 
+   * @returns {user[]} who requested to be a part of the group
+   */
   'getUserRequests': function(){
     if(this.usersRequesting){
       return this.usersRequesting.map(function(userId){
@@ -44,6 +64,11 @@ Template.editGroup.helpers({
       });
     }
   },
+  /**
+   * 
+   * @param {string} id userId
+   * @returns {Boolean} whether this is not the current user's id
+   */
   diff: function(id){
       return id !== Meteor.userId();
   }

@@ -1,11 +1,20 @@
 Template.admin.helpers({
+    /*
+     * @returns {cursor} 5 actions currently needing admin approval
+     */
     'actionRequest': function () {
         return Actions.find({'needsApproval': true}, {'limit': 5});
     },
-    'getAdmins': function () {
+     /*
+     * @returns {cursor} cursor pointing to all global admins
+     */
+   'getAdmins': function () {
         return Meteor.users.find({'profile.globalAdmin': true});
     },
-    diff: function (id) {
+     /*
+     * @returns {bool} whether this user id is different that the logged in user
+     */
+   diff: function (id) {
         return id !== Meteor.userId();
     }
 });
