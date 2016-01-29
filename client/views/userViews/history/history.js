@@ -4,11 +4,7 @@ Session.set('total', 0);
 Template.history.helpers({
     'action' : function () {
         // Get a cursor pointing to all the actions and fetch them all
-        return Actions.find({}).fetch();
-    },
-    'total': function () {
-        // This is reactive! (Changes when total changes)
-        return Session.get('total');
+        return Actions.find({});
     }
 });
 

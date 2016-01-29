@@ -7,6 +7,6 @@ Template.registerHelper('humanDate', function (date) {
     return moment(date).fromNow();
 });
 
-Template.registerHelper('isGlobalAdmin', function(){
+Template.registerHelper('isGlobalAdmin', function () {
     return Meteor.user().profile.globalAdmin;
 });
