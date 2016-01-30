@@ -23,8 +23,6 @@
         }
     }
     .group-content{
-        .display(flex);
-        padding: 0 10px;
 
         .section-header {
             border-bottom: 1px solid rgba(150,150,150,1);
@@ -32,84 +30,64 @@
             margin-bottom: 0;
         }
 
-        .left{
-            .flex(2,1,0);
-            .competition-listing{
-                padding: 10px 0;
-                margin-right: 30px;
+        .group-element {
+            padding: 10px;
+        }
 
-                .competition-item{
+        .competition-listing{
+
+            .competition-item{
+                .display(flex);
+                padding: 10px 20px;
+                border-bottom:1px solid rgba(150,150,150,1);
+                background-color: rgba(250,250,250,1);
+                .flex-direction(column);
+                .comp-name{
                     .display(flex);
-                    padding: 10px 20px;
-                    border-bottom:1px solid rgba(150,150,150,1);
-                    background-color: rgba(250,250,250,1);
-                    .flex-direction(column);
-                    .comp-name{
-                        .display(flex);
-                        .name{
-                            .flex(1,1,0);
-                            font-size: 20px;
-                        }
+                    .name{
+                        .flex(1,1,0);
+                        font-size: 20px;
                     }
-                    .comp-desc{
-                        padding: 5px 20px;
-                        font-style: italic;
-                    }
+                }
+                .comp-desc{
+                    padding: 5px 20px;
+                    font-style: italic;
                 }
             }
-            .stats{
-                .display(flex);
-                .justify-content(center);
-                #actions-donut{
-                    .display(flex);
-                    .justify-content(center);
-                    .align-items(center);
-                    .flex-direction(column);
-                }
-                #weekly-points{
-                    .display(flex);
-                    .justify-content(center);
-                    .align-items(center);
-                    .flex-direction(column);
-                }
+
+            #no-competitions {
+                text-align: center;
+                font-size: 1.25em;
+                margin: 10px;
             }
         }
-        .right{
-            .flex(1,1,0);
-            padding: 10px 0;
-            margin-left: 30px;
+        .leaderboard-fields{
+            margin-bottom: 10px;
+            font-size: 1.25em;
+            font-weight: bold;
+            margin-top: 10px;            
+            text-align: center;
+        }
 
-            .leaderboard-fields{
-                margin-bottom: 10px;
-                font-size: 1.25em;
-                font-weight: bold;
-                margin-top: 10px;
-                /*border-top: 1px solid rgba(150,150,150,1);*/
-                
-                text-align: center;
+        .leaderboard-listing{
+            .display(flex);
+            text-align: center;
+
+            .place{
+                .flex(1,1,0);
+
             }
-
-            .leaderboard-listing{
-                .display(flex);
-                text-align: center;
-
-                .place{
-                    .flex(1,1,0);
-
-                }
-                .username{
-                    .flex(2,1,0);
-                }
-                .points{
-                    .flex(1,1,0);
-                }
+            .username{
+                .flex(2,1,0);
             }
-
-            .leaderboard-content {
-                font-size: 1.1em;
-                margin-bottom: 5px;
-                /*padding-top: 10px;*/
+            .points{
+                .flex(1,1,0);
             }
+        }
+
+        .leaderboard-content {
+            font-size: 1.1em;
+            margin-bottom: 5px;
         }
     }
     .group-stats{
@@ -198,6 +176,10 @@
                 @media screen and (max-width: @tabletWidth) {
                     margin: 5px 20px;
                 }
+                .item-title {
+                    font-size: 1.2em;
+                    /*font-weight: bold;*/
+                }
             }
 
             .edit-form{
@@ -213,7 +195,6 @@
                     .display(flex);
                     .name{
                         .flex(1,1,0);
-                        font-size: 20px;
                     }
                 }
             }

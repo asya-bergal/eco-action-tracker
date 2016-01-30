@@ -15,7 +15,7 @@
                 </div>                
                 {{#each action in getActions}}
                 <div class="action-container item-container">
-                    <span class="action-title">{{action.title}}</span>
+                    <span class="action-title item-title">{{action.title}}</span>
                     {{#unless action.isGlobal}}
                         {{#if action.needsApproval}}
                             <span>Pending global approval</span>
@@ -44,7 +44,7 @@
                 {{#each competition in getCompetitions}}
                     <div class="competition-item item-container">
                         <div class="comp-name">
-                            <span class="name"><a href="/competitions/{{competition._id}}">{{competition.name}}</a></span> 
+                            <span class="name item-title"><a href="/competitions/{{competition._id}}">{{competition.name}}</a></span> 
                             <span class="end-time"> Ends {{humanDate competition.end}}</span>
                             <input type="image" class="remove-comp user-button" id={{competition._id}} src="/images/remove.svg" />
                         </div>
@@ -67,7 +67,8 @@
                     <input class="btn btn-default" type="submit" value="Add User">        
                 </form>
                 {{#each user in getUsers}}
-                <div class="user-container item-container"><a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a>
+                <div class="user-container item-container">
+                    <a class="user-profile-link item-title" href="/user/{{_id}}">{{user.username}}</a>
                     {{#if diff user._id}}
                     <input type="image" class="remove-user user-button" id={{user._id}} src="/images/remove.svg" />
                     {{/if}}
@@ -87,7 +88,8 @@
                     <input class="btn btn-default" type="submit" value="Add Admin">        
                 </form>
                 {{#each admin in getAdmins}}
-                <div class="user-container item-container"><a class="user-profile-link" href="/user/{{_id}}">{{admin.username}}</a>
+                <div class="user-container item-container">
+                    <a class="user-profile-link item-title" href="/user/{{_id}}">{{admin.username}}</a>
                     {{#if diff admin._id}}
                     <input type="image" class="remove-admin user-button" id={{admin._id}} src="/images/remove.svg" />
                     {{/if}}
@@ -103,7 +105,7 @@
                 {{#each user in getUserRequests}}
                 
                 <div class="user-container item-container">
-                    <a class="user-profile-link" href="/user/{{_id}}">{{user.username}}</a>
+                    <a class="user-profile-link item-title" href="/user/{{_id}}">{{user.username}}</a>
                     {{#if diff user._id}}
                         <input type="image" class="request-user user-button" id={{user._id}} src="/images/add.svg" />
                         <input type="image" class="remove-user user-button" id={{user._id}} src="/images/remove.svg" />

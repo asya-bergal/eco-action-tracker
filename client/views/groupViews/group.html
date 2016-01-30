@@ -14,19 +14,19 @@
       {{/if}}
     {{/if}}
   </div>
-  <div class="group-content">
-    <div class="left">
+  <div class="group-content row">
+    <div class="col-sm-7 group-element">
       <div class="competition-listing">
         <h3 class="competition-header section-header">Competitions</h3>
         {{#each comp in competitions}}
           {{> competitionList comp}}
         {{else}}
-          No Competitions Currently
+          <div id="no-competitions">No Competitions Currently</div>
         {{/each}}
 
       </div>
     </div>
-    <div class="right">
+    <div class="col-sm-5 group-element">
       <div>
         <h3 class="section-header">Leaderboard</h3>
           <div class="leaderboard-listing leaderboard-fields">
@@ -40,7 +40,7 @@
       </div>
     </div>
   </div>
-  <h3 class="stats-header"><a href='{{this._id}}/stats'>Summary Statistics</a></h3>
+  <h3 class="stats-header row"><a href='{{this._id}}/stats'>Summary Statistics</a></h3>
 </div>
 
 </template>
