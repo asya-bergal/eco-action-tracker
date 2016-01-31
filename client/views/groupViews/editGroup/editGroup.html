@@ -7,9 +7,9 @@
         </div>
         <div class='items'>
             <div class="action-listing">
-                <div class="section-heading">
+                <h3 class="section-header">
                     <span class="section-title">Actions </span><span class="add-actions new-tag">Add Action</span>
-                </div>
+                </h3>
                 <div class="add-action-form edit-form item-container">
                     {{> addAction}}
                 </div>                
@@ -35,7 +35,7 @@
                 {{/each}}
             </div> 
             <div class="competition-listing">
-                <div class="section-heading">
+                <div class="section-header">
                     <span class="section-title">Competitions</span><span class="new-competition new-tag">Add Competition</span>
                 </div>
                 <div class="add-competition-form edit-form item-container hidden">
@@ -53,11 +53,11 @@
                         </div>
                     </div>
                 {{else}}
-                <div class="empty-collection">No Competitions</div>
+                <div class="empty-collection">No Competitions Currently</div>
                 {{/each}}
             </div>   
             <div class="user-listing">
-                <div class="section-heading">
+                <div class="section-header">
                     <span class="section-title">Users </span><span class="add-user new-tag">Add User</span>
                 </div>
                 <form class="add-user-form edit-form item-container">
@@ -74,11 +74,11 @@
                     {{/if}}
                 </div>              
                 {{else}}
-                <div class="empty-collection">No Users</div>
+                <div class="empty-collection">No Users In This Group</div>
                 {{/each}}
             </div>
             <div class="admin-listing">
-                <div class="section-heading">
+                <div class="section-header">
                     <span class="section-title">Admins </span><span class="add-admin new-tag">Add Admin</span>
                 </div>
                 <form class="add-admin-form edit-form item-container">
@@ -99,7 +99,7 @@
                 {{/each}}
             </div>
             <div class="user-listing">
-                <div class="section-heading">
+                <div class="section-header">
                     <span class="section-title">Users Requesting To Join</span>
                 </div>
                 {{#each user in getUserRequests}}

@@ -1,14 +1,10 @@
 <template name="admin">
     <div id="admin-page">
-        <div id="globalAdmins">
-            <div class="section-heading">
-                <span class="section-title">Download user Emails</span><span class='btn btn-success' id='userDownload'>Download email list</span>
-
-            </div>
-        </div>
+        <h3 class='btn btn-success section' id='userDownload'>Download list of user email addresses</h3>
         <div id="approve-actions" class="section">
-            <div class='section-heading'>
-                <span class="section-title">Actions for global approval</span><span class="add-actions new-tag">Add Global Actions</span>
+            <div class='section-header'>
+                <span class="section-title">Actions for Global Approval</span>
+                <span class="add-actions new-tag">Add Global Actions</span>
             </div>
             <div class="add-action-form edit-form">
                 {{> addAction}}
@@ -44,12 +40,12 @@
                 </div>
             </div>
             {{else}}
-            <span class='empty-collection'>No actions for approval!</span>
+            <div class='empty-collection'>No actions for approval!</div>
             {{/each}}
         </div>
-        <div id="globalAdmins">
-            <div class="section-heading">
-                <span class="section-title">All Global Admins:</span> <span class="new-admin new-tag">Add Admin</span>
+        <div id="globalAdmins" class="section">
+            <div class="section-header">
+                <span class="section-title">All Global Admins</span> <span class="new-admin new-tag">Add Admin</span>
             </div>
             <form class="add-admin-form edit-form">
                 <div class=" form-group">
@@ -59,7 +55,8 @@
             </form>
             <div class="item-listing">
                 {{#each admin in getAdmins}}
-                <div class="item-container"><a class="user-profile-link" href="/user/{{_id}}">{{admin.username}}</a>
+                <div class="item-container">
+                    <a class="user-profile-link item-title" href="/user/{{_id}}">{{admin.username}}</a>
                     {{#if diff admin._id}}
                     <img class="remove-user user-button" id={{admin._id}} src="/images/remove.svg" />
                     {{/if}}
