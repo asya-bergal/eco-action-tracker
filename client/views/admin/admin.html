@@ -43,6 +43,19 @@
             <div class='empty-collection'>No actions for approval!</div>
             {{/each}}
         </div>
+        <div id="globalActions" class="section">
+            <div class="section-header">All Global Actions</div>
+            <div class="item-listing">
+                {{#each action in getActions}}
+                <div class="item-container">
+                    <a class="user-profile-link item-title" href="/user/{{_id}}">{{action.title}}</a>
+                    <input type="image" class="remove-action user-button" id={{action._id}} src="/images/remove.svg" />
+                </div>
+                {{else}}
+                <div class="empty-collection">No Global Actions</div>
+                {{/each}}
+            </div>
+        </div>
         <div id="globalAdmins" class="section">
             <div class="section-header">
                 <span class="section-title">All Global Admins</span> <span class="new-admin new-tag">Add Admin</span>
@@ -58,11 +71,11 @@
                 <div class="item-container">
                     <a class="user-profile-link item-title" href="/user/{{_id}}">{{admin.username}}</a>
                     {{#if diff admin._id}}
-                    <img class="remove-user user-button" id={{admin._id}} src="/images/remove.svg" />
+                    <input type="image" class="remove-admin user-button" id={{admin._id}} src="/images/remove.svg" />
                     {{/if}}
                 </div>
                 {{else}}
-                <div class="empty-collection">No Admins In This Group</div>
+                <div class="empty-collection">No Global Admins</div>
                 {{/each}}
             </div>
         </div>

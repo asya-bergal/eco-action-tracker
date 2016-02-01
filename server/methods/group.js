@@ -34,6 +34,7 @@ Meteor.methods({
 	 * @param  {String}	groupId Database ID of group to be removed
 	 */
 	removeGroup: function(groupId) {
+		check(groupId, String);
 		Groups.remove(groupId);
 	},
 

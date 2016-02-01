@@ -172,6 +172,19 @@ Template.editGroup.events({
   },
   'click .new-competition': function(e){
     $('.add-competition-form').toggleClass('visible');
+  },
+  'click .remove-group': function(e) {
+    e.preventDefault();
+    var really = confirm("Are you sure you want to delete this group? There's no going back!");
+
+    if(really) {
+      Meteor.call('removeGroup', this._id, function(err) {
+        if (err) {
+          console.log(err);
+        };
+      })
+      window.location.href = '/user/profile/';
+    }
   }
 });
 

@@ -154,7 +154,17 @@ function submitForApproval(actionId){
     check(actionId, String);
     Actions.update(actionId, {$set: 
         { needsApproval: true } 
-    });    
+    });
+}
+
+/**
+ * Remove action from database.
+ * 
+ * @param  {String} actionId Database ID of action to be removed
+ */
+function removeAction (actionId) {
+    check(actionId, String);
+    Actions.remove(actionId);
 }
 
 Meteor.methods({
@@ -163,5 +173,6 @@ Meteor.methods({
     'takeAction': takeAction,
     'approveAction': approveAction,
     'notApproveAction': notApproveAction,
-    'submitForApproval': submitForApproval
+    'submitForApproval': submitForApproval,
+    'removeAction': removeAction
 });
