@@ -10,7 +10,6 @@
     align-items: center;
 
     border-bottom: 1px solid;
-    margin-bottom: 10px;
 
     .group-name{
         font-weight: bold;
@@ -29,6 +28,9 @@
         height: 25px;
         width: 25px;
     }
+    .global-delete {
+        margin-left: auto;
+    }
 }
 
 
@@ -41,9 +43,17 @@
     }
     
     .group-content{
-        padding: 10px;
+        padding: 0 10px;
+
+        .group-element {
+            margin-top: 25px;
+        }
 
         .competition-listing{
+
+            .competition-header {
+                margin-bottom: 0;
+            }
 
             .competition-item{
                 .display(flex);

@@ -9,6 +9,13 @@ Template.Group.helpers({
         }
     },
     /**
+     * @return {boolean} whether the current user is a global admin
+     */
+    'globalAdmin': function() {
+        console.log("doSomething");
+        return Meteor.user().profile.globalAdmin;
+    },
+    /**
      * Gets the users in the group
      * 
      * @returns {array} of user docs sorted by points
@@ -58,7 +65,20 @@ Template.Group.helpers({
 Template.Group.events({
     'click #request': function (e) {
         Meteor.call("requestToJoinGroup", this._id, Meteor.userId());
-    }
+    },
+    'click .remove-group': function(e) {
+        e.preventDefault();
+        var really = confirm("Are you sure you want to delete this group? There's no going back!");
+
+        if(really) {
+          Meteor.call('removeGroup', this._id, function(err) {
+            if (err) {
+              console.log(err);
+            };
+          })
+          window.location.href = '/user/profile/';
+        }
+      }
 });
 
 

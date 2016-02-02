@@ -13,6 +13,9 @@
         <span id="request">Request to Join</span>
       {{/if}}
     {{/if}}
+    {{#if globalAdmin}}
+      <span class="global-delete"><button class="btn btn-danger remove-group">Global admin: delete this group</button></span>
+    {{/if}}
   </div>
   <div class="group-content row">
     <div class="col-sm-7 group-element">
