@@ -14,15 +14,15 @@ Template.searchGroups.helpers({
             c['onChange'] = function(value) {
                 if (value && value !== "") {
                     Router.go('/group/' + value);
-                    $("div.searchGroups > select").
-                        selectize()[0].selectize.clear();
-                    $("div.searchGroups > div.selectize-control >\
-                      div.selectize-input > input").blur();
+                    var selectize = $("div.searchGroups > select")
+                        .selectize()[0].selectize;
+                    selectize.clear();
+                    selectize.blur();
                 }
             };
-            c['onFocus'] = function() {
-                $("div.searchGroups > select").
-                    selectize()[0].selectize.clearOptions(); 
+            c['onBlur'] = function() {
+                $("div.searchGroups > select").selectize()[0]
+                    .selectize.onSearchChange('');
             }
             return c;
         };
@@ -54,15 +54,15 @@ Template.searchActions.helpers({
             c['onChange'] = function(value) {
                 if (value && value !== "") {
                     Router.go('/action/' + value);
-                    $("div.searchActions > select").
-                        selectize()[0].selectize.clear();
-                    $("div.searchActions > div.selectize-control >\
-                      div.selectize-input > input").blur();
+                    var selectize = $("div.searchActions > select")
+                        .selectize()[0].selectize;
+                    selectize.clear();
+                    selectize.blur();
                 }
             };
-            c['onFocus'] = function() {
-                $("div.searchActions > select").
-                    selectize()[0].selectize.clearOptions(); 
+            c['onBlur'] = function() {
+                $("div.searchActions > select").selectize()[0]
+                    .selectize.onSearchChange('');
             }
             return c;
         };
