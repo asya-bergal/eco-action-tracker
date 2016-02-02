@@ -3,7 +3,7 @@
         <a href="/"><img id='ploverlogo' src='/images/plover.png'/>{{title}}</a>
     </div>
     {{#if currentUser}}
-        <div class="searchBar col-xs-4 col-sm-4 col-md-4 col-lg-4">{{> searchGroups}}</div>
+        {{> searchGroups}}
     {{/if}}
     <div class="button-container">
         {{#if currentUser}}

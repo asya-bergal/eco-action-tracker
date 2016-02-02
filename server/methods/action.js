@@ -5,8 +5,8 @@
 /**
 * Used for action cap and (possibly) front-end.
 *
-* @param {string} actionId id of action to consider
-* @return {number} points current user has been awarded toward action today
+* @param {String} actionId id of action to consider
+* @return {Number} points current user has been awarded toward action today
 */
 function pointsToday(actionId) {
     // checks
@@ -32,7 +32,7 @@ function pointsToday(actionId) {
 /**
  * Adds action to Mongo.
  *
- * @param {ActionSchema} data the action object (should match schema)
+ * @param {Object} data the action object (should match schema)
  */
 function addAction(data) {
     check(data, Object);
@@ -46,9 +46,9 @@ function addAction(data) {
 /**
  * Updates Mongo given the form submission.
  *
- * @param {string} actionId id of action being taken
- * @param {number[]} fieldEntries what the user entered into the form
- * @return {number} points awarded for this action
+ * @param {String} actionId id of action being taken
+ * @param {Number[]} fieldEntries what the user entered into the form
+ * @return {Number} points awarded for this action
  */ 
 function takeAction(actionId, fieldEntries) {
     // checks
@@ -123,7 +123,7 @@ function takeAction(actionId, fieldEntries) {
 /**
  * Approve action for global use.
  * 
- * @param  {String} actionId Database ID of action to be approved
+ * @param {String} actionId Database ID of action to be approved
  */
 function approveAction(actionId) {
     check(actionId, String);
@@ -135,7 +135,7 @@ function approveAction(actionId) {
 /**
  * Do not approve action for global use.
  * 
- * @param  {String} actionId Database ID of action to be not approved
+ * @param {String} actionId Database ID of action to be not approved
  */
 function notApproveAction(actionId) {
     check(actionId, String);
