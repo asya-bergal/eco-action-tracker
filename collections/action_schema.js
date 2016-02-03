@@ -4,9 +4,6 @@
 
 Actions = new Mongo.Collection('actions');
 
-ADD = 0;
-MULTIPLY = 1;
-
 ActionSchema = new SimpleSchema({
     title: {
         type: String,
@@ -49,11 +46,6 @@ ActionSchema = new SimpleSchema({
     "fields.$.name": {
         type: String,
         label: "Description of field"
-    },
-    "fields.$.operation": {
-        type: Number,
-        defaultValue: MULTIPLY,
-        label: "What the field does"
     },
     "fields.$.scale": {
         type: Number,

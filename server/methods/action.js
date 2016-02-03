@@ -62,11 +62,7 @@ function takeAction(actionId, fieldEntries) {
     var me = Meteor.user();
     // computation
     for (var i = 0; i < fields.length; i++) {
-        if (fields[i].operation === MULTIPLY) {
-            points *= fieldEntries[i] * fields[i].scale;
-        } else if (fields[i].operation === ADD) {
-            points += fieldEntries[i] * fields[i].scale;
-        }
+        points += fieldEntries[i] * fields[i].scale;
     }
     points = Math.min(points, action.dailyCap - pointsToday(actionId));
     // mongo updates
