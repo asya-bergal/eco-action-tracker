@@ -7,6 +7,10 @@
 
     .section {
         margin-bottom: 20px;
+
+        .subsection {
+            display: block;
+        }
     }
 
     .section-header{
@@ -31,6 +35,8 @@
     }
     .item-listing{
         .item-container{
+            .display(block);
+
             .user-profile-link, .action-title{
                 .flex(1,1,0);
             }
@@ -40,6 +46,24 @@
                 width: 25px;
             }
         }
+        .action-container {
+
+            .action-title {
+                .display(flex);
+                .justify-content(space-between);
+                .align-items(center);
+            }
+            .action-info {
+                margin-top: 5px;
+                /*background-color: rgba(255,255,255,0.8);*/
+            }
+            .form-group {
+                margin-bottom: 0;
+            }
+        }
+    }
+    .make-unglobal:hover {
+        color: @primaryLinkHoverColor;
     }
     .edit-form{
         display: none;
@@ -54,5 +78,34 @@
     }
     .hidden{
         display: none;
+    }
+}
+
+.approve-action-panel {
+    .panel-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        button {
+            height: inherit;
+        }
+    }
+    .action-form {
+        padding: 20px;
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        label {
+            margin-bottom: 0;
+            padding-top: 0;
+        }
+
+        .action-description-title {
+            font-weight: bold;
+            margin-right: 15px;
+        }
     }
 }

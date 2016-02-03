@@ -1,55 +1,49 @@
 <template name="admin">
     <div id="admin-page">
         <h3 class='btn btn-success section' id='userDownload'>Download list of user email addresses</h3>
-        <div id="approve-actions" class="section">
-            <div class='section-header'>
-                <span class="section-title">Actions for Global Approval</span>
+        
+        <div id="globalActions" class="section">
+            <div class="section-header">
+                <span>All Global Actions</span>
                 <span class="add-actions new-tag">Add Global Actions</span>
             </div>
             <div class="add-action-form edit-form">
                 {{> addAction}}
             </div>
-            {{#each actionRequest}}
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="heading{{_id}}">
-                    <h4 class="panel-title">
-                        <div class="panel-title-box">
-                            <!-- Action title -->
-                            <div><a data-toggle="collapse" data-parent="#accordion" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">{{title}}</a></div>
-                            <!-- Buttons for approval -->
-                            <div>
-                                <button class="btn btn-success approve"><label id="{{_id}}">Approve</label></button>
-                                <button class="btn btn-danger not-approve"><label id="{{_id}}">Not Approve</label></button>
-                            </div>
-                        </div>
-                    </h4>
-                </div>
-                <div id="collapse{{_id}}" class="panel-collapse collapse" data-toggle="false" role="tabpanel" aria-labelledby="heading{{_id}}">
-                    <form class="form-horizontal action-display" id={{_id}}>
-                        {{#each fields}}
-                        <div class="form-group">
-                            <!-- Name of field -->
-                            <label class="control-label col-xs-4 col-sm-3 col-md-3" for={{name}}>{{name}}:</label>
+            {{#if isActionRequest}}
+                <div class="subsection item-container">
+                    <div class="section-header">Approve Actions</div>
+                    {{#each actionRequest}}
+                        <div class="panel panel-default approve-action-panel">
+                            <div class="panel-heading" role="tab" id="heading{{_id}}">
+                                
+                                    <span>
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">{{title}}</a>
+                                    </span>
+                                    <span>
+                                        <button class="btn btn-success approve"><label id="{{_id}}">Approve</label></button>
+                                        <button class="btn btn-danger not-approve"><label id="{{_id}}">Not Approve</label></button>
+                                    </span>
 
-                            <!-- Value of field -->
-                            <div class="col-xs-8 col-sm-9 col-md-9">{{scale}} point(s) each</div>
+                            </div>
+                            {{> actionInfo}}
                         </div>
-                        {{/each}}
-                        <input type="submit" id="submit{{_id}}" class="hidden">
-                    </form>
+                    {{/each}}
                 </div>
-            </div>
-            {{else}}
-            <div class='empty-collection'>No actions for approval!</div>
-            {{/each}}
-        </div>
-        <div id="globalActions" class="section">
-            <div class="section-header">All Global Actions</div>
+            {{/if}}
             <div class="item-listing">
-                {{#each action in getActions}}
-                <div class="item-container">
-                    <a class="user-profile-link item-title" href="/user/{{_id}}">{{action.title}}</a>
-                    <input type="image" class="remove-action user-button" id={{action._id}} src="/images/remove.svg" />
+                {{#each getActions}}
+                <div class="action-container item-container">
+                    <div class="action-title">
+                        <span class="item-title"><a data-toggle="collapse" data-parent="#accordion" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">{{title}}</a></span>
+                        <span id="item-right">
+                            <span type="span" class="make-unglobal" id={{_id}}>Make unglobal</span>
+                            <input type="image" class="remove-action user-button" id={{_id}} src="/images/remove.svg" />
+                        </span>
+                    </div>
+                    <div class="action-info">
+                        {{> actionInfo}}
+                    </div>
                 </div>
                 {{else}}
                 <div class="empty-collection">No Global Actions</div>
@@ -80,4 +74,50 @@
             </div>
         </div>
     </div>
+</template>
+
+<template name="actionInfo">
+<!--     <div class="panel panel-default approve-action-panel">
+        <div class="panel-heading" role="tab" id="heading{{_id}}">
+            
+                <span>
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">{{title}}</a>
+                </span>
+                <span>
+                    <button class="btn btn-success approve"><label id="{{_id}}">Approve</label></button>
+                    <button class="btn btn-danger not-approve"><label id="{{_id}}">Not Approve</label></button>
+                </span>
+
+        </div> -->
+        <div id="collapse{{_id}}" class="panel-collapse collapse" data-toggle="false" role="tabpanel" aria-labelledby="heading{{_id}}">
+
+            <form class="action-form form-horizontal" id={{_id}}>
+                <div class="form-group">
+                    <label class="col-xs-7 col-md-2">Description:</label>
+                    <span class="col-xs-5 col-md-10">{{description}}</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-7 col-md-2">Category:</label>
+                    <span class="col-xs-5 col-md-10">{{category}}</span>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-7 col-md-2">Default point value:</label>
+                    <span class="col-xs-5 col-md-10">{{defaultPoints}}</span>
+                </div>
+                {{#if fields}}
+                <div class="form-group">
+                    <label class="col-xs-7 col-md-2">Fields:</label>
+                    <span class="col-xs-5 col-md-10">(point values)</span>
+                </div>
+                {{/if}}
+                {{#each fields}}
+                <div class="form-group">
+                    <label class="col-xs-6 col-xs-offset-1 col-md-1" for={{name}}>{{name}}:</label>
+                    <span class="col-xs-5 col-md-10" id="{{name}}">{{scale}} point(s) each</span>
+                </div>
+                {{/each}}
+            </form>
+
+        </div>
+    <!-- </div> -->
 </template>

@@ -166,6 +166,18 @@ function removeAction (actionId) {
     Actions.remove(actionId);
 }
 
+/**
+ * Make action not global, remains in group if applicable.
+ * 
+ * @param  {String} actionId Database ID of action
+ */
+function makeUnglobal (actionId) {
+    check(actionId, String);
+    Actions.update(actionId, {$set:
+        { isGlobal: false }
+    });
+}
+
 Meteor.methods({
     'pointsToday': pointsToday,
     'addAction': addAction,
@@ -173,5 +185,6 @@ Meteor.methods({
     'approveAction': approveAction,
     'notApproveAction': notApproveAction,
     'submitForApproval': submitForApproval,
-    'removeAction': removeAction
+    'removeAction': removeAction,
+    'makeUnglobal': makeUnglobal
 });

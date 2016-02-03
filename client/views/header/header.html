@@ -1,6 +1,10 @@
 <template name="header" class="header-container">
     <div class="title">
+        {{#unless currentUser}}
         <a href="/"><img id='ploverlogo' src='/images/plover.png'/>{{title}}</a>
+        {{else}}
+        <a href="/user/profile"><img id='ploverlogo' src='/images/plover.png'/>{{title}}</a>
+        {{/unless}}
     </div>
     {{#if currentUser}}
         {{> searchGroups}}

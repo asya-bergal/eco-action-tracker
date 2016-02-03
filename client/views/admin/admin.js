@@ -3,7 +3,13 @@ Template.admin.helpers({
      * @returns {cursor} 5 actions currently needing admin approval
      */
     'actionRequest': function () {
-        return Actions.find({'needsApproval': true}, {'limit': 5});
+        return Actions.find({'needsApproval': true});
+    },
+    /*
+     * @return {bool} whether there are actions that need admin approval
+     */
+    'isActionRequest': function() {
+        return Actions.find({'needsApproval': true}).fetch().length > 0;
     },
      /*
      * @returns {cursor} cursor pointing to all global admins
@@ -88,6 +94,16 @@ Template.admin.events({
                 console.log(err);
             }
         });
+    },
+    'click .make-unglobal': function(e) {
+        e.preventDefault();
+        var actionId = e.target.getAttribute("id");
+        console.log(actionId);
+        Meteor.call("makeUnglobal", actionId, function(err) {
+            if(err) {
+                console.log(err);
+            }
+        })
     },
     'click .remove-action': function(e) {
         e.preventDefault();
