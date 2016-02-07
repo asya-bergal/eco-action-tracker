@@ -1,26 +1,28 @@
 <template name="GroupStats">
 
-<div class="group-page group-stats-page">
-  <div class="group-title">
-      <span class="group-name"><a href="/group/{{this._id}}">{{name}}</a></span>
-    {{#if admin}}
-    <a class="group-edit" href="/group/{{_id}}/edit">Edit group</a>
-    {{/if}}
-  </div>
-  <div class="group-stats">
-      <h3 class="stats-header">Summary Statistics</h3>
-      <div class="stats">
-        <div id="actions-donut">
-          <h4>Top 5 Actions</h4>
-          <canvas id="donutChart" width="400" height="400"></canvas>
+    <div class="group-page group-stats-page">
+        <div class="group-title">
+            <span class="group-name"><a href="/group/{{this._id}}">{{name}}</a></span>
+            {{#if admin}}
+            <a class="group-edit" href="/group/{{_id}}/edit">Edit group</a>
+            {{/if}}
         </div>
-        <div id="weekly-points">
-          <h4>Points Over The Past Week</h4>
-          <canvas id="lineChart" width="400" height="400"></canvas>
+        <div class="group-stats">
+            <h3 class="stats-header">Summary Statistics</h3>
+            <div class="stats">
+                <div id="actions-donut">
+                    <h4>Top 5 Actions</h4>
+                    <div id="donut-container">
+                        <canvas id="donutChart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+                <div id="weekly-points">
+                    <h4>Points Over The Past Week</h4>
+                    <canvas id="lineChart" width="400" height="400"></canvas>
+                </div>
+            </div>
         </div>
-      </div>
-  </div>
-</div>
+    </div>
 
 </template>
 

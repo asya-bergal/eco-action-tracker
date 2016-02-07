@@ -1,10 +1,11 @@
 // Define App Constants
 
 if (Meteor.App) {
-  throw new Meteor.Error('Meteor.App already defined? see client/lib/constants.js');
+    throw new Meteor.Error('Meteor.App already defined? see client/lib/constants.js');
 }
 
 Meteor.App = {
-  NAME: 'Eco Action Tracker',
-  DESCRIPTION: ''
+    NAME: 'Eco Action Tracker',
+    DESCRIPTION: '',
+    'SEVEN-DAYS': 604800000
 };

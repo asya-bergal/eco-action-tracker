@@ -50,7 +50,7 @@ Template.takeActions.events({
             if (error) {
                 console.log(error);
             } else {
-                alert("You took an action!");
+                humane.log("You took an action!");
                 $('#collapseButton' + actionId).click();
             }
         });
