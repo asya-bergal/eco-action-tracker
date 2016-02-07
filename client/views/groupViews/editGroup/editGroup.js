@@ -12,6 +12,10 @@ var closeGroupActionForm = function(actionId){
     });
 };
 
+Template.editGroup.group = {
+    group: this._id
+}
+
 Template.editGroup.helpers({
     /**
      * 
@@ -23,6 +27,9 @@ Template.editGroup.helpers({
          return Actions.findOne(actionId);
       });
     }
+  },
+  'group': function() {
+    return this._id;
   },
   /**
    * 

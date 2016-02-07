@@ -7,16 +7,24 @@ Template.takeActions.helpers({
         var categories = [];
 
         // TODO: category cannot be empty string in schema
-        // Sort actions into separate arrays for each category
+        // Sort actions into separate arrays for each category, with separate arrays in each category for global and nonglobal
         var curCategory = "";
         allActions.forEach(function (action) {
             if(action.category != curCategory) {
                 curCategory = action.category;
-                categories.push({category: curCategory, actions: [action]});
+                if(action.isGlobal) {
+                    categories.push({category: curCategory, actions: {global: [action], nonglobal: []}});
+                } else {
+                    categories.push({category: curCategory, actions: {global: [], nonglobal: [action]}});
+                }
             }
             else {
                 var categoryInList = categories[categories.length - 1];
-                categoryInList.actions.push(action);
+                if(action.isGlobal) {
+                    categoryInList.actions.global.push(action);
+                } else {
+                    categoryInList.actions.nonglobal.push(action);
+                }
             }
         });
         return categories;
@@ -24,6 +32,11 @@ Template.takeActions.helpers({
     // Return whether current action is global action
     'isGlobalAction': function() {
         return Actions.findOne(this._id).isGlobal;
+    },
+
+    'groupName': function() {
+        var groupId = Actions.findOne(this._id).group;
+        return Groups.findOne(groupId).name;
     }
 });
 

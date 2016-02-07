@@ -7,15 +7,62 @@
                 </div>
             </div>
             <div id="accordion-{{category}}" class="category-accordion collapse" role="tablist" aria-multiselectable="true">
-                {{#each actions}}
+                {{#if actions.global.length}}
+                    <div class="panel panel-default globality-panel">
+                        <div class="panel-heading" role="tab">
+                            <div class="panel-title-box">
+                                Global
+                                <div class="action-image-box">
+                                    <img class="action-image" src="/images/global.svg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
+                {{#each actions.global}}
                 <div class="panel panel-default action-panel">
                     <div class="panel-heading" role="tab" id="heading{{_id}}" data-toggle="collapse" data-parent="#accordion-{{category}}" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">
                     <h4 class="panel-title">
                         <div class="panel-title-box">
-                            <div>
-                                {{title}} 
-                                {{#if isGlobalAction}}
-                                <span>Global!</span>
+                            {{title}} 
+                        </div>
+                    </h4>
+                    </div>
+                    <div id="collapse{{_id}}" class="panel-collapse collapse" data-toggle="false" role="tabpanel" aria-labelledby="heading{{_id}}">
+                        <form class="form-horizontal action-form" id={{_id}}>
+                            <p class="action-description">{{description}}</p>
+                            {{#each fields}}
+                            <div class="form-group">
+                                <label class="control-label col-xs-4 col-sm-3 col-md-3" for={{name}}>{{name}}:</label>
+                                <div class="col-xs-8 col-sm-9 col-md-9">
+                                    <input class="form-control" type="number" name={{name}}>
+                                </div>
+                            </div>
+                            {{/each}}
+                            <div class="action-button text-right">
+                                <button type="submit" id="submit{{_id}}" class="btn btn-primary btn-default" for="submit{{_id}}">I did this!</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                {{/each}}
+                {{#if actions.nonglobal.length}}
+                    <div class="panel panel-default globality-panel">
+                        <div class="panel-heading" role="tab">
+                            <div class="panel-title-box">
+                                Group Only
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
+                {{#each actions.nonglobal}} <div class="panel panel-default action-panel">
+                    <div class="panel-heading" style="{{getColor}}" role="tab" id="heading{{_id}}" data-toggle="collapse" data-parent="#accordion-{{category}}" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">
+                    <h4 class="panel-title">
+                        <div class="panel-title-box">
+                            {{title}} 
+                            <div class="action-group">
+                                {{#if group}}
+                                <span>{{groupName}}</span>
                                 {{/if}}
                             </div>
                         </div>
