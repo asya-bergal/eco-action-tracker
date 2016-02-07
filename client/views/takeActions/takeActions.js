@@ -20,6 +20,10 @@ Template.takeActions.helpers({
             }
         });
         return categories;
+    },
+    // Return whether current action is global action
+    'isGlobalAction': function() {
+        return Actions.findOne(this._id).isGlobal;
     }
 });
 
@@ -45,6 +49,9 @@ Template.takeActions.events({
         Meteor.call('takeAction', actionId, fieldEntries, function(error, result) {
             if (error) {
                 console.log(error);
+            } else {
+                alert("You took an action!");
+                $('#collapseButton' + actionId).click();
             }
         });
     }

@@ -3,13 +3,25 @@ Template.admin.helpers({
      * @returns {cursor} 5 actions currently needing admin approval
      */
     'actionRequest': function () {
-        return Actions.find({'needsApproval': true}, {'limit': 5});
+        return Actions.find({'needsApproval': true});
+    },
+    /*
+     * @return {bool} whether there are actions that need admin approval
+     */
+    'isActionRequest': function() {
+        return Actions.find({'needsApproval': true}).fetch().length > 0;
     },
      /*
      * @returns {cursor} cursor pointing to all global admins
      */
    'getAdmins': function () {
         return Meteor.users.find({'profile.globalAdmin': true});
+    },
+    /**
+     * @returns {cursor} cursor pointing to all global actions
+     */
+    'getActions': function() {
+        return Actions.find({isGlobal: true});
     },
      /*
      * @returns {bool} whether this user id is different that the logged in user
@@ -72,6 +84,36 @@ Template.admin.events({
                 $('.add-admin-form').toggleClass('visible');
             }
         });
+    },
+    'click .remove-admin': function(e) {
+        e.preventDefault();
+        var userId = e.target.getAttribute("id");
+        console.log(userId);
+        Meteor.call("removeGlobalAdmin", userId, function(err) {
+            if(err) {
+                console.log(err);
+            }
+        });
+    },
+    'click .make-unglobal': function(e) {
+        e.preventDefault();
+        var actionId = e.target.getAttribute("id");
+        console.log(actionId);
+        Meteor.call("makeUnglobal", actionId, function(err) {
+            if(err) {
+                console.log(err);
+            }
+        })
+    },
+    'click .remove-action': function(e) {
+        e.preventDefault();
+        var actionId = e.target.getAttribute("id");
+        console.log(actionId);
+        Meteor.call("removeAction", actionId, function(err) {
+            if(err) {
+                console.log(err);
+            }
+        })
     }
 });
 

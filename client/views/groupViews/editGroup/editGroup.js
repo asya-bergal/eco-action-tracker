@@ -6,7 +6,9 @@ var closeGroupActionForm = function(actionId){
     Meteor.call('addActionToGroup', groupId, actionId, function(err){
        if(err){
            console.log(err);
-       }
+       } else {
+        alert("Admin privileges revoked for user.");
+      }
     });
 };
 
@@ -147,7 +149,7 @@ Template.editGroup.events({
       if(err){
         console.log(err);
       } else {
-
+        alert("Join request submitted.")
       }
     });
   },
@@ -157,7 +159,7 @@ Template.editGroup.events({
       if(err){
         console.log(err);
       } else {
-        console.log("Action submitted for global approval.");
+        alert("Action submitted for global approval.");
       }
     });
   },
@@ -172,6 +174,19 @@ Template.editGroup.events({
   },
   'click .new-competition': function(e){
     $('.add-competition-form').toggleClass('visible');
+  },
+  'click .remove-group': function(e) {
+    e.preventDefault();
+    var really = confirm("Are you sure you want to delete this group? There's no going back!");
+
+    if(really) {
+      Meteor.call('removeGroup', this._id, function(err) {
+        if (err) {
+          console.log(err);
+        };
+      })
+      window.location.href = '/user/profile/';
+    }
   }
 });
 

@@ -4,35 +4,39 @@
 
 #admin-page{
     padding:10px;
-    .section-heading{
-        .display(flex);
-        .align-items(center);
-        font-size: 20px;
-        font-weight: bold;
-        border-bottom: 1px solid;
-        padding: 10px;
+
+    .section {
+        margin-bottom: 20px;
+
+        .subsection {
+            display: block;
+        }
+    }
+
+    .section-header{
+        
         .section-title{
             .flex(1,1,0);
         }
         .new-tag{
             .align-self(flex-start);
             font-size: 14px;
-            width: 150px;
         }
         .new-tag:hover{
             text-decoration: underline;
             cursor: pointer;
         }
     }
+    #userDownload {
+        display: block;
+        text-align: center;
+        font-size: 20px;
+        margin-bottom: 30px;
+    }
     .item-listing{
         .item-container{
-            .display(flex);
-            .align-items(center);
-            padding: 10px 30px;
-            margin: 5px 50px;
-            border: 1px solid rgba(150,150,150,1);
-            border-radius: 10px;
-            background-color: rgba(250,250,250,1);
+            .display(block);
+
             .user-profile-link, .action-title{
                 .flex(1,1,0);
             }
@@ -42,6 +46,24 @@
                 width: 25px;
             }
         }
+        .action-container {
+
+            .action-title {
+                .display(flex);
+                .justify-content(space-between);
+                .align-items(center);
+            }
+            .action-info {
+                margin-top: 5px;
+                /*background-color: rgba(255,255,255,0.8);*/
+            }
+            .form-group {
+                margin-bottom: 0;
+            }
+        }
+    }
+    .make-unglobal:hover {
+        color: @primaryLinkHoverColor;
     }
     .edit-form{
         display: none;
@@ -57,7 +79,33 @@
     .hidden{
         display: none;
     }
-    .empty-collection{
-        padding: 15px;
+}
+
+.approve-action-panel {
+    .panel-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        button {
+            height: inherit;
+        }
+    }
+    .action-form {
+        padding: 20px;
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        label {
+            margin-bottom: 0;
+            padding-top: 0;
+        }
+
+        .action-description-title {
+            font-weight: bold;
+            margin-right: 15px;
+        }
     }
 }

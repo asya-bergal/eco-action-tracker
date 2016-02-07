@@ -68,7 +68,7 @@ Template['addAction'].events({
 
 				var fieldJson = {
 					name: e.target[fieldName].value, 
-					operation: 1,
+					operation: 0,
 					scale: parseInt(e.target[fieldScale].value)
 				}
 
@@ -88,9 +88,10 @@ Template['addAction'].events({
 		Meteor.call("addAction", actionJson, function(err, result){
             if(err){
                 console.log(err);
-            } else{
-
+            } else {
             	e.target.title.value = '';
+            	e.target.description.value = '';
+            	e.target.category.value = '';
 				e.target.defaultPoints.value = '';
 				e.target.dailyCap.value = '';  
                 $("#new-fields").html('');

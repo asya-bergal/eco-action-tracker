@@ -2,114 +2,107 @@
 @import 'lib/elements';
 @import 'lib/flex';
 
+.group-title{
+    display: flex;
+    .align-items(center);
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    border-bottom: 1px solid;
+
+    .group-name{
+        font-weight: bold;
+        font-size: 30px;
+        margin-right: 15px;
+    }
+
+    .group-title-field{
+        display: none;
+        font-weight: bold;
+        font-size: 30px;
+
+    }
+    .edit-group-name{
+        margin-left: 20px;
+        height: 25px;
+        width: 25px;
+    }
+    .global-delete {
+        margin-left: auto;
+    }
+}
+
+
+
 .group-page{
     .stats-header{
         margin: 30px 0;
         color: green;
         text-align: center;
     }
-    .group-title{
-        border-bottom: 1px solid;
-        margin-bottom: 10px;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: flex-start;
-        align-items: center;
-
-        .group-name{
-            font-weight: bold;
-            font-size: 30px;
-            margin-right: 15px;
-        }
-    }
+    
     .group-content{
-        .display(flex);
         padding: 0 10px;
 
-        .section-header {
-            border-bottom: 1px solid rgba(150,150,150,1);
-            padding-bottom: 10px;
-            margin-bottom: 0;
+        .group-element {
+            margin-top: 25px;
         }
 
-        .left{
-            .flex(2,1,0);
-            .competition-listing{
-                padding: 10px 0;
-                margin-right: 30px;
+        .competition-listing{
 
-                .competition-item{
+            .competition-header {
+                margin-bottom: 0;
+            }
+
+            .competition-item{
+                .display(flex);
+                padding: 10px 20px;
+                border-bottom:1px solid rgba(150,150,150,1);
+                background-color: rgba(250,250,250,1);
+                .flex-direction(column);
+                .comp-name{
                     .display(flex);
-                    padding: 10px 20px;
-                    border-bottom:1px solid rgba(150,150,150,1);
-                    background-color: rgba(250,250,250,1);
-                    .flex-direction(column);
-                    .comp-name{
-                        .display(flex);
-                        .name{
-                            .flex(1,1,0);
-                            font-size: 20px;
-                        }
+                    .name{
+                        .flex(1,1,0);
+                        font-size: 20px;
                     }
-                    .comp-desc{
-                        padding: 5px 20px;
-                        font-style: italic;
-                    }
+                }
+                .comp-desc{
+                    padding: 5px 20px;
+                    font-style: italic;
                 }
             }
-            .stats{
-                .display(flex);
-                .justify-content(center);
-                #actions-donut{
-                    .display(flex);
-                    .justify-content(center);
-                    .align-items(center);
-                    .flex-direction(column);
-                }
-                #weekly-points{
-                    .display(flex);
-                    .justify-content(center);
-                    .align-items(center);
-                    .flex-direction(column);
-                }
+
+            
+        }
+        .leaderboard-fields{
+            margin-bottom: 10px;
+            font-size: 1.25em;
+            font-weight: bold;
+            margin-top: 10px;            
+            text-align: center;
+        }
+
+        .leaderboard-listing{
+            .display(flex);
+            text-align: center;
+
+            .place{
+                .flex(1,1,0);
+
+            }
+            .username{
+                .flex(2,1,0);
+            }
+            .points{
+                .flex(1,1,0);
             }
         }
-        .right{
-            .flex(1,1,0);
-            padding: 10px 0;
-            margin-left: 30px;
 
-            .leaderboard-fields{
-                margin-bottom: 10px;
-                font-size: 1.25em;
-                font-weight: bold;
-                margin-top: 10px;
-                /*border-top: 1px solid rgba(150,150,150,1);*/
-                
-                text-align: center;
-            }
-
-            .leaderboard-listing{
-                .display(flex);
-                text-align: center;
-
-                .place{
-                    .flex(1,1,0);
-
-                }
-                .username{
-                    .flex(2,1,0);
-                }
-                .points{
-                    .flex(1,1,0);
-                }
-            }
-
-            .leaderboard-content {
-                font-size: 1.1em;
-                margin-bottom: 5px;
-                /*padding-top: 10px;*/
-            }
+        .leaderboard-content {
+            font-size: 1.1em;
+            margin-bottom: 5px;
         }
     }
     .group-stats{
@@ -139,66 +132,13 @@
 }
 
 .edit-group{
-    .group-title{
-        .display(flex);
-        .align-items(center);
-        border-bottom: 1px solid;
-        .group-name{
-            font-weight: bold;
-            font-size: 30px;
-        }
-        .group-title-field{
-            display: none;
-            font-weight: bold;
-            font-size: 30px;
 
-        }
-        .edit-group-name{
-            margin-left: 20px;
-            height: 25px;
-            width: 25px;
-        }
-    }
     .items{
         padding:10px;
 
-        .section-heading{
-            .display(flex);
-            .justify-content(space-between);
-            .align-items(center);
-            font-size: 20px;
-            font-weight: bold;
-            border-bottom: 1px solid;
-            padding: 10px;
-            .section-title{
-                .flex(1,1,0);
-            }
-            .new-tag{
-                font-size: 14px;
-            }
-            .new-tag:hover{
-                text-decoration: underline;
-                cursor: pointer;
-            }
-        }
-
-        
         .user-listing, .admin-listing, .action-listing, .competition-listing {
-            margin-bottom: 25px;
-
-            .item-container {
-                .display(flex);
-                .align-items(center);
-                padding: 10px 20px;
-                margin: 5px 40px;
-                border: 1px solid rgba(150,150,150,1);
-                border-radius: 10px;
-                background-color: rgba(250,250,250,1);
-
-                @media screen and (max-width: @tabletWidth) {
-                    margin: 5px 20px;
-                }
-            }
+            margin-bottom: 20px;
+            margin-top: 10px;
 
             .edit-form{
                 display: none;
@@ -213,7 +153,6 @@
                     .display(flex);
                     .name{
                         .flex(1,1,0);
-                        font-size: 20px;
                     }
                 }
             }
@@ -245,15 +184,21 @@
                 width: 25px;
             }
         }
+
+        .remove-group {
+            display: block;
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+
+        }
         
         .visible{
             display: block !important;
         }
         .hidden{
             display: none;
-        }
-        .empty-collection{
-            padding: 15px;
         }
     }
 }
@@ -300,9 +245,13 @@
         }
     }
 
+    .description {
+        margin-bottom: 15px;
+    }
+
     .leaderboard {
         .flex(1,1,0);
-        padding: 10px 0;
+        padding: 10px;
 
         .leaderboard-fields{
             margin-bottom: 10px;

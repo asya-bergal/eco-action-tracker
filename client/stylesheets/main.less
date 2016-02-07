@@ -2,6 +2,7 @@
 @import 'helpers';
 @import 'variables';
 @import 'lib/elements';
+@import 'lib/flex';
 
 /* -------------------
     Main Content
@@ -12,7 +13,7 @@ body, #main {
     padding: 0px;
     overflow-x: hidden;
     color: @primaryFontColor;
-    font-family: 'Fauna One', serif;
+    font-family: 'Lato', serif;
     min-height: 100%;
     min-width: 100%;
     position: relative;
@@ -26,11 +27,27 @@ body, #main {
 
 a {
     color: inherit;
-    transition: 0.3s color;
+    text-decoration: none;
+}
 
-    &:hover {
-        color: @primaryLinkHoverColor;
-    }
+a:link {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: @primaryLinkHoverColor;
+    text-decoration: none;
+}
+
+a:active {
+    color: inherit;
+    text-decoration: none;
 }
 
 .icon {
@@ -45,6 +62,56 @@ a {
 .site-wrapper {
     margin: 0 auto;
     max-width: @largeDesktopWidth;
+}
+
+.section-header{
+    .display(flex);
+    .justify-content(space-between);
+    .align-items(center);
+    font-size: 20px;
+    /*font-weight: bold;*/
+    border-bottom: 1px solid rgba(150,150,150,1);
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    
+    .section-title{
+        .flex(1,1,0);
+    }
+    .new-tag{
+        font-size: 14px;
+    }
+    .new-tag:hover{
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.empty-collection {
+    text-align: center;
+    font-size: 1.25em;
+    margin: 10px;
+}
+
+.item-container {
+    .display(flex);
+    .justify-content(space-between);
+    .align-items(center);
+    padding: 10px 20px;
+    margin: 5px 40px;
+    border: 1px solid rgba(150,150,150,1);
+    border-radius: 10px;
+    background-color: rgba(250,250,250,1);
+
+    @media screen and (max-width: @tabletWidth) {
+        margin: 5px 20px;
+    }
+    .item-title {
+        font-size: 1.2em;
+    }
+    #item-right {
+        display: flex;
+        align-items:center;
+    }
 }
 
 /* -------------------

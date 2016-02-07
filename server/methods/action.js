@@ -5,8 +5,8 @@
 /**
 * Used for action cap and (possibly) front-end.
 *
-* @param {string} actionId id of action to consider
-* @return {number} points current user has been awarded toward action today
+* @param {String} actionId id of action to consider
+* @return {Number} points current user has been awarded toward action today
 */
 function pointsToday(actionId) {
     // checks
@@ -32,7 +32,7 @@ function pointsToday(actionId) {
 /**
  * Adds action to Mongo.
  *
- * @param {ActionSchema} data the action object (should match schema)
+ * @param {Object} data the action object (should match schema)
  */
 function addAction(data) {
     check(data, Object);
@@ -46,9 +46,9 @@ function addAction(data) {
 /**
  * Updates Mongo given the form submission.
  *
- * @param {string} actionId id of action being taken
- * @param {number[]} fieldEntries what the user entered into the form
- * @return {number} points awarded for this action
+ * @param {String} actionId id of action being taken
+ * @param {Number[]} fieldEntries what the user entered into the form
+ * @return {Number} points awarded for this action
  */ 
 function takeAction(actionId, fieldEntries) {
     // checks
@@ -62,11 +62,7 @@ function takeAction(actionId, fieldEntries) {
     var me = Meteor.user();
     // computation
     for (var i = 0; i < fields.length; i++) {
-        if (fields[i].operation === MULTIPLY) {
-            points *= fieldEntries[i] * fields[i].scale;
-        } else if (fields[i].operation === ADD) {
-            points += fieldEntries[i] * fields[i].scale;
-        }
+        points += fieldEntries[i] * fields[i].scale;
     }
     points = Math.min(points, action.dailyCap - pointsToday(actionId));
     // mongo updates
@@ -100,7 +96,6 @@ function takeAction(actionId, fieldEntries) {
         },
         { $inc: { "subgroups.$.points": points } }
     );
-    console.log(points);
 
     // TODO Fix when competitions are implemented
     Competitions.update(
@@ -121,6 +116,11 @@ function takeAction(actionId, fieldEntries) {
     return points;
 }
 
+/**
+ * Approve action for global use.
+ * 
+ * @param {String} actionId Database ID of action to be approved
+ */
 function approveAction(actionId) {
     check(actionId, String);
     Actions.update(actionId, {$set: 
@@ -128,6 +128,11 @@ function approveAction(actionId) {
     });
 }
 
+/**
+ * Do not approve action for global use.
+ * 
+ * @param {String} actionId Database ID of action to be not approved
+ */
 function notApproveAction(actionId) {
     check(actionId, String);
     Actions.update(actionId, {$set: 
@@ -135,11 +140,38 @@ function notApproveAction(actionId) {
     });
 }
 
+/**
+ * Submit group action for global admin approval.
+ * 
+ * @param  {String} actionId Database ID of action to be submitted for approval
+ */
 function submitForApproval(actionId){
     check(actionId, String);
     Actions.update(actionId, {$set: 
         { needsApproval: true } 
-    });    
+    });
+}
+
+/**
+ * Remove action from database.
+ * 
+ * @param  {String} actionId Database ID of action to be removed
+ */
+function removeAction (actionId) {
+    check(actionId, String);
+    Actions.remove(actionId);
+}
+
+/**
+ * Make action not global, remains in group if applicable.
+ * 
+ * @param  {String} actionId Database ID of action
+ */
+function makeUnglobal (actionId) {
+    check(actionId, String);
+    Actions.update(actionId, {$set:
+        { isGlobal: false }
+    });
 }
 
 Meteor.methods({
@@ -148,5 +180,7 @@ Meteor.methods({
     'takeAction': takeAction,
     'approveAction': approveAction,
     'notApproveAction': notApproveAction,
-    'submitForApproval': submitForApproval
+    'submitForApproval': submitForApproval,
+    'removeAction': removeAction,
+    'makeUnglobal': makeUnglobal
 });

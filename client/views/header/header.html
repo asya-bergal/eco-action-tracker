@@ -1,18 +1,22 @@
 <template name="header" class="header-container">
     <div class="title">
+        {{#unless currentUser}}
         <a href="/"><img id='ploverlogo' src='/images/plover.png'/>{{title}}</a>
+        {{else}}
+        <a href="/user/profile"><img id='ploverlogo' src='/images/plover.png'/>{{title}}</a>
+        {{/unless}}
     </div>
     {{#if currentUser}}
-        <div class="searchBar col-xs-4 col-sm-4 col-md-4 col-lg-4">{{> searchGroups}}</div>
+        {{> searchGroups}}
     {{/if}}
     <div class="button-container">
         {{#if currentUser}}
-            <span class="btn header-item">Global Points: {{currentUser.profile.points}}</span>
+            <span class="header-item">Global Points: {{currentUser.profile.points}}</span>
         {{#if isGlobalAdmin}}
-            <span class="btn header-item"><a href="/admin">Admin Page</a></span>
+            <span class="header-item"><a href="/admin">Admin Page</a></span>
         {{/if}}
-            <span class="btn header-item"><a href="/user/profile">{{currentUser.profile.firstName}}'s Profile</a></span>
-            <span class="btn header-item logout">Logout</span>
+            <span class="header-item"><a href="/user/profile">{{currentUser.profile.firstName}}'s Profile</a></span>
+            <span class="header-item logout"><a>Logout</a></span>
         {{else}}
             <span>{{> login}}</span>
         {{/if}}

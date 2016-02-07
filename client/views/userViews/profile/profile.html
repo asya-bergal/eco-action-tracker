@@ -1,26 +1,35 @@
 <template name="profile">
     <div class="col-sm-7 actions">
-        <div id="takeActions" class="section">
-            <h3 class="section-heading">What actions have you taken today?</h3>
-            {{> takeActions}}
+        <div id="takeActions" class="section-header">
+            <h3>What actions have you taken today?</h3>
         </div>
+        {{> takeActions}}
     </div>
 
-    <div class="col-sm-3 groups">
-        <h3>My Groups <span id="new-group">Make A New Group</span></h3> 
-        <form class="new-group-form form">
-            <div class="form-group">
-                <label>Group Name:</label> <input class="form-control" name="groupname" type="text">
+    <div class="col-sm-5 groups">
+        <div id="my-groups">
+            <div class="section-header">
+                <h3>My Groups</h3> 
+                <span id="new-group">Make A New Group</span>
             </div>
-            <input class="btn btn-default" type="submit" value="Create Group">        
-        </form>
-        {{#each group in getGroups}}
-            <h4><a href="/group/{{group._id}}">{{group.name}}</a></h4>
-        {{/each}}
-        <h3>My Competitions</h3>
-        {{#each comp in competitions}}
-            <h4><a href="/competitions/{{comp._id}}">{{comp.name}}</a></h4>
-        {{/each}}
+            
+            <form class="new-group-form form">
+                <div class="form-group">
+                    <label>Group Name:</label> <input class="form-control" name="groupname" type="text">
+                </div>
+                <input class="btn btn-default" type="submit" value="Create Group">        
+            </form>
+            {{#each group in getGroups}}
+                <h4><a href="/group/{{group._id}}">{{group.name}}</a></h4>
+            {{/each}}
+        </div>
+        
+        <div id="my-competitions">
+            <h3 class="section-header">My Competitions</h3>
+            {{#each comp in competitions}}
+                <h4><a href="/competitions/{{comp._id}}">{{comp.name}}</a></h4>
+            {{/each}}
+        </div>
     </div>
 </template>
 
