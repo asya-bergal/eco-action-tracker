@@ -3,30 +3,18 @@
         <div id="accordion-{{category}}" class="category-accordion" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default category-panel">
                 <div class="panel-heading" role="tab" id="heading-{{category}}">
-                <h4 class="panel-title">
-                    <div class="panel-title-box">
-                        <div>
-                        {{category}}
-                        </div>
-                    </div>
-                </h4>
+                    <h4 class="panel-title-box">{{category}}</h4>
                 </div>
             </div>
             {{#each actions}}
             <div class="panel panel-default action-panel">
                 <div class="panel-heading" role="tab" id="heading{{_id}}">
-                <h4 class="panel-title">
-                    <div class="panel-title-box">
-                        <div>
-                            <a data-toggle="collapse" data-parent="#accordion-{{category}}" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">
-                            {{title}} 
-                            {{#if isGlobalAction}}
-                            - isGlobal
-                            {{/if}}
-                            </a>
-                        </div>
-                    </div>
-                </h4>
+                    <h4 class="panel-title-box">
+                        <a id="collapseButton{{_id}}" data-toggle="collapse" data-parent="#accordion-{{category}}" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">{{title}}</a>
+                        {{#if isGlobalAction}}
+                        <span>Global!</span>
+                        {{/if}}
+                    </h4>
                 </div>
                 <div id="collapse{{_id}}" class="panel-collapse collapse" data-toggle="false" role="tabpanel" aria-labelledby="heading{{_id}}">
                 <form class="form-horizontal action-form" id={{_id}}>

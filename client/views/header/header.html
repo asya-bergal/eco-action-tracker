@@ -16,7 +16,7 @@
             <span class="header-item"><a href="/admin">Admin Page</a></span>
         {{/if}}
             <span class="header-item"><a href="/user/profile">{{currentUser.profile.firstName}}'s Profile</a></span>
-            <span class="header-item logout">Logout</span>
+            <span class="header-item logout"><a>Logout</a></span>
         {{else}}
             <span>{{> login}}</span>
         {{/if}}

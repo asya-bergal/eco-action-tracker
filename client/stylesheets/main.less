@@ -27,11 +27,27 @@ body, #main {
 
 a {
     color: inherit;
-    transition: 0.3s color;
+    text-decoration: none;
+}
 
-    &:hover {
-        color: @primaryLinkHoverColor;
-    }
+a:link {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    color: @primaryLinkHoverColor;
+    text-decoration: none;
+}
+
+a:active {
+    color: inherit;
+    text-decoration: none;
 }
 
 .icon {

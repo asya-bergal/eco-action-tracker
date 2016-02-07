@@ -6,7 +6,9 @@ var closeGroupActionForm = function(actionId){
     Meteor.call('addActionToGroup', groupId, actionId, function(err){
        if(err){
            console.log(err);
-       }
+       } else {
+        alert("Admin privileges revoked for user.");
+      }
     });
 };
 
@@ -147,7 +149,7 @@ Template.editGroup.events({
       if(err){
         console.log(err);
       } else {
-
+        alert("Join request submitted.")
       }
     });
   },
@@ -157,7 +159,7 @@ Template.editGroup.events({
       if(err){
         console.log(err);
       } else {
-        console.log("Action submitted for global approval.");
+        alert("Action submitted for global approval.");
       }
     });
   },

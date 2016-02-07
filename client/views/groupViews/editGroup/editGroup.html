@@ -20,7 +20,7 @@
                         {{#if action.needsApproval}}
                             <span>Pending global approval</span>
                         {{else}}
-                            <span id={{action._id}} class="global">Submit for global approval</span>
+                            <span id={{action._id}} class="global"><a>Submit for global approval</a></span>
                         {{/if}}
                         <input class="global awaitingGlobal user-button" id={{action._id}} type="image" src="/images/global.svg" />
                     {{else}}
