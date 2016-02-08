@@ -2,3 +2,4 @@
 *.swp
 tags
 /nbproject/private/
+settings.json

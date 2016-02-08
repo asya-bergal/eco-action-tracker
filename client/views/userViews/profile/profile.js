@@ -12,6 +12,9 @@ Template.profile.helpers({
     'action': function(){
         var action_data = Actions.find({_id: {$in:Meteor.user().history.map(function(action){return action.id})}});
         return Meteor.user().history.map(function(action){});
+    },
+    'emailVerified': function() {
+        return Meteor.user().emails[0].verified;
     }
 });
 
@@ -34,5 +37,15 @@ Template.profile.events({
     },
     "click #new-group":function(event){
         $(".new-group-form").toggleClass('visible');
+    },
+    "click .email-verified": function(e) {
+        e.preventDefault();
+        var userId = Meteor.userId();
+        console.log(userId)
+        Meteor.call("verifyUserEmail", userId, function (err) {
+            if(err) {
+                console.log(err);
+            }
+        })
     }
 });
