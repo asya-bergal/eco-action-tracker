@@ -12,34 +12,47 @@
     .stats{
         .display(flex);
         .justify-content(center);
-        #actions-donut{
+        .align-items(center);
+        .flex-direction(column);
+        .stats-top{
             .display(flex);
             .justify-content(center);
-            .align-items(center);
-            .flex-direction(column);
-            margin-right: 10%;
-            #donut-container{
+            #actions-donut{
                 .display(flex);
                 .justify-content(center);
                 .align-items(center);
-                .doughnut-legend{
-                    list-style-type: none;
-                    li{
-                        .color{
-                            display: inline-block;
-                            height: 10px;
-                            width: 10px;
-                            margin-right: 10px;
+                .flex-direction(column);
+                margin-right: 10%;
+                #donut-container{
+                    .display(flex);
+                    .justify-content(center);
+                    .align-items(center);
+                    .doughnut-legend{
+                        list-style-type: none;
+                        li{
+                            .color{
+                                display: inline-block;
+                                height: 10px;
+                                width: 10px;
+                                margin-right: 10px;
+                            }
                         }
                     }
                 }
             }
+            #weekly-points{
+                .display(flex);
+                .justify-content(center);
+                .align-items(center);
+                .flex-direction(column);
+            }
         }
-        #weekly-points{
+        .stats-bottom{
             .display(flex);
             .justify-content(center);
             .align-items(center);
             .flex-direction(column);
+            margin-top: 20px;
         }
     }
 }

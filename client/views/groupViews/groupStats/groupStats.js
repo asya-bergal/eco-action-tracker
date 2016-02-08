@@ -77,21 +77,22 @@ var getTopActionData = function (group) {
             var weekMap = {"Monday": 0, "Tuesday": 0, "Wednesday": 0, "Thursday": 0, "Friday": 0, "Saturday": 0, "Sunday": 0};
             var weekDays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
                     now = new Date();
-
-            group.history.every(function (action) {
+            group.history.forEach(function (action) {
+                if (now - action.timestamp <= Meteor.App['SEVEN-DAYS']) {
                     var day = action.timestamp.getDay();
                     weekMap[weekDays[day]] += action.points;
-                    return now - action.timestamp > Meteor.App['SEVEN-DAYS'];
+                }
             });
+            weekDays.rotate(now.getDay());
+            weekDays.reverse();
 
-            console.log(weekMap);
             return {
                 labels: weekDays,
                 datasets: [{
                         label: "Points over the last week.",
-                        fillColor: "rgba(220,220,220,0.2)",
-                        strokeColor: "rgba(220,220,220,1)",
-                        pointColor: "rgba(220,220,220,1)",
+                        fillColor: "rgba(255,99,71,0.2)",
+                        strokeColor: "rgba(255,127,80,1)",
+                        pointColor: "rgba(255,127,80,1)",
                         pointStrokeColor: "#fff",
                         pointHighlightFill: "#fff",
                         pointHighlightStroke: "rgba(220,220,220,1)",
@@ -100,6 +101,43 @@ var getTopActionData = function (group) {
                         })
                     }]
             };
+        },
+        getWeekData = function (group) {
+            var week = 1,
+                    prev = group.creationDate,
+                    weekData = [0];
+
+            group.history.forEach(function (action) {
+                if (prev - action.timestamp > Meteor.App['SEVEN-DAYS']) {
+                    var weeks = Math.round((prev - action.timestamp) / Meteor.App['SEVEN-DAYS']);
+                    for (week++; week < weeks; week++) {
+                        weekData[week] = 0;
+                    }
+
+                }
+                if (weekData[week]) {
+                    weekData[week] += action.points;
+                } else{
+                    weekData[week] = action.points;                    
+                }
+            });
+
+            return {
+                labels: weekData.map(function (points, index) {
+                    return index;
+                }),
+                datasets: [{
+                        label: "Points over the last week.",
+                        fillColor: "rgba(230,230,250,0.2)",
+                        strokeColor: "rgba(216,191,216,1)",
+                        pointColor: "rgba(216,191,216,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(220,220,220,1)",
+                        data: weekData
+                    }]
+            };
+
         };
 
 Template.GroupStats.rendered = function () {
@@ -108,66 +146,16 @@ Template.GroupStats.rendered = function () {
     }
     var data = getTopActionData(this.data),
             donut_ctx = $("#donutChart").get(0).getContext("2d"),
-            myDoughnutChart = new Chart(donut_ctx).Doughnut(data, {
-        //Boolean - Whether we should show a stroke on each segment
-        segmentShowStroke: true,
-        //String - The colour of each segment stroke
-        segmentStrokeColor: "#fff",
-        //Number - The width of each segment stroke
-        segmentStrokeWidth: 2,
-        //Number - The percentage of the chart that we cut out of the middle
-        percentageInnerCutout: 50, // This is 0 for Pie charts
-
-        //Number - Amount of animation steps
-        animationSteps: 100,
-        //String - Animation easing effect
-        animationEasing: "easeOutBounce",
-        //Boolean - Whether we animate the rotation of the Doughnut
-        animateRotate: true,
-        //Boolean - Whether we animate scaling the Doughnut from the centre
-        animateScale: false,
-        //String - A legend template
-        legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><%if(segments[i].label){%><li><span class=\"color\" style=\"background-color:<%=segments[i].fillColor%>\"></span><%=segments[i].label%> : <%=segments[i].value%><%}%></li><%}%></ul>"
-
-
-    }), donut_legend = myDoughnutChart.generateLegend();
+            myDoughnutChart = new Chart(donut_ctx).Doughnut(data, Meteor.App.DONUTOPTIONS),
+            donut_legend = myDoughnutChart.generateLegend();
 
     $("#donut-container").append(donut_legend);
-
     var points_data = getWeeklyData(this.data),
             line_ctx = $("#lineChart").get(0).getContext("2d"),
-            myLineChart = new Chart(line_ctx).Line(points_data, {
-        ///Boolean - Whether grid lines are shown across the chart
-        scaleShowGridLines: true,
-        //String - Colour of the grid lines
-        scaleGridLineColor: "rgba(0,0,0,.05)",
-        //Number - Width of the grid lines
-        scaleGridLineWidth: 1,
-        //Boolean - Whether to show horizontal lines (except X axis)
-        scaleShowHorizontalLines: true,
-        //Boolean - Whether to show vertical lines (except Y axis)
-        scaleShowVerticalLines: true,
-        //Boolean - Whether the line is curved between points
-        bezierCurve: true,
-        //Number - Tension of the bezier curve between points
-        bezierCurveTension: 0.4,
-        //Boolean - Whether to show a dot for each point
-        pointDot: true,
-        //Number - Radius of each point dot in pixels
-        pointDotRadius: 4,
-        //Number - Pixel width of point dot stroke
-        pointDotStrokeWidth: 1,
-        //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-        pointHitDetectionRadius: 20,
-        //Boolean - Whether to show a stroke for datasets
-        datasetStroke: true,
-        //Number - Pixel width of dataset stroke
-        datasetStrokeWidth: 2,
-        //Boolean - Whether to fill the dataset with a colour
-        datasetFill: true,
-        //String - A legend template
-        legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+            myLineChart = new Chart(line_ctx).Line(points_data, Meteor.App.LINECHARTOPTIONS);
+    var lifetime_data = getWeekData(this.data),
+            lifetime_ctx = $("#lifetimeChart").get(0).getContext("2d"),
+            myLifeTimeChart = new Chart(lifetime_ctx).Line(lifetime_data, Meteor.App.LINECHARTOPTIONS);
 
-    });
 };
 

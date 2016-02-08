@@ -184,9 +184,8 @@ Template.editGroup.events({
                 if (err) {
                     console.log(err);
                 }
-                ;
-            })
-            window.location.href = '/user/profile/';
+            });
+            Router.go('/user/profile/');
         }
     }
 });
