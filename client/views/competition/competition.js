@@ -8,9 +8,10 @@ Template['competition'].helpers({
         return parent.admins.indexOf(Meteor.userId()) !== -1;
     },
     'actions': function () {
-        return this.actions.map(function (action) {
-            return Actions.findOne(action._id);
+        var actions = this.actions.map(function (action) {
+            return Actions.findOne(action);
         });
+        return actions;
     },
     'sortedParticipants': function () {
         console.log(this);

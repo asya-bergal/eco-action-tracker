@@ -5,6 +5,7 @@ Template.Group.helpers({
      */
     'admin': function () {
         if (this.admins) {
+            console.log(this.admins);
             return this.admins.indexOf(Meteor.userId()) !== -1;
         }
     },

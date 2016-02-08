@@ -1,9 +1,17 @@
 Template.takeActions.helpers({
     // Return an array of objects, where each object contains a category field with the name of the category, and an actions field with the list of actions associated with that category
     'categories': function () {
+        var allActions = [];
+
+        if(this.actionsToUse) {
+            console.log("got input");
+            allActions = this.actionsToUse;
+        } else {
+            console.log("didn't got input");
+            allActions = Actions.find({}, {sort: {category: 1}}).fetch();
+        }
         // TODO: Is there a faster way to do this?
         // Get the list of all actions, and sort them by category them into categories
-        var allActions = Actions.find({}, {sort: {category: 1}}).fetch();
         var categories = [];
 
         // TODO: category cannot be empty string in schema
@@ -63,7 +71,7 @@ Template.takeActions.events({
             if (error) {
                 console.log(error);
             } else {
-                alert("You took an action!");
+                humane.log("You took an action!");
                 $('#collapseButton' + actionId).click();
             }
         });
