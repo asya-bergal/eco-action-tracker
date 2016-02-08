@@ -48,7 +48,6 @@ var UserSchema = new SimpleSchema({
         type: String,
     },
     emails: {
-        optional: true, // TODO: This shouldn't be optional
         type: [Object],
     },
     "emails.$.address": {

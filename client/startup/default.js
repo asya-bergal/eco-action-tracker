@@ -4,7 +4,7 @@ Meteor.startup(function () {
     Meteor.subscribe("groups"); // Subscribe to published groups
     Meteor.subscribe("users"); // Subscribe to published groups
     Meteor.subscribe("competitions");
-
+    
     humane.timeout = 2000;
     humane.baseCls="humane-flatty";
     // Used for stats
@@ -26,4 +26,5 @@ Meteor.startup(function () {
         };
     })();
 
+});
 });

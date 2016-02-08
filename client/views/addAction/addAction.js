@@ -3,7 +3,6 @@ var count = 0;
 function fieldCount() {
 	return count++;
 }
-
 Template['addAction'].helpers({
 });
 
@@ -74,7 +73,7 @@ Template['addAction'].events({
 
 				fieldsParsed.push(fieldJson);
 			}
-		}		
+		}
 
 		var actionJson = {
 			title: e.target.title.value,
@@ -84,6 +83,9 @@ Template['addAction'].events({
 			dailyCap: parseInt(e.target.dailyCap.value),
 			fields: fieldsParsed
 		};
+    if(this.group_id) {
+        actionJson.group = this.group_id;
+    }
 
 		Meteor.call("addAction", actionJson, function(err, result){
             if(err){

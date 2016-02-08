@@ -12,6 +12,10 @@ var closeGroupActionForm = function (actionId) {
     });
 };
 
+Template.editGroup.group = {
+    group: this._id
+}
+
 Template.editGroup.helpers({
     /**
      * 
@@ -23,6 +27,9 @@ Template.editGroup.helpers({
                 return Actions.findOne(actionId);
             });
         }
+    },
+    'group': function () {
+        return this._id;
     },
     /**
      * 
@@ -66,14 +73,6 @@ Template.editGroup.helpers({
                 return Meteor.users.findOne(userId);
             });
         }
-    },
-    /**
-     * 
-     * @param {string} id userId
-     * @returns {Boolean} whether this is not the current user's id
-     */
-    diff: function (id) {
-        return id !== Meteor.userId();
     }
 });
 
@@ -178,7 +177,6 @@ Template.editGroup.events({
     'click .remove-group': function (e) {
         e.preventDefault();
         var really = confirm("Are you sure you want to delete this group? There's no going back!");
-
         if (really) {
             Meteor.call('removeGroup', this._id, function (err) {
                 if (err) {
@@ -189,7 +187,6 @@ Template.editGroup.events({
         }
     }
 });
-
 Template.editGroup.rendered = function () {
     closeActionForm = closeGroupActionForm;
 };

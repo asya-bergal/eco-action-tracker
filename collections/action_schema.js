@@ -28,6 +28,11 @@ ActionSchema = new SimpleSchema({
         type: Number,
         label: "Number of points a user can gain from this action each day"
     },
+    group: {
+        type: String,
+        label: "Group where the action originated, if it's not global",
+        optional: true
+    },
     isGlobal: {
         type: Boolean,
         label: "Whether the action counts for global points",

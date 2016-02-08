@@ -41,4 +41,8 @@ chart:chart
 momentjs:moment
 easy:search
 easysearch:autosuggest
+<<<<<<< HEAD
 mrt:humane
+=======
+accounts-ui-unstyled
+>>>>>>> 930e081b42f091f00a317e022336ea576f0a72d4
