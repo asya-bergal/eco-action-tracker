@@ -66,6 +66,15 @@ Meteor.methods({
         }
 
         return sumActionPoints(matchingActions);
+    },
+
+    verifyUserEmail: function(userId) {
+        check(userId, String);
+        Accounts.sendVerificationEmail(userId);
+    },
+    passwordReset: function(userId) {
+        check(userId, String);
+        Accounts.sendResetPasswordEmail(userId);
     }
 });
 
