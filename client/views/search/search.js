@@ -9,6 +9,8 @@ SearchMethods = (function(){
     /**
      * Custom selectize config.
      *
+     * @method configure
+     * @inner
      * @memberof SearchMethods
      * @param {String} title the search bar we are configuring (e.g. "Groups")
      */
@@ -37,6 +39,8 @@ SearchMethods = (function(){
     /**
      * Set the selectize input placeholder.
      *
+     * @method setPlaceholder
+     * @inner
      * @memberof SearchMethods
      * @param {String} title the search bar we are configuring (e.g. "Groups")
      */

@@ -9,6 +9,8 @@ GroupMethods = (function(){
     /**
      * Add new group to database.
      *
+     * @method createGroup
+     * @inner
      * @memberof GroupMethods
      * @param  {Object} group JSON object containing data for group to be added to database
      * @return {String} Database ID of group just added
@@ -34,22 +36,26 @@ GroupMethods = (function(){
         );
 
         return groupId;
-    },
+    };
 
     /**
      * Remove group from database.
      *
+     * @method removeGroup
+     * @inner
      * @memberof GroupMethods
      * @param  {String}    groupId Database ID of group to be removed
      */
     api.removeGroup = function(groupId) {
         check(groupId, String);
         Groups.remove(groupId);
-    },
+    };
 
     /**
      * Add user to group request list.
      *
+     * @method requestToJoinGroup
+     * @inner
      * @memberof GroupMethods
      * @param {String} groupId Database ID of group to request to add user to
      */
@@ -70,11 +76,13 @@ GroupMethods = (function(){
                 { $push: { usersRequesting: userId } }
             )
         }
-    },
+    };
 
     /**
      * Add user to group.
      *
+     * @method addUser
+     * @inner
      * @memberof GroupMethods
      * @param {String} groupId Database ID of group to add user to
      * @param {String} userId Database ID of user to add to group
@@ -108,11 +116,13 @@ GroupMethods = (function(){
                 );
             }
         }
-    },
+    };
 
     /**
      * Revoke admin privileges from user in a group.
      *
+     * @method removeAdmin
+     * @inner
      * @memberof GroupMethods
      * @param  {String} groupId Database ID of group to revoke admin user from
      * @param  {String} userId Database ID of user to revoke admin privileges from
@@ -135,11 +145,13 @@ GroupMethods = (function(){
                 { $pull: { "profile.adminGroups": groupId } }
             );
         }
-    },
+    };
 
     /**
      * Remove user from group.
      *
+     * @method removeUser
+     * @inner
      * @memberof GroupMethods
      * @param {String} groupId Database Id of group to remove users from
      * @param {String} userId  Database ID of user to be removed
@@ -164,11 +176,13 @@ GroupMethods = (function(){
 
             api.removeAdmin(groupId, userId);
         }
-    },
+    };
 
     /**
      * Returns users from a group within a certain range.
      *
+     * @method getUsers
+     * @inner
      * @memberof GroupMethods
      * @param  {String}   groupId Database ID of group to get users from
      * @param  {Number}   start Index of first user to return
@@ -181,11 +195,13 @@ GroupMethods = (function(){
         check(end, Number);
 
         return Groups.findOne(groupId).users.slice(start, end);
-    },
+    };
 
     /**
      * Add user as admin to group.
      *
+     * @method addAdmin
+     * @inner
      * @memberof GroupMethods
      * @param {String} groupId Database ID of group to add admin to
      * @param {String} userId Database ID of user to add as admin
@@ -210,11 +226,13 @@ GroupMethods = (function(){
                 { $push: { "profile.adminGroups": groupId } }
             );
         }
-    },
+    };
 
     /**
      * Returns a range of admin users within a group.
      *
+     * @method getAdmins
+     * @inner
      * @memberof GroupMethods
      * @param  {String} groupId Database ID of group to return admin users from
      * @param  {Number} start Index of first admin user to return
@@ -225,11 +243,13 @@ GroupMethods = (function(){
         check(groupId, String);
 
         return Groups.findOne(groupId).admins.slice(start, end);
-    },
+    };
 
     /**
      * Add child subgroup to parent group.
      *
+     * @method addSubgroup
+     * @inner
      * @memberof GroupMethods
      * @param {String} parentGroupId Database ID of parent group
      * @param {String} childGroupId    Database ID of child group
@@ -242,11 +262,13 @@ GroupMethods = (function(){
             parentGroupId,
             { $push: { subgroups: {groupId: childGroupId, points: 0} } }
         );
-    },
+    };
 
     /**
      * Remove child subgroup from parent group.
      *
+     * @method removeSubgroup
+     * @inner
      * @memberof GroupMethods
      * @param {String} parentGroupId Database ID of parent group
      * @param {String} childGroupId    Database ID of child group
@@ -259,11 +281,13 @@ GroupMethods = (function(){
             parentGroupId,
             { $pull: { subgroups: {groupId: childGroupId} } }
         );
-    },
+    };
 
     /**
      * Returns a range of subgroups within a group.
      *
+     * @method getSubgroups
+     * @inner
      * @memberof GroupMethods
      * @param  {String} groupId Database ID of group to return subgroups from
      * @param  {Number} start Index of first subgroup to return
@@ -275,11 +299,13 @@ GroupMethods = (function(){
         check(start, Number);
         check(end, Number);
         return Groups.findOne(groupId).subgroups.slice(start, end);
-    },
+    };
 
     /**
      * Add group as a subgroup to a parent group.
      *
+     * @method addParent
+     * @inner
      * @memberof GroupMethods
      * @param {String} groupId Database ID of subgroup
      * @param {String} parentId Database ID of parent group
@@ -292,11 +318,13 @@ GroupMethods = (function(){
             groupId,
             { $push: { parentGroups: parentId } }
         );
-    },
+    };
 
     /**
      * Add action to group.
      *
+     * @method addActionToGroup
+     * @inner
      * @memberof GroupMethods
      * @param {String} groupId Database ID of group to add action to
      * @param {String} actionId Database ID of action to be added
@@ -309,11 +337,13 @@ GroupMethods = (function(){
             { $push: { actions: actionId } }
         );
 
-    },
+    };
 
     /**
      * Remove action from group.
      *
+     * @method removeActionFromGroup
+     * @inner
      * @memberof GroupMethods
      * @param {String} groupId Database ID of group to remove action from
      * @param {String} actionId Database ID of action to be removed
@@ -326,11 +356,13 @@ GroupMethods = (function(){
             { $pull: { actions: actionId } }
         );
 
-    },
+    };
 
     /**
      * Returns a range of actions within a group.
      *
+     * @method getActions
+     * @inner
      * @memberof GroupMethods
      * @param  {String} groupId Database ID of group to return actions from
      * @param  {Number} start Index of first action to return
@@ -343,11 +375,13 @@ GroupMethods = (function(){
         check(end, String);
 
         return Groups.findOne(groupId).actions.slice(start, end);
-    },
+    };
 
     /**
      * Returns a range of competitions within a group.
      *
+     * @method getCompetitions
+     * @inner
      * @memberof GroupMethods
      * @param  {String} groupId Database ID of group to return competitions from
      * @param  {Number} start Index of first competition to return
@@ -360,11 +394,13 @@ GroupMethods = (function(){
         check(end, String);
 
         return Groups.findOne(groupId).competitions.slice(start, end);
-    },
+    };
 
     /**
      * Sort users in group based on point total.
      *
+     * @method sortLeaderboard
+     * @inner
      * @memberof GroupMethods
      * @param {String} groupId Database ID of group to sort
      */
@@ -372,11 +408,13 @@ GroupMethods = (function(){
         Groups.findOne(groupId).users.sort(function(a,b) {
             return b.points-a.points;
         });
-    },
+    };
 
     /**
      * Return five actions that contribute most points to a group.
      *
+     * @method topFiveActions
+     * @inner
      * @memberof GroupMethods
      * @param  {String} groupId Database ID of group to retrieve actions from
      * @return {Object[]} Array of five most point contributing actions
@@ -387,11 +425,13 @@ GroupMethods = (function(){
         return group.actions.map(function(action){
             return Actions.findOne(action);
         });
-    },
+    };
 
     /**
      * Change name of group.
      *
+     * @method updateGroupName
+     * @inner
      * @memberof GroupMethods
      * @param {String} groupId Database ID of group to change name
      * @param {String} newName Name to change group name to
@@ -404,7 +444,7 @@ GroupMethods = (function(){
             groupId,
             { $set: { name: newName } }
         );
-    }
+    };
 
     return api;
 }());

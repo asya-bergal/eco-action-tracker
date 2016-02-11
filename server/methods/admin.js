@@ -9,6 +9,8 @@ AdminMethods = (function(){
     /**
      * This function elevates a user to a Global Admin
      *
+     * @method addGlobalAdmin
+     * @inner
      * @memberof AdminMethods
      * @param {string} userId The UserId of the user we wish to elevate
      */
@@ -17,10 +19,12 @@ AdminMethods = (function(){
         if (Meteor.user().profile.globalAdmin) {
             Meteor.users.update(userId, {$set: {'profile.globalAdmin': true}});
         }
-    },
+    };
     /**
      * This function lowers a user to a non Admin
      *
+     * @method removeGlobalAdmin
+     * @inner
      * @memberof AdminMethods
      * @param {string} userId The UserId of the user we wish to lower
      */
@@ -29,10 +33,12 @@ AdminMethods = (function(){
         if (Meteor.user().profile.globalAdmin) {
             Meteor.users.update(userId, {$set: {'profile.globalAdmin': false}});
         }
-    },
+    };
     /**
      * Gets a list of emails to download for the user
      *
+     * @method getUserEmails
+     * @inner
      * @memberof AdminMethods
      * @returns {string} comma seperated list of user emails
      */
@@ -48,7 +54,7 @@ AdminMethods = (function(){
 
             return userEmails;
         }
-    }
+    };
 
     return api;
 }());

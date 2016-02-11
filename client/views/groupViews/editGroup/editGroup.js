@@ -1,4 +1,12 @@
-// Clear add action form and add action to group
+/** @module groupViews/editGroup */
+
+/**
+ * Clear add action form and add action to group.
+ *
+ * @method
+ * @private
+ * @param {String} actionId Database ID of action to add to group.
+ */
 var closeGroupActionForm = function (actionId) {
     $('.add-action-form').toggleClass('visible');
     var groupId = $('.group-title').attr("id");

@@ -9,6 +9,8 @@ ActionMethods = (function(){
     /**
      * Used for action cap and (possibly) front-end.
      *
+     * @method pointsToday
+     * @inner
      * @memberof ActionMethods
      * @param {String} actionId id of action to consider
      * @return {Number} points current user has been awarded toward action today
@@ -32,11 +34,13 @@ ActionMethods = (function(){
                     }
         }
         return points;
-    }
+    };
 
     /**
      * Adds action to Mongo.
      *
+     * @method addAction
+     * @inner
      * @memberof ActionMethods
      * @param {Object} data the action object (should match schema)
      */
@@ -47,11 +51,13 @@ ActionMethods = (function(){
                 throw new Meteor.Error("Adding new action failed.")
             }
         });
-    }
+    };;
 
     /**
      * Updates Mongo given the form submission.
      *
+     * @method takeAction
+     * @inner
      * @memberof ActionMethods
      * @param {String} actionId id of action being taken
      * @param {Number[]} fieldEntries what the user entered into the form
@@ -121,11 +127,13 @@ ActionMethods = (function(){
         );
         // return value could be useful for front end stuff
         return points;
-    }
+    };;
 
     /**
      * Approve action for global use.
      *
+     * @method approveAction
+     * @inner
      * @memberof ActionMethods
      * @param {String} actionId Database ID of action to be approved
      */
@@ -134,11 +142,13 @@ ActionMethods = (function(){
         Actions.update(actionId, {$set:
                        { isGlobal: true, needsApproval: false }
         });
-    }
+    };
 
     /**
      * Do not approve action for global use.
      *
+     * @method notApproveAction
+     * @inner
      * @memberof ActionMethods
      * @param {String} actionId Database ID of action to be not approved
      */
@@ -147,11 +157,13 @@ ActionMethods = (function(){
         Actions.update(actionId, {$set:
                        { isGlobal: false, needsApproval: false }
         });
-    }
+    };
 
     /**
      * Submit group action for global admin approval.
      *
+     * @method submitForApproval
+     * @inner
      * @memberof ActionMethods
      * @param {String} actionId Database ID of action to be submitted for
      * approval
@@ -161,22 +173,26 @@ ActionMethods = (function(){
         Actions.update(actionId, {$set:
                        { needsApproval: true }
         });
-    }
+    };
 
     /**
      * Remove action from database.
      *
+     * @method removeAction
+     * @inner
      * @memberof ActionMethods
      * @param {String} actionId Database ID of action to be removed
      */
     api.removeAction = function(actionId) {
         check(actionId, String);
         Actions.remove(actionId);
-    }
+    };
 
     /**
      * Make action not global, remains in group if applicable.
      *
+     * @method makeUnglobal
+     * @inner
      * @memberof ActionMethods
      * @param {String} actionId Database ID of action
      */
@@ -185,7 +201,7 @@ ActionMethods = (function(){
         Actions.update(actionId, {$set:
                        { isGlobal: false }
         });
-    }
+    };
 
     return api;
 }());
