@@ -2,11 +2,12 @@
 Meteor.methods({
 
     /**
-     * get the number of points a user has earned, optionally specifying a set of actions to use when calculating
+     * Get the number of points a user has earned, optionally specifying
+     * a set of actions to use when calculating.
      *
-     * @param {string} userid id of user to get points from
-     * @param {string[]=} actions list of action ids to use for points calculation
-     * @return {number} points current user has gained from given set of actions
+     * @param {String} userid id of user to get points from
+     * @param {String[]} [actions] list of action ids to use for points calculation
+     * @return {Number} points current user has gained from given set of actions
      */
     getUserPoints: function(userId, actions) {
         check(userId, String);
@@ -25,14 +26,15 @@ Meteor.methods({
     },
 
     /**
-     * get the number of points a user has earned between two points in time, optionally specifying a set of actions to use when calculating
+     * get the number of points a user has earned between two points in time,
+     * optionally specifying a set of actions to use when calculating
      *
-     * @param {string} userid id of user to get points from
-     * @param {date} start start of period of time to calculate points from
-     * @param {date} end end of period of time to calculate points from
-     * @param {string} userid id of user to get points from
-     * @param {string[]=} actions list of action ids to use for points calculation
-     * @return {number} points current user has gained from given set of actions
+     * @param {String} userId id of user to get points from
+     * @param {Date} start start of period of time to calculate points from
+     * @param {Date} end end of period of time to calculate points from
+     * @param {String} userId id of user to get points from
+     * @param {String[]} [actions] list of action ids to use for points calculation
+     * @return {Number} points current user has gained from given set of actions
      */
     getUserPointsBetween: function(userId, start, end, actions) {
         check(userId, String);

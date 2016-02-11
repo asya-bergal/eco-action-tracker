@@ -4,10 +4,8 @@ Template.takeActions.helpers({
         var allActions = [];
 
         if(this.actionsToUse) {
-            console.log("got input");
             allActions = this.actionsToUse;
         } else {
-            console.log("didn't got input");
             allActions = Actions.find({}, {sort: {category: 1}}).fetch();
         }
         // TODO: Is there a faster way to do this?
@@ -71,7 +69,7 @@ Template.takeActions.events({
             if (error) {
                 console.log(error);
             } else {
-                humane.log("You took an action!");
+                humane.log("You took an environmentally friendly action!");
                 $('#collapseButton' + actionId).click();
             }
         });

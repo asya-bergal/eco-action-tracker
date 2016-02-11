@@ -1,17 +1,12 @@
 Template.Group.helpers({
-    /**
-     * 
-     * @returns {Boolean} whether the current user is an admin of this group
-     */
+    /** @return {Boolean} whether the current user is an admin of this group */
     'admin': function () {
         if (this.admins) {
             console.log(this.admins);
             return this.admins.indexOf(Meteor.userId()) !== -1;
         }
     },
-    /**
-     * @return {boolean} whether the current user is a global admin
-     */
+    /** @return {Boolean} whether the current user is a global admin */
     'globalAdmin': function() {
         console.log("doSomething");
         return Meteor.user().profile.globalAdmin;
@@ -19,7 +14,7 @@ Template.Group.helpers({
     /**
      * Gets the users in the group
      * 
-     * @returns {array} of user docs sorted by points
+     * @return {Object} cursor to user docs sorted by points
      */
     'getUsers': function () {
         if (this.users) {
@@ -33,19 +28,13 @@ Template.Group.helpers({
             });
         }
     },
-    /**
-     * 
-     * @returns {cursor} competitions belonging to this group
-     */
+    /** @return {Object} cursor to competitions belonging to this group */
     'competitions': function () {
         if (this.competitions) {
             return Competitions.find({"parentGroup": this._id});
         }
     },
-    /**
-     * 
-     * @returns {Boolean} whether the current user is currently in the group
-     */
+    /** @return {Boolean} whether the current user is currently in the group */
     'notInGroup': function () {
         return $.grep(this.users, function (e) {
             return e.userId === Meteor.userId();
@@ -65,7 +54,7 @@ Template.Group.helpers({
 
 Template.Group.events({
     'click #request': function (e) {
-        Meteor.call("requestToJoinGroup", this._id, Meteor.userId());
+        Meteor.call("requestToJoinGroup", this._id);
     },
     'click .remove-group': function(e) {
         e.preventDefault();

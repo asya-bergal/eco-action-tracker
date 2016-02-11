@@ -26,7 +26,7 @@ Router.route('/user/:_id/history', {
 Router.route('/user/:_id/groups', {
     name: 'userGroups',
     action: function () {
-        this.render('groups', {
+        this.render('groupList', {
             data: function () {
                 return Meteor.users.findOne(this.params._id);
             }
@@ -41,7 +41,7 @@ Router.route('/admin', {
         if(Meteor.user().profile.globalAdmin){
             this.render('admin', {
             });
-        SEO.set({title: 'Global Settings'});            
+            SEO.set({title: 'Global Settings'});
         } else {
             this.redirect('/user/profile/');
         }

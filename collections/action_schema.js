@@ -1,7 +1,3 @@
-/**
- * @overview Defines and attaches the action schema.
- */
-
 Actions = new Mongo.Collection('actions');
 
 ActionSchema = new SimpleSchema({

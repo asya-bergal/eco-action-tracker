@@ -1,10 +1,18 @@
-Meteor.methods({
+/**
+ * @overview Provides methods for admins.
+ */
+
+/** @class AdminMethods */
+AdminMethods = (function(){
+    var api = {};
+
     /**
      * This function elevates a user to a Global Admin
-     * 
+     *
+     * @memberof AdminMethods
      * @param {string} userId The UserId of the user we wish to elevate
      */
-    'addGlobalAdmin': function (userId) {
+    api.addGlobalAdmin = function (userId) {
         check(userId, String);
         if (Meteor.user().profile.globalAdmin) {
             Meteor.users.update(userId, {$set: {'profile.globalAdmin': true}});
@@ -12,10 +20,11 @@ Meteor.methods({
     },
     /**
      * This function lowers a user to a non Admin
-     * 
+     *
+     * @memberof AdminMethods
      * @param {string} userId The UserId of the user we wish to lower
      */
-    'removeGlobalAdmin': function (userId) {
+    api.removeGlobalAdmin = function (userId) {
         check(userId, String);
         if (Meteor.user().profile.globalAdmin) {
             Meteor.users.update(userId, {$set: {'profile.globalAdmin': false}});
@@ -23,10 +32,11 @@ Meteor.methods({
     },
     /**
      * Gets a list of emails to download for the user
-     * 
+     *
+     * @memberof AdminMethods
      * @returns {string} comma seperated list of user emails
      */
-    'getUserEmails': function () {
+    api.getUserEmails = function () {
         if (Meteor.user().profile.globalAdmin) {
             var userEmails = Meteor.users.find({}, {fields: {'emails': 1}}).fetch().map(function (u) {
                 return u.emails;
@@ -39,4 +49,12 @@ Meteor.methods({
             return userEmails;
         }
     }
+
+    return api;
+}());
+
+Meteor.methods({
+    'addGlobalAdmin': AdminMethods.addGlobalAdmin,
+    'removeGlobalAdmin': AdminMethods.removeGlobalAdmin,
+    'getUserEmails': AdminMethods.getUserEmails
 });
