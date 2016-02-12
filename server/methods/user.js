@@ -1,13 +1,11 @@
+/** @module methods/user */
+
 /**
- * @overview Provides methods related to users.
+ * @namespace
+ * @description Methods for interfacing with user database. Returns public API.
  */
-
-/** @class UserMethods */
-UserMethods = (function(){
-    var api = {};
-
+UsersAPI = (function(){
     /**
-     * @method
      * @private
      * @param {Object[]} arr array to be searched
      * @param {Object} element element to search for
@@ -24,7 +22,6 @@ UserMethods = (function(){
     };
 
     /**
-     * @method
      * @private
      * @param {Object[]} actions a list of actions
      * @return {Number} the sum of all points resulting from those actions
@@ -36,7 +33,6 @@ UserMethods = (function(){
     };
 
     /**
-     * @method
      * @private
      * @param {Object[]} allActions a list of actions to search in
      * @param {String[]} ids a list of strings to search for
@@ -49,7 +45,6 @@ UserMethods = (function(){
     };
 
     /**
-     * @method
      * @private
      * @param {Object[]} allActions a list of actions to search in
      * @param {String[]} ids a list of strings to search for
@@ -68,15 +63,13 @@ UserMethods = (function(){
      * Get the number of points a user has earned, optionally specifying
      * a set of actions to use when calculating.
      *
-     * @method getUserPoints
-     * @inner
-     * @memberof UserMethods
+     * @memberof module:methods/user~UsersAPI
      * @param {String} userid id of user to get points from
      * @param {String[]} [actions] list of action ids to use for points
      * calculation
      * @return {Number} points current user has gained from given set of actions
      */
-    api.getUserPoints = function(userId, actions) {
+    var getUserPoints = function(userId, actions) {
         check(userId, String);
         check(actions, [String]);
 
@@ -95,9 +88,7 @@ UserMethods = (function(){
      * get the number of points a user has earned between two points in time,
      * optionally specifying a set of actions to use when calculating
      *
-     * @method getUserPointsBetween
-     * @inner
-     * @memberof UserMethods
+     * @memberof module:methods/user~UsersAPI
      * @param {String} userId id of user to get points from
      * @param {Date} start start of period of time to calculate points from
      * @param {Date} end end of period of time to calculate points from
@@ -105,7 +96,7 @@ UserMethods = (function(){
      * @param {String[]} [actions] list of action ids to use for points calculation
      * @return {Number} points current user has gained from given set of actions
      */
-    api.getUserPointsBetween = function(userId, start, end, actions) {
+    var getUserPointsBetween = function(userId, start, end, actions) {
         check(userId, String);
         check(start, Match.Any); //TODO: should probably be something else
         check(end, Match.Any); //TODO: should probably be something else
@@ -125,7 +116,7 @@ UserMethods = (function(){
                 action = userProfile.history[i];
             }
 
-            // Add all actions while the action's timestamp is greater than th estart
+            // Add all actions while the action's timestamp is greater than the start
             while(action.timestamp >= start) {
                 matchingActions.push(action);
                 i--;
@@ -142,12 +133,10 @@ UserMethods = (function(){
     /**
      * Sends a verification e-mail to the user with given ID.
      *
-     * @method verifyUserEmail
-     * @inner
-     * @memberof UserMethods
+     * @memberof module:methods/user~UsersAPI
      * @param {String} userId Database ID of user to verify
      */
-    api.verifyUserEmail = function(userId) {
+    var verifyUserEmail = function(userId) {
         check(userId, String);
         Accounts.sendVerificationEmail(userId);
     };
@@ -155,22 +144,21 @@ UserMethods = (function(){
     /**
      * Sends a password reset e-mail to the user with given ID.
      *
-     * @method passwordReset
-     * @inner
-     * @memberof UserMethods
+     * @memberof module:methods/user~UsersAPI
      * @param {String} userId Database ID of user to password reset
      */
-    api.passwordReset = function(userId) {
+    var passwordReset = function(userId) {
         check(userId, String);
         Accounts.sendResetPasswordEmail(userId);
     };
 
-    return api;
+    // return the public API
+    return {
+        'getUserPoints': getUserPoints,
+        'getUserPointsBetween': getUserPointsBetween,
+        'verifyUserEmail': verifyUserEmail,
+        'passwordReset': passwordReset
+    }
 }());
 
-Meteor.methods({
-    'getUserPoints': UserMethods.getUserPoints,
-    'getUserPointsBetween': UserMethods.getUserPointsBetween,
-    'verifyUserEmail': UserMethods.verifyUserEmail,
-    'passwordReset': UserMethods.passwordReset
-});
+Meteor.methods(UsersAPI);

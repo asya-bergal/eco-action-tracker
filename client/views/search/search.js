@@ -1,20 +1,17 @@
-/**
- * @overview Front-end JS for search.
- */
+/** @module views/search */
 
-/** @class SearchMethods */
-SearchMethods = (function(){
-    var api = {};
-    
+/**
+ * @namespace
+ * @description Defines methods for manipulating search bar.
+ */
+Searchbar = (function(){
     /**
      * Custom selectize config.
      *
-     * @method configure
-     * @inner
-     * @memberof SearchMethods
+     * @memberof module:views/search~Searchbar
      * @param {String} title the search bar we are configuring (e.g. "Groups")
      */
-    api.configure = function(title) {
+    var configure = function(title) {
         return function (c) {
             // make selection redirect to the relevant page
             c['onChange'] = function(value) {
@@ -39,12 +36,10 @@ SearchMethods = (function(){
     /**
      * Set the selectize input placeholder.
      *
-     * @method setPlaceholder
-     * @inner
-     * @memberof SearchMethods
+     * @memberof module:views/search~Searchbar
      * @param {String} title the search bar we are configuring (e.g. "Groups")
      */
-    api.setPlaceholder = function(title) {
+    var setPlaceholder = function(title) {
         return function() {
             $("div.search" + title +
               " > div.selectize-control > div.selectize-input > input")
@@ -52,7 +47,10 @@ SearchMethods = (function(){
         };
     }
 
-    return api;
+    return {
+        configure: configure,
+        setPlaceholder: setPlaceholder
+    }
 }());
 
 Template.searchGroups.helpers({
@@ -61,11 +59,11 @@ Template.searchGroups.helpers({
     },
 
     addLink: function() {
-        return SearchMethods.configure("Groups");
+        return Searchbar.configure("Groups");
     }
 });
 
-Template.searchGroups.rendered = SearchMethods.setPlaceholder("Groups");
+Template.searchGroups.rendered = Searchbar.setPlaceholder("Groups");
 
 Template.searchActions.helpers({
     actionsIndex: function() {
@@ -73,7 +71,7 @@ Template.searchActions.helpers({
     },
 
     addLink: function () {
-        return SearchMethods.configure("Actions");
+        return Searchbar.configure("Actions");
     }
 });
-Template.searchActions.rendered = SearchMethods.setPlaceholder("Actions");
+Template.searchActions.rendered = Searchbar.setPlaceholder("Actions");

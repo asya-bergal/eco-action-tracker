@@ -1,21 +1,18 @@
+/** @module methods/competition */
+
 /**
- * @overview Provides methods related to competitions.
+ * @namespace
+ * @description Methods for manipulating competitions. Returns public API.
  */
-
-/** @class CompetitionMethods */
-CompetitionMethods = (function(){
-    var api = {};
-
+CompetitionsAPI = (function(){
     /**
      * Add a new competition to the database and to its parent group.
      *
-     * @method addCompetition
-     * @inner
-     * @memberof CompetitionMethods
-     * @param {Object} data JSON object containing data for the action to be added
+     * @memberof module:methods/competition~CompetitionsAPI
+     * @param {Object} data JSON object containing data for action to be added
      * @return {String} Database ID of competition just added
      */
-    api.addCompetition = function(data) {
+    var addCompetition = function(data) {
         check(data, Object);
         var competitionId = Competitions.insert(data, function(err, action) {
             if (err) {
@@ -34,13 +31,11 @@ CompetitionMethods = (function(){
     /**
      * Remove a competition from its parent group and the database.
      *
-     * @method removeCompetition
-     * @inner
-     * @memberof CompetitionMethods
+     * @memberof module:methods/competition~CompetitionsAPI
      * @param  {String} competitionId Database ID of competition to be removed
-     * @return {String} Former dataase ID of competition that was just removed
+     * @return {String} Former database ID of competition that was just removed
      */
-    api.removeCompetition = function(competitionId) {
+    var removeCompetition = function(competitionId) {
         check(competitionId, String);
         
         competition = Competitions.findOne({ _id: competitionId }); 
@@ -57,10 +52,11 @@ CompetitionMethods = (function(){
         return competitionId;
     };
 
-    return api;
+    // return the public API
+    return {
+        'addCompetition': addCompetition,
+        'removeCompetition': removeCompetition
+    };
 }());
 
-Meteor.methods({
-    'addCompetition': CompetitionMethods.addCompetition,
-    'removeCompetition': CompetitionMethods.removeCompetition
-});
+Meteor.methods(CompetitionsAPI);

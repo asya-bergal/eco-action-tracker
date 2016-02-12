@@ -1,21 +1,18 @@
+/** @module methods/action */
+
 /**
- * @overview Provides methods related to actions.
+ * @namespace
+ * @description Defines methods for manipulating actions. Returns public API.
  */
-
-/** @class ActionMethods */
-ActionMethods = (function(){
-    var api = {};
-
+ActionsAPI = (function(){
     /**
      * Used for action cap and (possibly) front-end.
      *
-     * @method pointsToday
-     * @inner
-     * @memberof ActionMethods
+     * @memberof module:methods/action~ActionsAPI
      * @param {String} actionId id of action to consider
      * @return {Number} points current user has been awarded toward action today
      */
-    api.pointsToday = function(actionId) {
+    var pointsToday = function(actionId) {
         // checks
         check(actionId, String);
         // local variables
@@ -39,12 +36,10 @@ ActionMethods = (function(){
     /**
      * Adds action to Mongo.
      *
-     * @method addAction
-     * @inner
-     * @memberof ActionMethods
+     * @memberof module:methods/action~ActionsAPI
      * @param {Object} data the action object (should match schema)
      */
-    api.addAction = function(data) {
+    var addAction = function(data) {
         check(data, Object);
         return Actions.insert(data, function(err, action) {
             if (err) {
@@ -56,14 +51,12 @@ ActionMethods = (function(){
     /**
      * Updates Mongo given the form submission.
      *
-     * @method takeAction
-     * @inner
-     * @memberof ActionMethods
+     * @memberof module:methods/action~ActionsAPI
      * @param {String} actionId id of action being taken
      * @param {Number[]} fieldEntries what the user entered into the form
      * @return {Number} points awarded for this action
      */
-    api.takeAction = function(actionId, fieldEntries) {
+    var takeAction = function(actionId, fieldEntries) {
         // checks
         check(actionId, String);
         check(fieldEntries, [Number]);
@@ -77,7 +70,7 @@ ActionMethods = (function(){
         for (var i = 0; i < fields.length; i++) {
             points += fieldEntries[i] * fields[i].scale;
         }
-        points = Math.min(points, action.dailyCap - api.pointsToday(actionId));
+        points = Math.min(points, action.dailyCap - pointsToday(actionId));
         // mongo updates
         var actionInfo = { actionId: actionId, timestamp: now, points: points }
         Meteor.users.update(
@@ -132,12 +125,10 @@ ActionMethods = (function(){
     /**
      * Approve action for global use.
      *
-     * @method approveAction
-     * @inner
-     * @memberof ActionMethods
+     * @memberof module:methods/action~ActionsAPI
      * @param {String} actionId Database ID of action to be approved
      */
-    api.approveAction = function(actionId) {
+    var approveAction = function(actionId) {
         check(actionId, String);
         Actions.update(actionId, {$set:
                        { isGlobal: true, needsApproval: false }
@@ -147,12 +138,10 @@ ActionMethods = (function(){
     /**
      * Do not approve action for global use.
      *
-     * @method notApproveAction
-     * @inner
-     * @memberof ActionMethods
+     * @memberof module:methods/action~ActionsAPI
      * @param {String} actionId Database ID of action to be not approved
      */
-    api.notApproveAction = function(actionId) {
+    var notApproveAction = function(actionId) {
         check(actionId, String);
         Actions.update(actionId, {$set:
                        { isGlobal: false, needsApproval: false }
@@ -162,13 +151,11 @@ ActionMethods = (function(){
     /**
      * Submit group action for global admin approval.
      *
-     * @method submitForApproval
-     * @inner
-     * @memberof ActionMethods
+     * @memberof module:methods/action~ActionsAPI
      * @param {String} actionId Database ID of action to be submitted for
      * approval
      */
-    api.submitForApproval = function(actionId) {
+    var submitForApproval = function(actionId) {
         check(actionId, String);
         Actions.update(actionId, {$set:
                        { needsApproval: true }
@@ -178,12 +165,10 @@ ActionMethods = (function(){
     /**
      * Remove action from database.
      *
-     * @method removeAction
-     * @inner
-     * @memberof ActionMethods
+     * @memberof module:methods/action~ActionsAPI
      * @param {String} actionId Database ID of action to be removed
      */
-    api.removeAction = function(actionId) {
+    var removeAction = function(actionId) {
         check(actionId, String);
         Actions.remove(actionId);
     };
@@ -191,28 +176,27 @@ ActionMethods = (function(){
     /**
      * Make action not global, remains in group if applicable.
      *
-     * @method makeUnglobal
-     * @inner
-     * @memberof ActionMethods
+     * @memberof module:methods/action~ActionsAPI
      * @param {String} actionId Database ID of action
      */
-    api.makeUnglobal = function(actionId) {
+    var makeUnglobal = function(actionId) {
         check(actionId, String);
         Actions.update(actionId, {$set:
                        { isGlobal: false }
         });
     };
 
-    return api;
+    // return the public API
+    return {
+        pointsToday: pointsToday,
+        addAction: addAction,
+        takeAction: takeAction,
+        approveAction: approveAction,
+        notApproveAction: notApproveAction,
+        submitForApproval: submitForApproval,
+        removeAction: removeAction,
+        makeUnglobal: makeUnglobal
+    };
 }());
 
-Meteor.methods({
-    'pointsToday': ActionMethods.pointsToday,
-    'addAction': ActionMethods.addAction,
-    'takeAction': ActionMethods.takeAction,
-    'approveAction': ActionMethods.approveAction,
-    'notApproveAction': ActionMethods.notApproveAction,
-    'submitForApproval': ActionMethods.submitForApproval,
-    'removeAction': ActionMethods.removeAction,
-    'makeUnglobal': ActionMethods.makeUnglobal
-});
+Meteor.methods(ActionsAPI);

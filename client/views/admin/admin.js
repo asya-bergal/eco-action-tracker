@@ -1,4 +1,4 @@
-/** @module admin/admin */
+/** @module views/admin */
 
 Template.admin.helpers({
     /*

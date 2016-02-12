@@ -1,21 +1,18 @@
+/** @module methods/group */
+
 /**
- * @overview Provides methods related to groups.
+ * @namespace
+ * @description Defines methods for manipulating groups. Returns public API.
  */
-
-/** @class GroupMethods */
-GroupMethods = (function(){
-    var api = {};
-
+GroupsAPI = (function(){
     /**
      * Add new group to database.
      *
-     * @method createGroup
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param  {Object} group JSON object containing data for group to be added to database
      * @return {String} Database ID of group just added
      */
-    api.createGroup = function(group) {
+    var createGroup = function(group) {
         check(group, Object);
         group.creationDate = Date.now();
         group.admins = [Meteor.userId()];
@@ -41,12 +38,10 @@ GroupMethods = (function(){
     /**
      * Remove group from database.
      *
-     * @method removeGroup
-     * @inner
-     * @memberof GroupMethods
-     * @param  {String}    groupId Database ID of group to be removed
+     * @memberof module:methods/group~GroupsAPI
+     * @param  {String} groupId Database ID of group to be removed
      */
-    api.removeGroup = function(groupId) {
+    var removeGroup = function(groupId) {
         check(groupId, String);
         Groups.remove(groupId);
     };
@@ -54,12 +49,10 @@ GroupMethods = (function(){
     /**
      * Add user to group request list.
      *
-     * @method requestToJoinGroup
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param {String} groupId Database ID of group to request to add user to
      */
-    api.requestToJoinGroup = function(groupId) {
+    var requestToJoinGroup = function(groupId) {
         check(groupId, String);
         var userId = Meteor.userId();
 
@@ -81,13 +74,11 @@ GroupMethods = (function(){
     /**
      * Add user to group.
      *
-     * @method addUser
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param {String} groupId Database ID of group to add user to
      * @param {String} userId Database ID of user to add to group
      */
-    api.addUser = function(groupId, userId) {
+    var addUser = function(groupId, userId) {
         check(groupId, String);
         check(userId, String);
         if(Meteor.user().profile.adminGroups.indexOf(groupId) === -1) {
@@ -121,13 +112,11 @@ GroupMethods = (function(){
     /**
      * Revoke admin privileges from user in a group.
      *
-     * @method removeAdmin
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param  {String} groupId Database ID of group to revoke admin user from
      * @param  {String} userId Database ID of user to revoke admin privileges from
      */
-    api.removeAdmin = function(groupId, userId) {
+    var removeAdmin = function(groupId, userId) {
         check(groupId, String);
         check(userId, String);
 
@@ -150,13 +139,11 @@ GroupMethods = (function(){
     /**
      * Remove user from group.
      *
-     * @method removeUser
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param {String} groupId Database Id of group to remove users from
      * @param {String} userId  Database ID of user to be removed
      */
-    api.removeUser = function(groupId, userId) {
+    var removeUser = function(groupId, userId) {
         check(groupId, String);
         check(userId, String);
 
@@ -174,22 +161,20 @@ GroupMethods = (function(){
                 { $pull: { "profile.groups": groupId } }
             );
 
-            api.removeAdmin(groupId, userId);
+            removeAdmin(groupId, userId);
         }
     };
 
     /**
      * Returns users from a group within a certain range.
      *
-     * @method getUsers
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param  {String}   groupId Database ID of group to get users from
      * @param  {Number}   start Index of first user to return
      * @param  {Number}   end Index of last user to return
      * @return {String[]} Users in group from start to end indices
      */
-    api.getUsers = function(groupId, start, end) {
+    var getUsers = function(groupId, start, end) {
         check(groupId, String);
         check(start, Number);
         check(end, Number);
@@ -200,13 +185,11 @@ GroupMethods = (function(){
     /**
      * Add user as admin to group.
      *
-     * @method addAdmin
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param {String} groupId Database ID of group to add admin to
      * @param {String} userId Database ID of user to add as admin
      */
-    api.addAdmin = function(groupId, userId) {
+    var addAdmin = function(groupId, userId) {
         check(groupId, String);
         check(userId, String);
 
@@ -231,15 +214,13 @@ GroupMethods = (function(){
     /**
      * Returns a range of admin users within a group.
      *
-     * @method getAdmins
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param  {String} groupId Database ID of group to return admin users from
      * @param  {Number} start Index of first admin user to return
      * @param  {Number} end Index of last admin user to return
      * @return {String[]} Admin users from start to end indices
      */
-    api.getAdmins = function(groupId, start, end) {
+    var getAdmins = function(groupId, start, end) {
         check(groupId, String);
 
         return Groups.findOne(groupId).admins.slice(start, end);
@@ -248,13 +229,11 @@ GroupMethods = (function(){
     /**
      * Add child subgroup to parent group.
      *
-     * @method addSubgroup
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param {String} parentGroupId Database ID of parent group
      * @param {String} childGroupId    Database ID of child group
      */
-    api.addSubgroup = function(parentGroupId, childGroupId) {
+    var addSubgroup = function(parentGroupId, childGroupId) {
         check(parentGroupId, String);
         check(childGroupId, String);
 
@@ -267,13 +246,11 @@ GroupMethods = (function(){
     /**
      * Remove child subgroup from parent group.
      *
-     * @method removeSubgroup
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param {String} parentGroupId Database ID of parent group
      * @param {String} childGroupId    Database ID of child group
      */
-    api.removeSubgroup = function(parentGroupId, childGroupId) {
+    var removeSubgroup = function(parentGroupId, childGroupId) {
         check(parentGroupId, String);
         check(childGroupId, String);
 
@@ -286,15 +263,13 @@ GroupMethods = (function(){
     /**
      * Returns a range of subgroups within a group.
      *
-     * @method getSubgroups
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param  {String} groupId Database ID of group to return subgroups from
      * @param  {Number} start Index of first subgroup to return
      * @param  {Number} end Index of last subgroup to return
      * @return {String[]} Subgroups from start to end indices
      */
-    api.getSubgroups = function(groupId, start, end) {
+    var getSubgroups = function(groupId, start, end) {
         check(groupId, String);
         check(start, Number);
         check(end, Number);
@@ -304,13 +279,11 @@ GroupMethods = (function(){
     /**
      * Add group as a subgroup to a parent group.
      *
-     * @method addParent
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param {String} groupId Database ID of subgroup
      * @param {String} parentId Database ID of parent group
      */
-    api.addParent = function(groupId, parentId) {
+    var addParent = function(groupId, parentId) {
         check(groupId, String);
         check(parentId, String);
 
@@ -321,15 +294,22 @@ GroupMethods = (function(){
     };
 
     /**
+     * Creates a new group level competition and invites other groups.
+     *
+     * @memberof module:methods/group~GroupsAPI
+     * @return {String} Database ID of the created competition.
+     */
+    var initiateChallenge = function() {
+    };
+
+    /**
      * Add action to group.
      *
-     * @method addActionToGroup
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param {String} groupId Database ID of group to add action to
      * @param {String} actionId Database ID of action to be added
      */
-    api.addActionToGroup = function(groupId, actionId){
+    var addActionToGroup = function(groupId, actionId){
         check(groupId, String);
         check(actionId, String);
         Groups.update(
@@ -342,13 +322,11 @@ GroupMethods = (function(){
     /**
      * Remove action from group.
      *
-     * @method removeActionFromGroup
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param {String} groupId Database ID of group to remove action from
      * @param {String} actionId Database ID of action to be removed
      */
-    api.removeActionFromGroup = function(groupId, actionId){
+    var removeActionFromGroup = function(groupId, actionId){
         check(groupId, String);
         check(actionId, String);
         Groups.update(
@@ -361,15 +339,13 @@ GroupMethods = (function(){
     /**
      * Returns a range of actions within a group.
      *
-     * @method getActions
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param  {String} groupId Database ID of group to return actions from
      * @param  {Number} start Index of first action to return
      * @param  {Number} end Index of last action to return
      * @return {String[]} A list of all actions from start to end
      */
-    api.getActions = function(groupId, start, end) {
+    var getActions = function(groupId, start, end) {
         check(groupId, String);
         check(start, String);
         check(end, String);
@@ -380,15 +356,13 @@ GroupMethods = (function(){
     /**
      * Returns a range of competitions within a group.
      *
-     * @method getCompetitions
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param  {String} groupId Database ID of group to return competitions from
      * @param  {Number} start Index of first competition to return
      * @param  {Number} end Index of last competition to return
      * @return {String[]} Database IDs of competitions from start to end indices
      */
-    api.getCompetitions = function(groupId, start, end) {
+    var getCompetitions = function(groupId, start, end) {
         check(groupId, String);
         check(start, String);
         check(end, String);
@@ -399,12 +373,10 @@ GroupMethods = (function(){
     /**
      * Sort users in group based on point total.
      *
-     * @method sortLeaderboard
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param {String} groupId Database ID of group to sort
      */
-    api.sortLeaderboard = function(groupId) {
+    var sortLeaderboard = function(groupId) {
         Groups.findOne(groupId).users.sort(function(a,b) {
             return b.points-a.points;
         });
@@ -413,13 +385,11 @@ GroupMethods = (function(){
     /**
      * Return five actions that contribute most points to a group.
      *
-     * @method topFiveActions
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param  {String} groupId Database ID of group to retrieve actions from
      * @return {Object[]} Array of five most point contributing actions
      */
-    api.topFiveActions = function(groupId){
+    var topFiveActions = function(groupId){
         check(groupId, String);
         var group = Groups.findOne(groupId);
         return group.actions.map(function(action){
@@ -430,13 +400,11 @@ GroupMethods = (function(){
     /**
      * Change name of group.
      *
-     * @method updateGroupName
-     * @inner
-     * @memberof GroupMethods
+     * @memberof module:methods/group~GroupsAPI
      * @param {String} groupId Database ID of group to change name
      * @param {String} newName Name to change group name to
      */
-    api.updateGroupName = function(groupId, newName){
+    var updateGroupName = function(groupId, newName){
         check(groupId, String);
         check(newName, String);
 
@@ -446,27 +414,29 @@ GroupMethods = (function(){
         );
     };
 
-    return api;
+    // return the public API
+    return {
+        createGroup: createGroup,
+        removeGroup: removeGroup,
+        requestToJoinGroup: requestToJoinGroup,
+        addUser: addUser,
+        removeAdmin: removeAdmin,
+        getUsers: getUsers,
+        addAdmin: addAdmin,
+        getAdmins: getAdmins,
+        addSubgroup: addSubgroup,
+        removeSubgroup: removeSubgroup,
+        getSubgroups: getSubgroups,
+        addParent: addParent,
+        initiateChallenge: initiateChallenge,
+        addActionToGroup: addActionToGroup,
+        removeActionFromGroup: removeActionFromGroup,
+        getActions: getActions,
+        sortLeaderboard: sortLeaderboard,
+        getCompetitions: getCompetitions,
+        topFiveActions: topFiveActions,
+        updateGroupName: updateGroupName,
+    };
 }());
 
-Meteor.methods({
-    'createGroup': GroupMethods.createGroup,
-    'removeGroup': GroupMethods.removeGroup,
-    'requestToJoinGroup': GroupMethods.requestToJoinGroup,
-    'addUser': GroupMethods.addUser,
-    'removeAdmin': GroupMethods.removeAdmin,
-    'getUsers': GroupMethods.getUsers,
-    'addAdmin': GroupMethods.addAdmin,
-    'getAdmins': GroupMethods.getAdmins,
-    'addSubgroup': GroupMethods.addSubgroup,
-    'removeSubgroup': GroupMethods.removeSubgroup,
-    'getSubgroups': GroupMethods.getSubgroups,
-    'addParent': GroupMethods.addParent,
-    'addActionToGroup': GroupMethods.addActionToGroup,
-    'removeActionFromGroup': GroupMethods.removeActionFromGroup,
-    'getActions': GroupMethods.getActions,
-    'sortLeaderboard': GroupMethods.sortLeaderboard,
-    'getCompetitions': GroupMethods.getCompetitions,
-    'topFiveActions': GroupMethods.topFiveActions,
-    'updateGroupName': GroupMethods.updateGroupName,
-});
+Meteor.methods(GroupsAPI);

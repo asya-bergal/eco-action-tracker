@@ -1,20 +1,17 @@
+/** @module methods/admin */
+
 /**
- * @overview Provides methods for admins.
+ * @namespace
+ * @description Methods for interfacing with admin database. Returns public API.
  */
-
-/** @class AdminMethods */
-AdminMethods = (function(){
-    var api = {};
-
+AdminsAPI = (function(){
     /**
      * This function elevates a user to a Global Admin
      *
-     * @method addGlobalAdmin
-     * @inner
-     * @memberof AdminMethods
+     * @memberof module:methods/admin~AdminsAPI
      * @param {string} userId The UserId of the user we wish to elevate
      */
-    api.addGlobalAdmin = function (userId) {
+    var addGlobalAdmin = function (userId) {
         check(userId, String);
         if (Meteor.user().profile.globalAdmin) {
             Meteor.users.update(userId, {$set: {'profile.globalAdmin': true}});
@@ -23,12 +20,10 @@ AdminMethods = (function(){
     /**
      * This function lowers a user to a non Admin
      *
-     * @method removeGlobalAdmin
-     * @inner
-     * @memberof AdminMethods
+     * @memberof module:methods/admin~AdminsAPI
      * @param {string} userId The UserId of the user we wish to lower
      */
-    api.removeGlobalAdmin = function (userId) {
+    var removeGlobalAdmin = function (userId) {
         check(userId, String);
         if (Meteor.user().profile.globalAdmin) {
             Meteor.users.update(userId, {$set: {'profile.globalAdmin': false}});
@@ -37,12 +32,10 @@ AdminMethods = (function(){
     /**
      * Gets a list of emails to download for the user
      *
-     * @method getUserEmails
-     * @inner
-     * @memberof AdminMethods
+     * @memberof module:methods/admin~AdminsAPI
      * @returns {string} comma seperated list of user emails
      */
-    api.getUserEmails = function () {
+    var getUserEmails = function () {
         if (Meteor.user().profile.globalAdmin) {
             var userEmails = Meteor.users.find({}, {fields: {'emails': 1}}).fetch().map(function (u) {
                 return u.emails;
@@ -56,11 +49,12 @@ AdminMethods = (function(){
         }
     };
 
-    return api;
+    // return public API
+    return {
+        'addGlobalAdmin': addGlobalAdmin,
+        'removeGlobalAdmin': removeGlobalAdmin,
+        'getUserEmails': getUserEmails
+    };
 }());
 
-Meteor.methods({
-    'addGlobalAdmin': AdminMethods.addGlobalAdmin,
-    'removeGlobalAdmin': AdminMethods.removeGlobalAdmin,
-    'getUserEmails': AdminMethods.getUserEmails
-});
+Meteor.methods(AdminsAPI);
