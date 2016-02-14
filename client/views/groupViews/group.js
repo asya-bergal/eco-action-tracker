@@ -6,7 +6,6 @@ Template.Group.helpers({
      */
     'admin': function () {
         if (this.admins) {
-            console.log(this.admins);
             return this.admins.indexOf(Meteor.userId()) !== -1;
         }
     },
@@ -14,7 +13,6 @@ Template.Group.helpers({
      * @return {Boolean} whether the current user is a global admin
      */
     'globalAdmin': function() {
-        console.log("doSomething");
         return Meteor.user().profile.globalAdmin;
     },
     /**
@@ -57,6 +55,18 @@ Template.Group.helpers({
         return $.grep(this.usersRequesting, function (e) {
             return e === Meteor.userId();
         }).length === 1;
+    },
+    'action' : function (actionId) {
+        return Actions.findOne(actionId);
+    },
+    'actionTitle': function(actionId) {
+        return Actions.findOne(actionId).title;
+    },
+    'username': function(userId) {
+        return Meteor.users.findOne(userId).profile.firstName;
+    },
+    'history': function() {
+        return this.history.reverse();
     }
 
 });

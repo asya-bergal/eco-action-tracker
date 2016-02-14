@@ -104,6 +104,8 @@ Template.admin.events({
         Meteor.call("makeUnglobal", actionId, function(err) {
             if(err) {
                 console.log(err);
+            } else {
+                humane.log("Action no longer global.");
             }
         })
     },

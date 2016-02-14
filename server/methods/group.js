@@ -43,6 +43,7 @@ GroupsAPI = (function(){
      */
     var removeGroup = function(groupId) {
         check(groupId, String);
+        Actions.remove({group: groupId});
         Groups.remove(groupId);
     };
 

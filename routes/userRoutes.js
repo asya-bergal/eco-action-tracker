@@ -1,5 +1,5 @@
 //User Routes
-Router.route('/user/profile/', {
+Router.route('/user/profile', {
     name: 'userProfile',
     action: function () {
         if (Meteor.user()) {
@@ -11,7 +11,7 @@ Router.route('/user/profile/', {
     }
 });
 
-Router.route('/user/:_id/history', {
+Router.route('/user/:_id', {
     name: 'userHistory',
     action: function () {
         this.render('history', {

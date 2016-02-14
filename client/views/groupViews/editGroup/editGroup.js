@@ -139,6 +139,13 @@ Template.editGroup.events({
                 console.log(err);
             }
         });
+        if (!Actions.findOne(actionId).isGlobal) { //is not a global action
+            Meteor.call('removeAction', actionId, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
     },
     'click .request-user': function (e) {
         var userId = e.target.getAttribute('id');

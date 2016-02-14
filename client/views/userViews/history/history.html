@@ -1,22 +1,43 @@
 <template name="history">
-    <div class="ui main-content">
-        <p style="font-size:30px; font-weight:bold"> Total: {{total}} </p>
-
-        {{#each action}}
-        <div>
-            <p>{{title}}
-            <form id={{_id}} name={{fields.length}}>
-                {{#each fields}}
-                {{name}} <input type="number" name="{{@index}}">
-                <br>
-                {{/each}}
-                <input type="submit" value="I did this!">
-            </form>
-            </p>
-            <br>
-        </div>
-        {{/each}}
+    <div class="user-history-title section-header">
+        {{this.profile.firstName}} {{this.profile.lastName}}
     </div>
+    <div class="user-history-content">
+        <div class="col-sm-7 section">
+            <h3 class="section-header">
+                <span>Action History</span>
+                <span>Global Points: {{this.profile.points}}</span>
+            </h3>
 
+            {{#each history}}
+            {{#if action actionId}}
+            <div class="action-taken">
+                <span>
+                    <span class="action-title">{{actionTitle actionId}} </span>
+                    <span class="action-timestamp">{{humanDate timestamp}}</span>
+                </span>
+                
+                <span>{{points}} points</span>
+            </div>
+            {{/if}}
+            {{/each}}
+        </div>
 
+        <div class="col-sm-5 groups">
+            <div id="my-groups" class="section">
+                <h3 class="section-header">Groups</h3>
+                {{#each group in getGroups}}
+                    <h4><a href="/group/{{group._id}}">{{group.name}}</a></h4>
+                {{/each}}
+            </div>
+            
+            <div id="my-competitions" class="section">
+                <h3 class="section-header">Competitions</h3>
+                {{#each comp in competitions}}
+                    <h4><a href="/competitions/{{comp._id}}">{{comp.name}}</a></h4>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    
 </template>
