@@ -6,8 +6,8 @@ Template.register.events({
         var password = event.target.pw.value;
         var confirm = event.target.confirm.value;
 
-        if(password != confirm) {
-            console.log("Passwords don't match.");
+        if(password !== confirm) {
+            humane.error("Passwords Do Not Match!");
             // TODO: Display error message on frontend
             return;
         }
@@ -22,7 +22,7 @@ Template.register.events({
         Accounts.createUser({username: username, email: email, password: password, profile: {firstName: first, lastName: last}},
             function (error) {
                 if (error) {
-                    console.log(error);
+                    humane.error(error);
                 }
                 Router.go('/user/profile');
         });
@@ -40,7 +40,7 @@ Template.login.events({
         // TODO: Error message if login fails (need to add a callback)
         Meteor.loginWithPassword(username, password, function (error) {
             if (error) {
-                console.log(error);
+                humane.error(error);
             } 
             Router.go('/user/profile');
         });

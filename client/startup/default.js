@@ -7,6 +7,8 @@ Meteor.startup(function () {
     
     humane.timeout = 2000;
     humane.baseCls="humane-flatty";
+    humane.error = humane.spawn({ addnCls: 'humane-flatty-error', timeout: 1000 })
+    
     // Used for stats
     Array.prototype.rotate = (function () {
         // save references to array functions to make lookup faster

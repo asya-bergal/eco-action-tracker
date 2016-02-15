@@ -1,60 +1,64 @@
 <template name="Group">
 
-<div class="group-page">
-  <div class="group-title">
-    <span class="group-name">{{name}}</span>
-    {{#if admin}}
-    <a class="group-edit" href="/group/{{_id}}/edit">Edit group</a>
-    {{/if}}
-    {{#if notInGroup}}
-      {{#if requestPending}}
-        <span id="cancel">Request Pending</span>
-      {{else}}
-        <span id="request">Request to Join</span>
-      {{/if}}
-    {{/if}}
-    {{#if globalAdmin}}
-      <span class="global-delete"><button class="btn btn-danger remove-group">Global admin: delete this group</button></span>
-    {{/if}}
-  </div>
-  <div class="group-content row">
-    <div class="col-sm-7 group-element">
-      <div class="competition-listing">
-        <h3 class="competition-header section-header">Competitions</h3>
-        {{#each comp in competitions}}
-          {{> competitionList comp}}
-        {{else}}
-          <div id="no-competitions" class="empty-collection">No Competitions Currently</div>
-        {{/each}}
+    <div class="group-page">
+        <div class="group-title">
+            <span class="group-name">{{name}}</span>
+            {{#if admin}}
+            <a class="group-edit" href="/group/{{_id}}/edit">Edit group</a>
+            {{/if}}
+            {{#if notInGroup}}
+            {{#if requestPending}}
+            <span id="cancel">Request Pending</span>
+            {{else}}
+            <span id="request">Request to Join</span>
+            {{/if}}
+            {{/if}}
+            {{#if globalAdmin}}
+            <span class="global-delete"><button class="btn btn-danger remove-group">Global admin: delete this group</button></span>
+            {{/if}}
+        </div>
+        <div class="group-content row">
+            <div class="col-sm-7 group-element">
+                <div class="competition-listing">
+                    <h3 class="competition-header section-header">Competitions</h3>
+                    {{#each comp in competitions}}
+                    {{> competitionList comp}}
+                    {{else}}
+                    <div id="no-competitions" class="empty-collection">No Competitions Currently</div>
+                    {{/each}}
 
-      </div>
+                </div>
+            </div>
+            <div class="col-sm-5 group-element">
+                <div>
+                    <h3 class="section-header">Leaderboard</h3>
+                    <div class="leaderboard-listing leaderboard-fields">
+                        <span class="place">Place</span> <span class="username">Username</span> <span class="points">Points</span>
+                    </div>
+                    {{#each user in getUsers}}
+                    <div class="leaderboard-listing leaderboard-content">
+                        <span class="place">{{increment @index}}</span> <span class="username">{{user.username}}</span> <span class="points">{{user.groupPoints}}</span>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        {{#if this.history}}
+        {{> GroupStats this}}
+        {{else}}
+        <h4>Take Some Actions to View Statistics Here!</h4>
+        {{/if}}
     </div>
-    <div class="col-sm-5 group-element">
-      <div>
-        <h3 class="section-header">Leaderboard</h3>
-          <div class="leaderboard-listing leaderboard-fields">
-            <span class="place">Place</span> <span class="username">Username</span> <span class="points">Points</span>
-          </div>
-        {{#each user in getUsers}}
-          <div class="leaderboard-listing leaderboard-content">
-            <span class="place">{{increment @index}}</span> <span class="username">{{user.username}}</span> <span class="points">{{user.groupPoints}}</span>
-          </div>
-        {{/each}}
-      </div>
-    </div>
-  </div>
-    {{> GroupStats this}}
-</div>
 </template>
 
 <template name="competitionList">
-  <div class="competition-item">
-    <div class="comp-name">
-        <span class="name"><a href="/competitions/{{this._id}}">{{name}}</a></span> <span class="end-time"> Ends {{humanDate end}}</span>
+    <div class="competition-item">
+        <div class="comp-name">
+            <span class="name"><a href="/competitions/{{this._id}}">{{name}}</a></span> <span class="end-time"> Ends {{humanDate end}}</span>
+        </div>
+        <div class="comp-desc">
+            <span class="desc">{{description}}</span>
+        </div>
     </div>
-    <div class="comp-desc">
-      <span class="desc">{{description}}</span>
-    </div>
-  </div>
 </template>
 
