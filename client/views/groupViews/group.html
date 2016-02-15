@@ -20,7 +20,7 @@
         <div class="group-content row">
             <div class="col-sm-7 group-element">
                 <div class="competition-listing">
-                    <h3 class="competition-header section-header">Competitions</h3>
+                    <div class="competition-header section-header">Competitions</div>
                     {{#each comp in competitions}}
                     {{> competitionList comp}}
                     {{else}}
@@ -31,7 +31,7 @@
             </div>
             <div class="col-sm-5 group-element">
                 <div>
-                    <h3 class="section-header">Leaderboard</h3>
+                    <div class="section-header">Leaderboard</div>
                     <div class="leaderboard-listing leaderboard-fields">
                         <span class="place">Place</span> <span class="username">Username</span> <span class="points">Points</span>
                     </div>
@@ -43,11 +43,32 @@
                 </div>
             </div>
         </div>
-        {{#if this.history}}
-        {{> GroupStats this}}
-        {{else}}
-        <h4>Take Some Actions to View Statistics Here!</h4>
-        {{/if}}
+        <div class="section group-content">        
+            {{#if this.history}}
+            {{> GroupStats this}}
+            {{else}}
+            <h4>Take Some Actions to View Statistics Here!</h4>
+            {{/if}}
+        </div>
+        <div class="action-history section group-content">
+            <div class="section-header">
+                <span>Action History</span>
+                <span>Group Total Points: {{this.points}}</span>
+            </div>
+
+            {{#each history}}
+            {{#if action actionId}}
+            <div class="action-taken">
+                <span>
+                    <span class="action-title">{{actionTitle actionId}} </span>
+                    <span class="action-timestamp">{{humanDate timestamp}}</span>
+                </span>
+
+                <span>{{username user}} - {{points}} points</span>
+            </div>
+            {{/if}}
+            {{/each}}
+        </div>
     </div>
 </template>
 
