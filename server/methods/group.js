@@ -10,7 +10,7 @@ GroupsAPI = (function(){
      *
      * @memberof module:methods/group~GroupsAPI
      * @param  {Object} group JSON object containing data for group to be added to database
-     * @return {String} Database ID of group just added
+     * @return {String} Document ID of group just added
      */
     var createGroup = function(group) {
         check(group, Object);
@@ -39,7 +39,7 @@ GroupsAPI = (function(){
      * Remove group from database.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param  {String} groupId Database ID of group to be removed
+     * @param  {String} groupId Document ID of group to be removed
      */
     var removeGroup = function(groupId) {
         check(groupId, String);
@@ -51,7 +51,7 @@ GroupsAPI = (function(){
      * Add user to group request list.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param {String} groupId Database ID of group to request to add user to
+     * @param {String} groupId Document ID of group to request to add user to
      */
     var requestToJoinGroup = function(groupId) {
         check(groupId, String);
@@ -76,8 +76,8 @@ GroupsAPI = (function(){
      * Add user to group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param {String} groupId Database ID of group to add user to
-     * @param {String} userId Database ID of user to add to group
+     * @param {String} groupId Document ID of group to add user to
+     * @param {String} userId Document ID of user to add to group
      */
     var addUser = function(groupId, userId) {
         check(groupId, String);
@@ -114,8 +114,8 @@ GroupsAPI = (function(){
      * Revoke admin privileges from user in a group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param  {String} groupId Database ID of group to revoke admin user from
-     * @param  {String} userId Database ID of user to revoke admin privileges from
+     * @param  {String} groupId Document ID of group to revoke admin user from
+     * @param  {String} userId Document ID of user to revoke admin privileges from
      */
     var removeAdmin = function(groupId, userId) {
         check(groupId, String);
@@ -142,7 +142,7 @@ GroupsAPI = (function(){
      *
      * @memberof module:methods/group~GroupsAPI
      * @param {String} groupId Database Id of group to remove users from
-     * @param {String} userId  Database ID of user to be removed
+     * @param {String} userId  Document ID of user to be removed
      */
     var removeUser = function(groupId, userId) {
         check(groupId, String);
@@ -170,7 +170,7 @@ GroupsAPI = (function(){
      * Returns users from a group within a certain range.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param  {String}   groupId Database ID of group to get users from
+     * @param  {String}   groupId Document ID of group to get users from
      * @param  {Number}   start Index of first user to return
      * @param  {Number}   end Index of last user to return
      * @return {String[]} Users in group from start to end indices
@@ -187,8 +187,8 @@ GroupsAPI = (function(){
      * Add user as admin to group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param {String} groupId Database ID of group to add admin to
-     * @param {String} userId Database ID of user to add as admin
+     * @param {String} groupId Document ID of group to add admin to
+     * @param {String} userId Document ID of user to add as admin
      */
     var addAdmin = function(groupId, userId) {
         check(groupId, String);
@@ -216,7 +216,7 @@ GroupsAPI = (function(){
      * Returns a range of admin users within a group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param  {String} groupId Database ID of group to return admin users from
+     * @param  {String} groupId Document ID of group to return admin users from
      * @param  {Number} start Index of first admin user to return
      * @param  {Number} end Index of last admin user to return
      * @return {String[]} Admin users from start to end indices
@@ -231,8 +231,8 @@ GroupsAPI = (function(){
      * Add child subgroup to parent group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param {String} parentGroupId Database ID of parent group
-     * @param {String} childGroupId    Database ID of child group
+     * @param {String} parentGroupId Document ID of parent group
+     * @param {String} childGroupId    Document ID of child group
      */
     var addSubgroup = function(parentGroupId, childGroupId) {
         check(parentGroupId, String);
@@ -248,8 +248,8 @@ GroupsAPI = (function(){
      * Remove child subgroup from parent group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param {String} parentGroupId Database ID of parent group
-     * @param {String} childGroupId    Database ID of child group
+     * @param {String} parentGroupId Document ID of parent group
+     * @param {String} childGroupId    Document ID of child group
      */
     var removeSubgroup = function(parentGroupId, childGroupId) {
         check(parentGroupId, String);
@@ -265,7 +265,7 @@ GroupsAPI = (function(){
      * Returns a range of subgroups within a group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param  {String} groupId Database ID of group to return subgroups from
+     * @param  {String} groupId Document ID of group to return subgroups from
      * @param  {Number} start Index of first subgroup to return
      * @param  {Number} end Index of last subgroup to return
      * @return {String[]} Subgroups from start to end indices
@@ -281,8 +281,8 @@ GroupsAPI = (function(){
      * Add group as a subgroup to a parent group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param {String} groupId Database ID of subgroup
-     * @param {String} parentId Database ID of parent group
+     * @param {String} groupId Document ID of subgroup
+     * @param {String} parentId Document ID of parent group
      */
     var addParent = function(groupId, parentId) {
         check(groupId, String);
@@ -295,20 +295,11 @@ GroupsAPI = (function(){
     };
 
     /**
-     * Creates a new group level competition and invites other groups.
-     *
-     * @memberof module:methods/group~GroupsAPI
-     * @return {String} Database ID of the created competition.
-     */
-    var initiateChallenge = function() {
-    };
-
-    /**
      * Add action to group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param {String} groupId Database ID of group to add action to
-     * @param {String} actionId Database ID of action to be added
+     * @param {String} groupId Document ID of group to add action to
+     * @param {String} actionId Document ID of action to be added
      */
     var addActionToGroup = function(groupId, actionId){
         check(groupId, String);
@@ -324,8 +315,8 @@ GroupsAPI = (function(){
      * Remove action from group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param {String} groupId Database ID of group to remove action from
-     * @param {String} actionId Database ID of action to be removed
+     * @param {String} groupId Document ID of group to remove action from
+     * @param {String} actionId Document ID of action to be removed
      */
     var removeActionFromGroup = function(groupId, actionId){
         check(groupId, String);
@@ -341,7 +332,7 @@ GroupsAPI = (function(){
      * Returns a range of actions within a group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param  {String} groupId Database ID of group to return actions from
+     * @param  {String} groupId Document ID of group to return actions from
      * @param  {Number} start Index of first action to return
      * @param  {Number} end Index of last action to return
      * @return {String[]} A list of all actions from start to end
@@ -358,10 +349,10 @@ GroupsAPI = (function(){
      * Returns a range of competitions within a group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param  {String} groupId Database ID of group to return competitions from
+     * @param  {String} groupId Document ID of group to return competitions from
      * @param  {Number} start Index of first competition to return
      * @param  {Number} end Index of last competition to return
-     * @return {String[]} Database IDs of competitions from start to end indices
+     * @return {String[]} Document IDs of competitions from start to end indices
      */
     var getCompetitions = function(groupId, start, end) {
         check(groupId, String);
@@ -372,10 +363,37 @@ GroupsAPI = (function(){
     };
 
     /**
+     * Accept incoming challenge.
+     *
+     * @memberof module:methods/group~GroupsAPI
+     * @param {String} groupId Document ID of group we are acting on behalf of
+     * @param {String} competitionId Document ID of challenge to accept
+     */
+    var acceptChallenge = function(groupId, competitionId) {
+        check(groupId, String);
+        check(competitionId, String);
+        // also should check that group in invitees, challenge in incoming, etc
+        Competitions.update(
+            competitionId,
+            {
+                $pull: { invitees: groupId },
+                $push: { participants: { userId: groupId, points: 0 } }
+            }
+        );
+        Groups.update(
+            groupId,
+            {
+                $pull: { incomingChallenges: competitionId },
+                $push: { ongoingChallenges: competitionId }
+            }
+        );
+    };
+
+    /**
      * Sort users in group based on point total.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param {String} groupId Database ID of group to sort
+     * @param {String} groupId Document ID of group to sort
      */
     var sortLeaderboard = function(groupId) {
         Groups.findOne(groupId).users.sort(function(a,b) {
@@ -387,7 +405,7 @@ GroupsAPI = (function(){
      * Return five actions that contribute most points to a group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param  {String} groupId Database ID of group to retrieve actions from
+     * @param  {String} groupId Document ID of group to retrieve actions from
      * @return {Object[]} Array of five most point contributing actions
      */
     var topFiveActions = function(groupId){
@@ -402,7 +420,7 @@ GroupsAPI = (function(){
      * Change name of group.
      *
      * @memberof module:methods/group~GroupsAPI
-     * @param {String} groupId Database ID of group to change name
+     * @param {String} groupId Document ID of group to change name
      * @param {String} newName Name to change group name to
      */
     var updateGroupName = function(groupId, newName){
@@ -429,10 +447,10 @@ GroupsAPI = (function(){
         removeSubgroup: removeSubgroup,
         getSubgroups: getSubgroups,
         addParent: addParent,
-        initiateChallenge: initiateChallenge,
         addActionToGroup: addActionToGroup,
         removeActionFromGroup: removeActionFromGroup,
         getActions: getActions,
+        acceptChallenge: acceptChallenge,
         sortLeaderboard: sortLeaderboard,
         getCompetitions: getCompetitions,
         topFiveActions: topFiveActions,

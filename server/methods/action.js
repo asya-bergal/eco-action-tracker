@@ -37,7 +37,7 @@ ActionsAPI = (function(){
      * Adds action to Mongo.
      *
      * @memberof module:methods/action~ActionsAPI
-     * @param {Object} data the action object (should match schema)
+     * @param {Object} data the action JSON (should match schema)
      */
     var addAction = function(data) {
         check(data, Object);
