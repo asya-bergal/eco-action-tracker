@@ -4,7 +4,7 @@ Eco-action-tracker is a webapp that gamifies environmental consciousness. It all
 
 ## Code Structure
 
-We follow a [standard Meteor boilerplate structure]("https://github.com/matteodem/meteor-boilerplate").
+We follow a [standard Meteor boilerplate structure](https://github.com/matteodem/meteor-boilerplate).
 
 Here is an outline of some of the more important parts of our code, ordered roughly from backend to frontend.
 
@@ -36,7 +36,7 @@ This folder contains several other folders, each roughly corresponding to a sing
 
 .less CSS files that specify the styling of all our HTML pages.
 
-Further documentation can be found in the code.
+Code is further documented with normal comments and JSDoc comments, which are built in `.jsdoc`.
 
 ## Development Instructions
 
@@ -51,7 +51,7 @@ This will create a local version of the app running at localhost:3000.
 
 ## Deploying This Application
 
-For how to deploy this application please read this [article](https://www.phusionpassenger.com/library/walkthroughs/deploy/meteor/aws/apache/oss/vivid/deploy_app.html).
+For how to deploy this application please read this [article](http://sergelobatch.com/slog/2015/4/10/using-mup/).
 
 In order to create a temporary deployment you can type the following into a terminal:
 

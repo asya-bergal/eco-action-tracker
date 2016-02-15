@@ -1,79 +1,77 @@
-Template.searchGroups.helpers({
-    groupsIndex: function() {
-        return GroupsIndex;
-    },
+/** @module views/search */
 
+/**
+ * @namespace
+ * @description Defines methods for manipulating search bar.
+ */
+Searchbar = (function(){
     /**
-     * Kludge to redirect user to group page upon clicking name in dropdown.
-     * Pure HTML solution would probably require modifying selectize itself.
+     * Custom selectize config.
      *
-     * @param {Object} c The selectize configuration object to modify.
+     * @memberof module:views/search~Searchbar
+     * @param {String} title the search bar we are configuring (e.g. "Groups")
      */
-    addLink: function() {
+    var configure = function(title) {
         return function (c) {
+            // make selection redirect to the relevant page
             c['onChange'] = function(value) {
                 if (value && value !== "") {
-                    Router.go('/group/' + value);
-                    var selectize = $("div.searchGroups > select")
+                    Router.go('/' + title.toLowerCase().slice(0, -1) + '/'
+                                + value);
+                    var selectize = $("div.search" + title + " > select")
                         .selectize()[0].selectize;
                     selectize.clear();
                     selectize.blur();
                 }
             };
+            // reset results on loss of focus
             c['onBlur'] = function() {
-                $("div.searchGroups > select").selectize()[0]
+                $("div.search" + title + " > select").selectize()[0]
                     .selectize.onSearchChange('');
             }
             return c;
         };
     }
+
+    /**
+     * Set the selectize input placeholder.
+     *
+     * @memberof module:views/search~Searchbar
+     * @param {String} title the search bar we are configuring (e.g. "Groups")
+     */
+    var setPlaceholder = function(title) {
+        return function() {
+            $("div.search" + title +
+              " > div.selectize-control > div.selectize-input > input")
+            .attr('placeholder','Search ' + title).css('width', '100%');
+        };
+    }
+
+    return {
+        configure: configure,
+        setPlaceholder: setPlaceholder
+    }
+}());
+
+Template.searchGroups.helpers({
+    groupsIndex: function() {
+        return GroupsIndex;
+    },
+
+    addLink: function() {
+        return Searchbar.configure("Groups");
+    }
 });
 
-/**
- * Kludge to change the selectize input placeholder.
- * Pure HTML solution would probably require modifying selectize itself.
- */
-Template.searchGroups.rendered = function() {
-    $("div.searchGroups > div.selectize-control > div.selectize-input > input")
-        .attr('placeholder','Search Groups').css('width', '100%');
-};
+Template.searchGroups.rendered = Searchbar.setPlaceholder("Groups");
 
 Template.searchActions.helpers({
     actionsIndex: function() {
         return ActionsIndex;
     },
 
-    /**
-     * Kludge to redirect user to action page upon clicking name in dropdown.
-     * Pure HTML solution would probably require modifying selectize itself.
-     *
-     * @param {Object} c The selectize configuration object to modify.
-     */
     addLink: function () {
-        return function (c) {
-            c['onChange'] = function(value) {
-                if (value && value !== "") {
-                    Router.go('/action/' + value);
-                    var selectize = $("div.searchActions > select")
-                        .selectize()[0].selectize;
-                    selectize.clear();
-                    selectize.blur();
-                }
-            };
-            c['onBlur'] = function() {
-                $("div.searchActions > select").selectize()[0]
-                    .selectize.onSearchChange('');
-            }
-            return c;
-        };
+        return Searchbar.configure("Actions");
     }
 });
-
-/**
- * Kludge to change the selectize input placeholder.
- * Pure HTML solution would probably require modifying selectize itself.
- */
-Template.searchActions.rendered = function() {
-    $("div.searchActions > div.selectize-control > div.selectize-input > input")
-        .attr('placeholder','Search Actions').css('width', '100%');
-}
+Template.searchActions.rendered = Searchbar.setPlaceholder("Actions");

@@ -1,60 +1,71 @@
 Groups = new Mongo.Collection('groups');
 
 var GroupSchema = new SimpleSchema({
-	name: {
-		type: String,
-		label: "Name of group"
-	},
-	users: {
-		type: [Object],
-		label: "List of users in the group",
-		defaultValue: []
-	},
-	"users.$.userId": {
-		type: String,
-		label: "ID of user"
-	},
-	"users.$.points": {
-		type: Number,
-		label: "Points the user has",
-		min: 0,
-		defaultValue: 0
-	},
-	usersRequesting: {
-		type: [String],
-		label: "List of names of users requesting to join the group",
-		defaultValue: []
-	},
-	subgroups: {
-		type: [Object],
-		label: "Subgroups belonging to group",
-		defaultValue: []
-	},
-	"subgroups.$.groupId": {
-		type: String,
-		label: "ID of group"
-	},
-	"subgroups.$.points": {
-		type: Number,
-		label: "Points the group has",
-		min: 0
-	},
-	competitions: {
-		type: [String],
-		label: "Competitions the group owns",
-		defaultValue: []
-	},
-	parentGroups: {
-		type: [String],
-		label: "IDs of parent groups",
-		defaultValue: []
-	},
-	actions: {
-		type: [String],
-		label: "IDs of actions in this group",
-		defaultValue: []
-	},
-	history: {
+    name: {
+        type: String,
+        label: "Name of group"
+    },
+    users: {
+        type: [Object],
+        label: "List of users in the group",
+        defaultValue: []
+    },
+    "users.$.userId": {
+        type: String,
+        label: "ID of user"
+    },
+    "users.$.points": {
+        type: Number,
+        label: "Points the user has",
+        min: 0,
+        defaultValue: 0
+    },
+    usersRequesting: {
+        type: [String],
+        label: "List of names of users requesting to join the group",
+        defaultValue: []
+    },
+    subgroups: {
+        type: [Object],
+        label: "Subgroups belonging to group",
+        defaultValue: []
+    },
+    "subgroups.$.groupId": {
+        type: String,
+        label: "ID of group"
+    },
+    "subgroups.$.points": {
+        type: Number,
+        label: "Points the group has",
+        defaultValue: 0,
+        min: 0
+    },
+    competitions: {
+        type: [String],
+        label: "all IDs of intra-group competitions this group has",
+        defaultValue: []
+    },
+    ongoingChallenges: {
+        type: [String],
+        label: "all IDs of inter-group competitions this group is in",
+        defaultValue: []
+    },
+    incomingChallenges: {
+        type: [String],
+        label: "all IDs of inter-group competitions this group is invited to",
+        defaultValue: []
+    },
+    parentGroups: {
+        type: [String],
+        label: "IDs of parent groups",
+        defaultValue: []
+    },
+    actions: {
+        type: [String],
+        label: "IDs of actions in this group",
+        defaultValue: []
+    },
+    history: {
         type: [Object],
         defaultValue: [],
         label: "All group actions taken by users in group"

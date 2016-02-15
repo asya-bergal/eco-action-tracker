@@ -2,9 +2,22 @@
 Session.set('total', 0);
 
 Template.history.helpers({
-    'action' : function () {
+    'history': function() {
+        return this.profile.history.reverse();
+    },
+    'action' : function (actionId) {
         // Get a cursor pointing to all the actions and fetch them all
-        return Actions.find({});
+        return Actions.findOne(actionId);
+    },
+    'actionTitle': function(actionId) {
+        return Actions.findOne(actionId).title;
+    },
+    'getGroups' : function () {
+        return Groups.find({_id: {$in: this.profile.groups}});
+    },
+    'competitions' : function () {
+        // Get a cursor pointing to all the actions and fetch them all
+        return Competitions.find({ "participants.userId" : this._id }).fetch();
     }
 });
 

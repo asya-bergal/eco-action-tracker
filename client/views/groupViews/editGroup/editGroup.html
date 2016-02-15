@@ -7,9 +7,9 @@
         </div>
         <div class='items'>
             <div class="action-listing">
-                <h3 class="section-header">
+                <div class="section-header">
                     <span class="section-title">Actions </span><span class="add-actions new-tag">Add Action</span>
-                </h3>
+                </div>
                 <div class="add-action-form edit-form item-container">
                     {{> addAction group_id=group}}
                 </div>                
@@ -20,12 +20,12 @@
                         {{#if action.needsApproval}}
                             <span>Pending global approval</span>
                         {{else}}
-                            <span id={{action._id}} class="global"><a>Submit for global approval</a></span>
+                            <span id={{action._id}} class="global">Submit for global approval</span>
                         {{/if}}
                         <input class="global awaitingGlobal user-button" id={{action._id}} type="image" src="/images/global.svg" />
                     {{else}}
                         <span>Global!</span>
-                        <input class="global user-button" id={{action._id}} type="image" src="/images/global.svg" />
+                        <input class="user-button" id={{action._id}} type="image" src="/images/global.svg" />
                     {{/unless}}
                     <input type="image" class="remove-action user-button" id={{action._id}} src="/images/remove.svg" />
                 </div>

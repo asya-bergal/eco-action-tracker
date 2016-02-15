@@ -1,58 +1,57 @@
 Template['addCompetition'].helpers({
-	'getActions': function(){
-		if(this.actions){
-	      return this.actions.map(function(actionId){
-	         return Actions.findOne(actionId);;
-	      });
-	    }
-	}
+    'getActions': function(){
+        if(this.actions){
+          return this.actions.map(function(actionId){
+             return Actions.findOne(actionId);;
+          });
+        }
+    }
 });
 
 Template['addCompetition'].events({
-	// Add new competition to group based on form input.
-	'submit #new-competition': function(e) {
-		e.preventDefault();
-		
-		var actionsParsed = [];
+    // Add new competition to group based on form input.
+    'submit #new-competition': function(e) {
+        e.preventDefault();
+        
+        var actionsParsed = [];
 
-		var actionsList = $(event.target).find(':input[type="checkbox"]');
-		for(var i = 0; i < actionsList.length; i++) {
-			if (actionsList[i].checked) {
-				var actionId = actionsList[i].name;
-				actionsParsed.push(actionId);
-			}
-		}
+        var actionsList = $(event.target).find(':input[type="checkbox"]');
+        for(var i = 0; i < actionsList.length; i++) {
+            if (actionsList[i].checked) {
+                var actionId = actionsList[i].name;
+                actionsParsed.push(actionId);
+            }
+        }
 
-		var participants = this.users;
-		for (var i = 0; i < participants.length; i++) {
-			participants[i].points = 0;
-		};
+        var participants = this.users;
+        for (var i = 0; i < participants.length; i++) {
+            participants[i].points = 0;
+        };
 
-		var competitionJson = {
-			parentGroup: this._id,
-			index: this.competitions.length,
-			name: e.target.name.value,
-			description: e.target.description.value,
-			start: Date.parse(e.target.startDate.value),
-			end: Date.parse(e.target.endDate.value),
-			actions: actionsParsed,
-			userLevel: true,
-			participants: participants
-		}
+        var competitionJson = {
+            parentGroup: this._id,
+            name: e.target.name.value,
+            description: e.target.description.value,
+            start: Date.parse(e.target.startDate.value),
+            end: Date.parse(e.target.endDate.value),
+            actions: actionsParsed,
+            userLevel: true,
+            participants: participants
+        }
 
-		Meteor.call("addCompetition", competitionJson, function(err, result){
-			if(err) {
-				console.log(err);
-			} else {
-				e.target.name.value = '';
-				e.target.description.value = '';
-				e.target.startDate.value = '';
-				e.target.endDate.value = '';
+        Meteor.call("addCompetition", competitionJson, function(err, result){
+            if(err) {
+                console.log(err);
+            } else {
+                e.target.name.value = '';
+                e.target.description.value = '';
+                e.target.startDate.value = '';
+                e.target.endDate.value = '';
                 for(var i = 0; i < actionsList.length; i++) {
                     actionsList[i].checked = false;
                 }
                 console.log(result);
-			}
-		});
-	}
+            }
+        });
+    }
 });

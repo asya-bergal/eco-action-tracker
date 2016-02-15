@@ -15,8 +15,8 @@
             {{#if isGlobalAdmin}}
                 <span class="header-item"><a href="/admin">Admin Page</a></span>
             {{/if}}
-            <span class="header-item"><a href="/user/profile">{{currentUser.profile.firstName}}'s Profile</a></span>
-            <span class="header-item logout"><a>Logout</a></span>
+            <span class="header-item"><a href="/user/{{currentUser._id}}">{{currentUser.profile.firstName}}'s Profile</a></span>
+            <span class="header-item logout">Logout</span>
         {{else}}
             <span class="header-item">{{> login}}</span>
         {{/if}}
