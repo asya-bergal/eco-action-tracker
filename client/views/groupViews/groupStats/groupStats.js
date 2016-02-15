@@ -149,7 +149,7 @@ Template.GroupStats.rendered = function () {
             myDoughnutChart = new Chart(donut_ctx).Doughnut(data, Meteor.App.DONUTOPTIONS),
             donut_legend = myDoughnutChart.generateLegend();
 
-    $("#donut-container").append(donut_legend);
+    $("#donut-container").prepend(donut_legend);
     var points_data = getWeeklyData(this.data),
             line_ctx = $("#lineChart").get(0).getContext("2d"),
             myLineChart = new Chart(line_ctx).Line(points_data, Meteor.App.LINECHARTOPTIONS);

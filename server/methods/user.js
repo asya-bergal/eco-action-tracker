@@ -158,7 +158,7 @@ UsersAPI = (function(){
         'getUserPointsBetween': getUserPointsBetween,
         'verifyUserEmail': verifyUserEmail,
         'passwordReset': passwordReset
-    }
+    };
 }());
 
 Meteor.methods(UsersAPI);

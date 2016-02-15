@@ -41,11 +41,10 @@ Template.profile.events({
     "click .email-verified": function(e) {
         e.preventDefault();
         var userId = Meteor.userId();
-        console.log(userId)
         Meteor.call("verifyUserEmail", userId, function (err) {
             if(err) {
                 console.log(err);
             }
-        })
+        });
     }
 });
