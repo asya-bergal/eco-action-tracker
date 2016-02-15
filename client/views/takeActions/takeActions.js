@@ -4,10 +4,8 @@ Template.takeActions.helpers({
         var allActions = [];
 
         if(this.actionsToUse) {
-            console.log("got input");
             allActions = this.actionsToUse;
         } else {
-            console.log("didn't got input");
             allActions = Actions.find({}, {sort: {category: 1}}).fetch();
         }
         // TODO: Is there a faster way to do this?

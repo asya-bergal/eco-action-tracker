@@ -146,6 +146,7 @@ function notApproveAction(actionId) {
  * @param  {String} actionId Database ID of action to be submitted for approval
  */
 function submitForApproval(actionId){
+    console.log(actionId);
     check(actionId, String);
     Actions.update(actionId, {$set: 
         { needsApproval: true } 
