@@ -7,12 +7,14 @@
 CompetitionsAPI = (function(){
     /**
      * Add a new competition to the database and to its parent group.
+     * Handles both user-level competition and group level competition cases.
      *
      * @memberof module:methods/competition~CompetitionsAPI
      * @param {Object} data JSON object containing data for action to be added
-     * @return {String} Database ID of competition just added
+     * @return {String} Document ID of competition just added
      */
     var addCompetition = function(data) {
+        // cant validate vs CompetitionSchema because of weird Date stuff?!
         check(data, Object);
         var competitionId = Competitions.insert(data, function(err, action) {
             if (err) {
@@ -20,10 +22,24 @@ CompetitionsAPI = (function(){
             }
         });
 
-        Groups.update(
-            data.parentGroup,
-            { $push: { competitions: competitionId } }
-        );
+        if (!data.userLevel) {
+            // TODO:user needs to be admin of data.parentGroup
+            Groups.update(
+                data.parentGroup,
+                { $push: { competitions: competitionId } }
+            );
+        } else {
+            // TODO:participants needs to be len 1 and user needs to be admin of
+            // participants[0]
+            Groups.update(
+                data.participants[0].userId,
+                { $push : { ongoingChallenges: competitionId } }
+            );
+            Groups.update(
+                { _id : { $in : data.invitees } },
+                { $push : { incomingChallenges: competitionId } }
+            );
+        }
 
         return competitionId;
     };
@@ -32,8 +48,8 @@ CompetitionsAPI = (function(){
      * Remove a competition from its parent group and the database.
      *
      * @memberof module:methods/competition~CompetitionsAPI
-     * @param  {String} competitionId Database ID of competition to be removed
-     * @return {String} Former database ID of competition that was just removed
+     * @param  {String} competitionId Document ID of competition to be removed
+     * @return {String} Former document ID of competition that was just removed
      */
     var removeCompetition = function(competitionId) {
         check(competitionId, String);
