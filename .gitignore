@@ -2,5 +2,4 @@
 *.swp
 tags
 /nbproject/private/
-settings.json
 .jsdoc/out
