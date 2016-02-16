@@ -55,7 +55,7 @@ This will create a local version of the app running at localhost:3000.
 
 ## Deploying This Application
 
-For how to deploy this application please read this [article](http://sergelobatch.com/slog/2015/4/10/using-mup/).
+For how to deploy this application please refer to this [article](http://sergelobatch.com/slog/2015/4/10/using-mup/), but currently use mupx rather than mup.
 
 In order to create a temporary deployment you can type the following into a terminal:
 
