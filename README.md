@@ -2,6 +2,10 @@
 
 Eco-action-tracker is a webapp that gamifies environmental consciousness. It allows students to track their environmental actions over time to get points, join groups, and compete with other students.
 
+## License
+
+The code is distributed as [free software](https://www.fsf.org/about/what-is-free-software) under the [MIT License](https://opensource.org/licenses/MIT). However, the site contains trademarked materials (e.g. images) owned by Change is Simple, Inc.
+
 ## Code Structure
 
 We follow a [standard Meteor boilerplate structure](https://github.com/matteodem/meteor-boilerplate).
