@@ -12,7 +12,7 @@
   "app": ".",
   "env": {
     "PORT": 80,
-    "ROOT_URL": "https://eco-action-tracker.llwu.me"
+    "ROOT_URL": "http://52.90.78.114/"
   },
   "deployCheckWaitTime": 15,
   "enableUploadProgressBar": true
