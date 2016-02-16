@@ -59,10 +59,8 @@
             {{#each history}}
             {{#if action actionId}}
             <div class="action-taken">
-                <span>
-                    <span class="action-title">{{actionTitle actionId}} </span>
-                    <span class="action-timestamp">{{humanDate timestamp}}</span>
-                </span>
+                <span class="action-title">{{actionTitle actionId}} </span>
+                <span class="action-timestamp">{{humanDate timestamp}}</span>
 
                 <span>{{username user}} - {{points}} points</span>
             </div>

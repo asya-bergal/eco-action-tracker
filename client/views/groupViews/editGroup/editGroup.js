@@ -113,6 +113,8 @@ Template.editGroup.events({
         Meteor.call('removeUser', this._id, userId, function (err) {
             if (err) {
                 console.log(err);
+            } else {
+                humane.log("User successfully removed.");
             }
         });
     },
@@ -121,6 +123,8 @@ Template.editGroup.events({
         Meteor.call('removeAdmin', this._id, userId, function (err) {
             if (err) {
                 console.log(err);
+            } else {
+                humane.log("Admin successfully removed.");
             }
         });
     },
@@ -129,6 +133,8 @@ Template.editGroup.events({
         Meteor.call('removeCompetition', compId, function (err) {
             if (err) {
                 console.log(err);
+            } else {
+                humane.log("Competition successfully removed.");
             }
         });
     },
@@ -143,6 +149,8 @@ Template.editGroup.events({
             Meteor.call('removeAction', actionId, function (err) {
                 if (err) {
                     console.log(err);
+                } else {
+                    humane.log("Action successfully removed.");
                 }
             });
         }
@@ -173,6 +181,8 @@ Template.editGroup.events({
         Meteor.call('updateGroupName', this._id, $('.group-name-field').val(), function (err) {
             if (err) {
                 console.log(err);
+            } else {
+                humane.log("Group name successfully updated.");
             }
         });
     },
@@ -187,6 +197,8 @@ Template.editGroup.events({
             Meteor.call('removeGroup', this._id, function (err) {
                 if (err) {
                     console.log(err);
+                } else {
+                    humane.log("Group successfully removed.");
                 }
             });
             Router.go('/user/profile/');

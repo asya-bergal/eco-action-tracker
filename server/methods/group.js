@@ -43,8 +43,12 @@ GroupsAPI = (function(){
      */
     var removeGroup = function(groupId) {
         check(groupId, String);
-        Actions.remove({group: groupId});
-        Groups.remove(groupId);
+        if ((Meteor.user().profile.adminGroups.indexOf(groupId) != -1) || Meteor.user.profile.globalAdmin){
+            Actions.remove({group: groupId});
+            Groups.remove(groupId);
+        } else {
+            throw new Meteor.Error("You don't have admin privileges!");
+        }        
     };
 
     /**
@@ -121,7 +125,8 @@ GroupsAPI = (function(){
         check(groupId, String);
         check(userId, String);
 
-        if (Groups.findOne(groupId).admins.indexOf(userId) !== -1) {
+        if ((Meteor.user().profile.adminGroups.indexOf(groupId) != -1) && 
+            (Groups.findOne(groupId).admins.indexOf(userId) !== -1)) {
 
             // Remove user from group
             Groups.update(
@@ -148,7 +153,8 @@ GroupsAPI = (function(){
         check(groupId, String);
         check(userId, String);
 
-        if (Groups.findOne({_id: groupId, "users.userId": userId})) {
+        if ((Meteor.user().profile.adminGroups.indexOf(groupId) != -1) && 
+            (Groups.findOne({_id: groupId, "users.userId": userId}))) {
 
             // Remove user from group
             Groups.update(
@@ -199,7 +205,7 @@ GroupsAPI = (function(){
 
         if (Groups.findOne(groupId).admins.indexOf(userId) !== -1) {
             throw new Meteor.Error("User is already admin of group.");
-        } else {
+        } else if (Meteor.user().profile.adminGroups.indexOf(groupId) != -1) {
             Groups.update(
                 groupId,
                 { $push: { admins: userId } }
@@ -209,6 +215,8 @@ GroupsAPI = (function(){
                 userId,
                 { $push: { "profile.adminGroups": groupId } }
             );
+        } else {
+            throw new Meteor.Error("You don't have admin privileges!");
         }
     };
 
@@ -304,10 +312,15 @@ GroupsAPI = (function(){
     var addActionToGroup = function(groupId, actionId){
         check(groupId, String);
         check(actionId, String);
-        Groups.update(
-            groupId,
-            { $push: { actions: actionId } }
-        );
+        
+        if (Meteor.user().profile.adminGroups.indexOf(groupId) != -1) {
+            Groups.update(
+                groupId,
+                { $push: { actions: actionId } }
+            );
+        } else {
+            throw new Meteor.Error("You aren't an admin of this group!");
+        }
 
     };
 
@@ -321,10 +334,17 @@ GroupsAPI = (function(){
     var removeActionFromGroup = function(groupId, actionId){
         check(groupId, String);
         check(actionId, String);
-        Groups.update(
-            groupId,
-            { $pull: { actions: actionId } }
-        );
+
+        if (Meteor.user().profile.adminGroups.indexOf(groupId) != -1) {
+            Groups.update(
+                groupId,
+                { $pull: { actions: actionId } }
+            );
+            Actions.remove(actionId);
+        } else {
+            throw new Meteor.Error("You aren't an admin of this group!");
+        }
+        
 
     };
 
@@ -427,10 +447,14 @@ GroupsAPI = (function(){
         check(groupId, String);
         check(newName, String);
 
-        Groups.update(
-            groupId,
-            { $set: { name: newName } }
-        );
+        if (Meteor.user().profile.adminGroups.indexOf(groupId) != -1) {
+            Groups.update(
+                groupId,
+                { $set: { name: newName } }
+            );
+        } else {
+            throw new Meteor.Error("You don't have admin privileges!");
+        }
     };
 
     // return the public API

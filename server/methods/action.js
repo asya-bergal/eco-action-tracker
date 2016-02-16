@@ -41,11 +41,18 @@ ActionsAPI = (function(){
      */
     var addAction = function(data) {
         check(data, Object);
-        return Actions.insert(data, function(err, action) {
-            if (err) {
-                throw new Meteor.Error("Adding new action failed.")
-            }
-        });
+        console.log(data.group != "");
+
+        if(Meteor.user().profile.globalAdmin || 
+            ((data.group != "") && Meteor.user().profile.adminGroups.indexOf(data.group) != -1)) {
+            return Actions.insert(data, function(err, action) {
+                if (err) {
+                    throw new Meteor.Error("Adding new action failed.")
+                }
+            });
+        } else {
+            throw new Meteor.Error("You don't have admin privileges!");
+        }
     };;
 
     /**
@@ -130,9 +137,15 @@ ActionsAPI = (function(){
      */
     var approveAction = function(actionId) {
         check(actionId, String);
-        Actions.update(actionId, {$set:
-                       { isGlobal: true, needsApproval: false }
-        });
+        
+        if (Meteor.user().profile.globalAdmin) {
+            Actions.update(actionId, {$set:{ 
+                isGlobal: true, 
+                needsApproval: false 
+            }});
+        } else {
+            throw new Meteor.Error("You don't have admin privileges!");
+        }
     };
 
     /**
@@ -143,9 +156,15 @@ ActionsAPI = (function(){
      */
     var notApproveAction = function(actionId) {
         check(actionId, String);
-        Actions.update(actionId, {$set:
-                       { isGlobal: false, needsApproval: false }
-        });
+        
+        if (Meteor.user().profile.globalAdmin) {
+            Actions.update(actionId, {$set:{ 
+                isGlobal: false, 
+                needsApproval: false 
+            }});
+        } else {
+            throw new Meteor.Error("You don't have admin privileges!");
+        }
     };
 
     /**
@@ -170,7 +189,12 @@ ActionsAPI = (function(){
      */
     var removeAction = function(actionId) {
         check(actionId, String);
-        Actions.remove(actionId);
+        
+        if (Meteor.user().profile.globalAdmin) {
+            Actions.remove(actionId);
+        } else {
+            throw new Meteor.Error("You don't have admin privileges!");
+        }
     };
 
     /**
@@ -181,9 +205,14 @@ ActionsAPI = (function(){
      */
     var makeUnglobal = function(actionId) {
         check(actionId, String);
-        Actions.update(actionId, {$set:
-                       { isGlobal: false }
-        });
+
+        if (Meteor.user().profile.globalAdmin) {
+            Actions.update(actionId, {$set: 
+                { isGlobal: false }
+            });
+        } else {
+            throw new Meteor.Error("You don't have admin privileges!");
+        }
     };
 
     // return the public API
