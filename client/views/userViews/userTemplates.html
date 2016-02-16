@@ -1,13 +1,14 @@
 <template name="login">
 
     <form class="login-form form-inline">
-        <div class="form-group username">
+        <div class="form-group login-group">
             <label>Username:</label> <input class="form-control" name="username" type="text">
         </div>
-        <div class="form-group">
-            <label>Password:</label> <input class="form-control" name="password" type="password">
+        <div class="form-group" style="padding-top:20px;">
+            <div class="login-group"><label>Password:</label> <input class="form-control" name="password" type="password"></div>
+            <div class="block"><a href="/">Forgot your password?</a></div>
         </div>
-        <input class="btn btn-default" type="submit" value="Login">        
+        <input class="btn btn-default login-group" type="submit" value="Login">        
     </form>
 
 </template>

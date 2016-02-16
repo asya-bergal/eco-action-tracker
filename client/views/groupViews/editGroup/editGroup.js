@@ -1,4 +1,12 @@
-// Clear add action form and add action to group
+/** @module groupViews/editGroup */
+
+/**
+ * Clear add action form and add action to group.
+ *
+ * @method
+ * @private
+ * @param {String} actionId Database ID of action to add to group.
+ */
 var closeGroupActionForm = function (actionId) {
     $('.add-action-form').toggleClass('visible');
     var groupId = $('.group-title').attr("id");
@@ -13,67 +21,53 @@ var closeGroupActionForm = function (actionId) {
 };
 
 Template.editGroup.helpers({
-    /**
-     * 
-     * @returns {array of actions} returns the groups actions
-     */
+    /** @return {Object} cursor to this group's actions */
     'getActions': function () {
         if (this.actions) {
-            return this.actions.map(function (actionId) {
-                return Actions.findOne(actionId);
-            });
+            return Actions.find( { _id : { $in: this.actions } } );
         }
     },
-    group: function () {
+
+    /** @return {String} the id of this group */
+    'group': function () {
         return this._id;
     },
-    /**
-     * 
-     * @returns {array of users} who belong to the group
-     */
+
+    /** @return {Object} cursor to users in this group */
     'getUsers': function () {
         if (this.users) {
-            return this.users.map(function (user) {
-                user_doc = Meteor.users.findOne(user.userId);
-                user_doc.groupPoints = user.points;
-                return user_doc;
+            var userIds = this.users.map(function (user) {
+                return user.userId;
             });
+            return Meteor.users.find( { _id : { $in: userIds } } );
         }
     },
-    /**
-     * 
-     * @returns {arrays of users} who are admins
-     */
+    /** @return {Object} cursor to users who are admins */
     'getAdmins': function () {
         if (this.admins) {
-            return this.admins.map(function (user) {
-                user_doc = Meteor.users.findOne(user);
-                return user_doc;
-            });
+            return Meteor.users.find( { _id : { $in: this.admins } } );
         }
     },
     /**
      * 
-     * @returns {cursor} competitions which belong to this group
+     * @returns {Object} cursor to competitions which belong to this group
      */
     'getCompetitions': function () {
         return Competitions.find({"parentGroup": this._id});
     },
     /**
      * 
-     * @returns {user[]} who requested to be a part of the group
+     * @returns {Object} cursor to users who requested to be in the group
      */
     'getUserRequests': function () {
         if (this.usersRequesting) {
-            return this.usersRequesting.map(function (userId) {
-                return Meteor.users.findOne(userId);
-            });
+            return Meteor.users.find( { _id : { $in: this.usersRequesting } } );
         }
     },
+
     /**
-     * 
-     * @param {string} id userId
-     * @returns {Boolean} whether this is not the current user's id
+     * @param {String} id userId to compare against
+     * @return {Boolean} whether this is not the current user's id
      */
     diff: function (id) {
         return id !== Meteor.userId();
@@ -145,6 +139,13 @@ Template.editGroup.events({
                 console.log(err);
             }
         });
+        if (!Actions.findOne(actionId).isGlobal) { //is not a global action
+            Meteor.call('removeAction', actionId, function (err) {
+                if (err) {
+                    console.log(err);
+                }
+            });
+        }
     },
     'click .request-user': function (e) {
         var userId = e.target.getAttribute('id');

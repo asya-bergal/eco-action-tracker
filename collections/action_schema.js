@@ -1,10 +1,6 @@
-/**
- * @overview Defines and attaches the action schema.
- */
-
 Actions = new Mongo.Collection('actions');
 
-ActionSchema = new SimpleSchema({
+var ActionSchema = new SimpleSchema({
     title: {
         type: String,
         label: "High level description of action"

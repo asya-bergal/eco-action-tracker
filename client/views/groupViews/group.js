@@ -1,25 +1,24 @@
+/** @module groupViews/group */
+
 Template.Group.helpers({
     /**
-     * 
-     * @returns {Boolean} whether the current user is an admin of this group
+     * @return {Boolean} whether the current user is an admin of this group
      */
     'admin': function () {
         if (this.admins) {
-            console.log(this.admins);
             return this.admins.indexOf(Meteor.userId()) !== -1;
         }
     },
     /**
-     * @return {boolean} whether the current user is a global admin
+     * @return {Boolean} whether the current user is a global admin
      */
     'globalAdmin': function() {
-        console.log("doSomething");
         return Meteor.user().profile.globalAdmin;
     },
     /**
      * Gets the users in the group
      * 
-     * @returns {array} of user docs sorted by points
+     * @return {Object} cursor to user docs sorted by points
      */
     'getUsers': function () {
         if (this.users) {
@@ -34,8 +33,7 @@ Template.Group.helpers({
         }
     },
     /**
-     * 
-     * @returns {cursor} competitions belonging to this group
+     * @return {Object} cursor to competitions belonging to this group
      */
     'competitions': function () {
         if (this.competitions) {
@@ -43,8 +41,7 @@ Template.Group.helpers({
         }
     },
     /**
-     * 
-     * @returns {Boolean} whether the current user is currently in the group
+     * @return {Boolean} whether the current user is currently in the group
      */
     'notInGroup': function () {
         return $.grep(this.users, function (e) {
@@ -52,24 +49,36 @@ Template.Group.helpers({
         }).length !== 1;
     },
     /**
-     * 
-     * @returns {Boolean} whether the current user has a request pending with the group
+     * @returns {Boolean} whether the current user has a join request pending
      */
     'requestPending': function () {
         return $.grep(this.usersRequesting, function (e) {
             return e === Meteor.userId();
         }).length === 1;
+    },
+    'action' : function (actionId) {
+        return Actions.findOne(actionId);
+    },
+    'actionTitle': function(actionId) {
+        return Actions.findOne(actionId).title;
+    },
+    'username': function(userId) {
+        return Meteor.users.findOne(userId).profile.firstName;
+    },
+    'history': function() {
+        return this.history.reverse();
     }
 
 });
 
 Template.Group.events({
     'click #request': function (e) {
-        Meteor.call("requestToJoinGroup", this._id, Meteor.userId());
+        Meteor.call("requestToJoinGroup", this._id);
     },
     'click .remove-group': function(e) {
         e.preventDefault();
-        var really = confirm("Are you sure you want to delete this group? There's no going back!");
+        var really = confirm("Are you sure you want to delete this group?\
+                             There's no going back!");
 
         if(really) {
           Meteor.call('removeGroup', this._id, function(err) {
@@ -81,10 +90,6 @@ Template.Group.events({
         }
       }
 });
-
-
-Template.Group.rendered = function () {
-};
 
 Template.competition.helpers({
     'humanify': function (date) {

@@ -69,7 +69,7 @@ Template.takeActions.events({
             if (error) {
                 console.log(error);
             } else {
-                humane.log("You took an action!");
+                humane.log("You took an environmentally friendly action!");
                 $('#collapseButton' + actionId).click();
             }
         });
