@@ -16,6 +16,10 @@ CompetitionsAPI = (function(){
     var addCompetition = function(data) {
         // cant validate vs CompetitionSchema because of weird Date stuff?!
         check(data, Object);
+
+        if (Meteor.user().profile.adminGroups.indexOf(data.parentGroup) == -1) {
+            throw new Meteor.Error("You don't have admin privileges!");
+        }
         var competitionId = Competitions.insert(data, function(err, action) {
             if (err) {
                 throw new Meteor.Error("Adding new competition failed.")
@@ -53,10 +57,14 @@ CompetitionsAPI = (function(){
      */
     var removeCompetition = function(competitionId) {
         check(competitionId, String);
-        
+
         competition = Competitions.findOne({ _id: competitionId }); 
         if (!competition) {
             return null;
+        }
+
+        if (Meteor.user().profile.adminGroups.indexOf(competition.parentGroup) == -1) {
+            throw new Meteor.Error("You don't have admin privileges!");
         }
 
         Groups.update(

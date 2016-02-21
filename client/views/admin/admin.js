@@ -48,17 +48,23 @@ Template.admin.events({
         Meteor.call('approveAction', actionId, function (error, result) {
             if (error) {
                 console.log(error);
+            } else {
+                humane.log("Action approved.");
             }
         });
     },
-    "click .not-approve": function (event) {
+    "click .not-approve": function (e) {
         console.log("Not approving");
-        event.preventDefault();
-        var actionId = event.target.getAttribute("id");
+        e.preventDefault();
+        var actionId = e.target.getAttribute("id");
         console.log(actionId);
-        Actions.update(actionId, {$set:
-                    {isGlobal: false, needsApproval: false}
-        });
+        Meteor.call('notApproveAction', actionId, function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                humane.log("Action not approved.");
+            }
+        })
     },
     'click #userDownload': function () {
         Meteor.call('getUserEmails', function (err, result) {
@@ -116,6 +122,8 @@ Template.admin.events({
         Meteor.call("removeAction", actionId, function(err) {
             if(err) {
                 console.log(err);
+            } else {
+                humane.log("Action successfully removed.");
             }
         })
     }

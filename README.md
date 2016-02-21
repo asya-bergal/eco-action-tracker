@@ -1,6 +1,10 @@
 # eco-action-tracker
 
-Eco-action-tracker is a webapp that gamifies environmental consciousness. It allows students to track their environmental actions over time to get points, join groups, and compete with other students.
+[Eco-action-tracker](http://52.90.78.114/) is a webapp that gamifies environmental consciousness. It allows students to track their environmental actions over time to get points, join groups, and compete with other students.
+
+## License
+
+[The code](https://github.com/asya-bergal/eco-action-tracker) is distributed as [free software](https://www.fsf.org/about/what-is-free-software) under the [MIT License](https://opensource.org/licenses/MIT). However, the site contains trademarked materials (e.g. images) owned by Change is Simple, Inc.
 
 ## Code Structure
 
@@ -51,7 +55,7 @@ This will create a local version of the app running at localhost:3000.
 
 ## Deploying This Application
 
-For how to deploy this application please read this [article](http://sergelobatch.com/slog/2015/4/10/using-mup/).
+For how to deploy this application please refer to this [article](http://sergelobatch.com/slog/2015/4/10/using-mup/), but currently use mupx rather than mup.
 
 In order to create a temporary deployment you can type the following into a terminal:
 
