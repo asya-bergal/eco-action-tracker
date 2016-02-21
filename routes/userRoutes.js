@@ -48,6 +48,24 @@ Router.route('/admin', {
     }
 });
 
+Router.route('/password-recovery', {
+    name: 'password-recovery',
+    action: function () {
+        this.render('passwordRecovery', {});
+    }
+});
+
+Router.route('/reset-password/:token', {
+    name: 'change-password',
+    action: function () {
+        this.render('changePassword', {
+            data: function() {
+                return {token: this.params.token};
+            }
+        });
+    }
+});
+
 Router.route('/verify-email/:token', {
     name: 'verify-email',
     action: function () {
