@@ -17,6 +17,7 @@
 		<div class="description">
 			{{description}}
 		</div>
+    <div class="col-sm-5">
 	    <div class="leaderboard">
 	        <h3 class="section-header">Leaderboard</h3>
 			<div class="leaderboard-listing leaderboard-fields">
@@ -28,10 +29,16 @@
 				</div>
 	        {{/each}}
 	    </div>
+      </div>
+    <div class="col-sm-7">
+      <h4 class="take-actions-competition">
+        Take actions to earn points in this competition!
+      </h4>
 	    <div class="actions-listing">
+      {{>takeActions actionsToUse=actions}}
 	        <!-- {{#each actions}} -->
 	    </div>
-      {{>takeActions actionsToUse=actions}}
+    </div>
 	</div>
 	
 </template>

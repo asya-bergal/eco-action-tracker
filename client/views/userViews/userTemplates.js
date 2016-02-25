@@ -7,7 +7,7 @@ Template.register.events({
         var confirm = event.target.confirm.value;
 
         if(password !== confirm) {
-            humane.error("Passwords Do Not Match!");
+            humane.error("Passwords do not match!");
             // TODO: Display error message on frontend
             return;
         }

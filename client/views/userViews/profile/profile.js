@@ -1,6 +1,9 @@
 Template.profile.helpers({
     'approvalNeeded': function (){
-        return Actions.find({needsApproval: true}).fetch().length > 0;
+        var myGroups = Meteor.user().profile.groups;
+        // Find actions that I can take (global or in my groups) that also need approval
+        var actions = Actions.find({$and: [{$or: [{isGlobal: true}, {group: {$in: myGroups}}]}, {needsApproval: true}]}).fetch();
+        return actions;
     },
     'getGroups' : function () {
         return Groups.find({_id: {$in: Meteor.user().profile.groups}});
@@ -10,7 +13,7 @@ Template.profile.helpers({
         return Competitions.find({ "participants.userId" : Meteor.userId() }).fetch();
     },
     'action': function(){
-        var action_data = Actions.find({_id: {$in:Meteor.user().history.map(function(action){return action.id})}});
+        // var action_data = Actions.find({_id: {$in:Meteor.user().history.map(function(action){return action.id})}});
         return Meteor.user().history.map(function(action){});
     },
     'emailVerified': function() {

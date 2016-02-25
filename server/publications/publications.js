@@ -1,35 +1,5 @@
 Meteor.publish('actions', function() {
-    // This function uses Meteor's low-level publish code to observe changes to Actions.
-    var self = this;
-    // For every action, checks whether the action is global or in the user's groups,.
-    // If it is, calls the self.added, self.changed, or self.removed callback as appropriate with that action on the client.
-    var subHandle = Actions.find({}).observeChanges({
-        added: function(id, action) {
-            var me = Meteor.users.findOne(self.userId, {fields: {"profile.groups": 1}});
-            if(action.isGlobal || contains(me.profile.groups, action.group)) {
-                self.added("actions", id, action);
-            }
-        },
-        changed: function(id, action) {
-            var me = Meteor.users.findOne(self.userId, {fields: {"profile.groups": 1}});
-            if(action.isGlobal || contains(me.profile.groups, action.group)) {
-                self.changed("actions", id, action);
-            }
-        },
-        removed: function(id) {
-            var me = Meteor.users.findOne(self.userId, {fields: {"profile.groups": 1}});
-            if(action.isGlobal || contains(me.profile.groups, action.group)) {
-                self.removed("actions", id);
-            }
-        }
-    });
-
-    // Notify the client that the subscriber knows about all updates.
-    self.ready();
-    // Make sure to stop the changes observer when the connection to the client ends.
-    self.onStop(function () {
-        subHandle.stop();
-    });
+    return Actions.find({});
 });
 
 Meteor.publish('groups', function() {

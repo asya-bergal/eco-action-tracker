@@ -6,7 +6,9 @@ Template.takeActions.helpers({
         if(this.actionsToUse) {
             allActions = this.actionsToUse;
         } else {
-            allActions = Actions.find({}, {sort: {category: 1}}).fetch();
+            var myGroups = Meteor.user().profile.groups;
+            // Display only actions that I can take
+            allActions = Actions.find({$or: [{isGlobal: true}, {group: {$in: myGroups}}]}, {sort: {category: 1}}).fetch();
         }
         // TODO: Is there a faster way to do this?
         // Get the list of all actions, and sort them by category them into categories
