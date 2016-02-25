@@ -2,21 +2,12 @@
 @import '../lib/elements';
 @import '../lib/flex';
 
-.profile-container{
-    .display(flex);
-    .left{
-        .flex(1, 1, 0);
-    }
-    .right{
-        .flex(1, 1, 0);
-    }
+.actions {
+    margin-bottom: 25px;
 }
 
 .groups {
-    /*#my-groups{
-        min-height: 300px;
-    }
-    */
+    margin: 15px auto;
     .section-header {
         border-bottom: 1px solid rgba(150,150,150,1);
         padding-bottom: 10px;
@@ -37,4 +28,23 @@
     #my-competitions {
         margin-top: 30px;
     }
+}
+
+.new-group-form{
+    display: none;
+}
+#new-group{
+        font-size: 14px;
+}
+#new-group:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.email-verified {
+    font-size: 20px;
+    margin-bottom: 20px;
+    display: block;
+}
+.visible{
+    display: block !important;
 }

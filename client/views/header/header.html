@@ -1,5 +1,11 @@
 <template name="header" class="header-container">
     <div class="title">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
         {{#unless currentUser}}
         <a href="/"><img id='ploverlogo' src='/images/plover.png'/>{{title}}</a>
         {{else}}
@@ -9,7 +15,7 @@
     {{#if currentUser}}
         {{> searchGroups}}
     {{/if}}
-    <div class="button-container">
+    <div class="button-container collapse">
         {{#if currentUser}}
             <span class="header-item points">Global Points: {{currentUser.profile.points}}</span>
             {{#if isGlobalAdmin}}

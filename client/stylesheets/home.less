@@ -3,17 +3,9 @@
 @import 'lib/flex';
 
 .splash-content {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: stretch;
-    justify-content: space-around;
 
     .action-samples {
-        padding-top: 20px;
-        padding-bottom: 20px;
-        padding-left: 20px;
-        padding-right: 50px;
-        flex: 1 1 0;
+        margin: 20px auto;
 
         .display(flex);
         .flex-direction(column);
@@ -22,10 +14,12 @@
 
         .action-title {
             padding: 10px 0;
+            text-align: center;
         }
 
         .action-sample {
-            width: 80%;
+            width: 60%;
+            margin: 15px auto;
 
             .action-icon {
                 height: 100px;
@@ -33,15 +27,11 @@
                 float: left;
                 margin-right: 25px;
             }
-
-            .action-text{}
         }
     }
 
     .register {
-        padding: 20px;
-        margin-left: 40px;
-        flex: 1 1 0;
+        margin: 20px auto;
     }
 
 }
