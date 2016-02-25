@@ -13,14 +13,3 @@ Meteor.publish('competitions', function() {
 Meteor.publish('users', function() {
     return Meteor.users.find({});
 });
-
-// Return true if arr contains element, else return False
-var contains = function (arr, element) {
-    var i = arr.length;
-    while (i--) {
-        if (arr[i] === element) {
-            return true;
-        }
-    }
-    return false;
-};

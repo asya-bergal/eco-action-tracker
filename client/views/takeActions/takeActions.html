@@ -2,12 +2,12 @@
     <div class="take-actions-container">
     {{#each categories}}
         <div class="category">
-            <div class="panel panel-default category-panel" data-toggle="collapse" data-target="#accordion-{{category}}">
-                <div class="panel-heading" role="tab" id="heading-{{category}}">
+            <div class="panel panel-default category-panel" data-toggle="collapse" data-target="#accordion-{{category_id}}">
+                <div class="panel-heading" role="tab" id="heading-{{category_id}}">
                     <h4 class="panel-title-box">{{category}}</h4>
                 </div>
             </div>
-            <div id="accordion-{{category}}" class="category-accordion collapse" role="tablist" aria-multiselectable="true">
+            <div id="accordion-{{category_id}}" class="category-accordion collapse" role="tablist" aria-multiselectable="true">
                 {{#if actions.global.length}}
                     <div class="panel panel-default globality-panel">
                         <div class="panel-heading" role="tab">
@@ -22,7 +22,7 @@
                 {{/if}}
                 {{#each actions.global}}
                 <div class="panel panel-default action-panel">
-                    <div class="panel-heading" role="tab" id="heading{{_id}}" data-toggle="collapse" data-parent="#accordion-{{category}}" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">
+                    <div class="panel-heading" role="tab" id="heading{{_id}}" data-toggle="collapse" data-parent="#accordion-{{category_id}}" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">
                     <h4 class="panel-title">
                         <div class="panel-title-box">
                             {{title}} 
@@ -57,7 +57,7 @@
                     </div>
                 {{/if}}
                 {{#each actions.nonglobal}} <div class="panel panel-default action-panel">
-                    <div class="panel-heading" style="{{getColor}}" role="tab" id="heading{{_id}}" data-toggle="collapse" data-parent="#accordion-{{category}}" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">
+                    <div class="panel-heading" style="{{getColor}}" role="tab" id="heading{{_id}}" data-toggle="collapse" data-parent="#accordion-{{category_id}}" href="#collapse{{_id}}" aria-expanded="true" aria-controls="collapse{{_id}}">
                     <h4 class="panel-title">
                         <div class="panel-title-box">
                             {{title}} 

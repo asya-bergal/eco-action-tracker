@@ -21,9 +21,9 @@ Template.takeActions.helpers({
             if(action.category != curCategory) {
                 curCategory = action.category;
                 if(action.isGlobal) {
-                    categories.push({category: curCategory, actions: {global: [action], nonglobal: []}});
+                    categories.push({category: curCategory, category_id: toHex(curCategory), actions: {global: [action], nonglobal: []}});
                 } else {
-                    categories.push({category: curCategory, actions: {global: [], nonglobal: [action]}});
+                    categories.push({category: curCategory, category_id: toHex(curCategory), actions: {global: [], nonglobal: [action]}});
                 }
             }
             else {
@@ -77,3 +77,11 @@ Template.takeActions.events({
         });
     }
 });
+
+var toHex = function(str) {
+    var result = '';
+    for (var i=0; i<str.length; i++) {
+        result += str.charCodeAt(i).toString(16);
+    }
+    return result;
+}
