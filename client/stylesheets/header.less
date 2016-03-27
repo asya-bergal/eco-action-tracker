@@ -2,19 +2,21 @@
 @import 'lib/elements';
 @import 'lib/flex';
 
+.container-fluid {
+    @media screen and (min-width: 768px) {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+    }
+}
 
-.header-container{
+.navbar {
     padding: 5px;
     margin-bottom: 30px;
     background-color: rgba(27,111,27, 0.8);
     color: white;
 
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-between;
-
-    .title{
+    .navbar-header{
         font-size: 30px;
         padding: 10px 30px;
         #ploverlogo{
@@ -23,12 +25,8 @@
             width: 50px;
         }
     }
-    
-    .searchBar .searchInput {
-        color: black;
-    }
 
-    .button-container{
+    .navbar-collapse {
         margin-right: 30px;
 
         .header-item {
@@ -39,8 +37,11 @@
             font-size: 1.4em;
         }
 
-        @media screen and (max-width: 480px) {
-            margin-right: 5px;
+        @media screen and (min-width: 768px) {
+            display: flex !important;
+            flex-flow: row wrap;
+            align-items: center;
+            justify-content: flex-end;
         }
     }
 

@@ -1,11 +1,11 @@
 <template name="searchGroups">
-    <div class="searchGroups col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <div class="searchGroups">
     {{> EasySearch.Autosuggest index=groupsIndex changeConfiguration=addLink}}
     </div>
 </template>
 
 <template name="searchActions">
-    <div class="searchActions col-xs-4 col-sm-4 col-md-4 col-lg-4">
+    <div class="searchActions">
     {{> EasySearch.Autosuggest index=actionsIndex changeConfiguration=addLink}}
     </div>
 </template>

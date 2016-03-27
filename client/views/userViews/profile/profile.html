@@ -22,6 +22,7 @@
                 </div>
                 <input class="btn btn-default" type="submit" value="Create Group">        
             </form>
+            
             {{#each group in getGroups}}
                 <h4><a href="/group/{{group._id}}">{{group.name}}</a></h4>
             {{/each}}
