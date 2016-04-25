@@ -22,6 +22,7 @@
                 <li class="header-item"><a href="/admin">Admin Page</a></li>
             {{/if}}
             <li class="header-item"><a href="/user/{{currentUser._id}}">{{currentUser.profile.firstName}}'s Profile</a></li>
+            <li class="header-item"><a href="http://www.changeissimple.org/contact/">Contact Us</a></li>
             <li class="header-item logout">Logout</li>
         {{else}}
             <li class="header-item">{{> login}}</li>

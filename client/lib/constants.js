@@ -5,7 +5,7 @@ if (Meteor.App) {
 }
 
 Meteor.App = {
-    NAME: 'Eco Action Tracker',
+    NAME: 'Change is Simple Trac',
     DESCRIPTION: '',
     'SEVEN-DAYS': 604800000,
     'LINECHARTOPTIONS': {
