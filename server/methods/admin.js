@@ -42,7 +42,9 @@ AdminsAPI = (function(){
             }).reduce(function (a, b) {
                 return a.concat(b);
             }, []).map(function (e) {
-                return e.address;
+                if(e){
+                    return e.address;
+                }
             }).join(', ');
 
             return userEmails;
